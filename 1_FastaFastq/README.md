@@ -38,10 +38,11 @@ awk '/^>/ { if(NR>1) print "";  printf("%s\n",$0); next; } { printf("%s",$0);}  
 
 ## Exercises and usefull commands
 
-1. Count the total number of reads in ech file (N.B you can find them in /home/PERSONALE/jacopo.martelossi2/Data/Reads_Ex)  
-
+Necessary files are stored in ```/home/PERSONALE/jacopo.martelossi2/Data/Reads_Ex```
 #### IMPORTANT :
 Do NOT copy the file, get used to [SYMLINKS](https://linuxize.com/post/how-to-create-symbolic-links-in-linux-using-the-ln-command/), don't waste space with garbage!
+
+1. Count the total number of reads in ech file  
 
   Tips :
   
