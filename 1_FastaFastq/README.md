@@ -10,6 +10,9 @@ FASTQ file: four lines per sequence.
 * Line 3 begins with a '+' character and is optionally followed by the same sequence identifier (and any description) again.
 * Line 4 encodes the quality values for the sequence in Line 2, and must contain the same number of symbols as letters in the sequence
 
+
+![Phred score](https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/Figures/Screenshot_2022-03-04%20Phred%20quality%20score%20-%20Wikipedia.png)
+
 ![header](https://raw.githubusercontent.com/MariangelaIannello/didattica/main/images/illumina_seq_id.png)
 
 ![ascii](https://raw.githubusercontent.com/MariangelaIannello/didattica/main/images/ascii_2.png)
