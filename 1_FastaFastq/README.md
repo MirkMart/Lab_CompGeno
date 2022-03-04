@@ -38,14 +38,14 @@ awk '/^>/ { if(NR>1) print "";  printf("%s\n",$0); next; } { printf("%s",$0);}  
 
 ## Exercises and usefull commands
 
-1. Count the total number of reads in ech file (N.B you canf find them in /home/PERSONALE/jacopo.martelossi2/Data/Reads_Ex)  
+1. Count the total number of reads in ech file (N.B you can find them in /home/PERSONALE/jacopo.martelossi2/Data/Reads_Ex)  
 
 #### IMPORTANT :
 Do NOT copy the file, get used to [SYMLINKS](https://linuxize.com/post/how-to-create-symbolic-links-in-linux-using-the-ln-command/), don't waste space with garbage!
 
   Tips :
   
-  * Files are comrpessed, use the appropriate command.
+  * Files are compressed, use the appropriate command.
   * Remember how is structured a fastq file (How many lines are presents for each sequence ?).
   * See [here](https://linuxhint.com/bash_arithmetic_operations/) for Bash Arithmetic Operations
   
@@ -73,7 +73,7 @@ awk '{ sum += $2; n++ } END { if (n > 0) print sum / n; }'
 
 4. Count number of sequences in the fasta file ```Example.fa```
 
-5. Extract the sequence ```XP_001647772.23``` and store it in a new file. How was the protein annotated?
+5. Extract the sequence ```XP_001647772.2``` and store it in a new file. How was the protein annotated?
 
   Tips :
   
