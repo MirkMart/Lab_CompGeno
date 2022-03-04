@@ -117,7 +117,7 @@ md5sum nomefile
 ## Compress and decompress data
 
 ```
-gzip file (or folder) #compress file file.gz
+gzip file #compress file file.gz
 bzip2 file #slower than gzip but higher compression ratio
 gzip –k file #keep also the not compressed file
 gunzip file.gz #uncompress file
@@ -130,8 +130,8 @@ With **tar** the only gain you can expect using tar alone would be by avoiding t
 
 In **tar.gz** compression: create an archieve and extra step that compresses the entire archive, you cannot access single files without decompressing them.
 ```
-tar czf name_output.tar.gz name_input # c create archive; z gzip archive; f specify new output
-tar xfz ./nome_archivio.tgz #decompress archive
+tar -zcvf myfolder.tar.gz myfolder # c create archive; z gzip archive; f specify new output; v verbose
+tar xvfz ./nome_archivio.tgz #decompress archive
 ```
 
 ---
