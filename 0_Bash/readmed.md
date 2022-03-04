@@ -5,7 +5,6 @@
 [https://rlab.unibo.it](https://rlab.unibo.it)
 
 login using your unibo email address and password
-To upload and download data open the menu with Ctrl+Alt+Shift for Windows or control+Shift+command for Mac
 To copy text (with Windows): select text to copy and paste it on command line using right click
 To copy text (with Mac): select text and press control+Shift+C to copy, control+Shift+V to paste
 
