@@ -8,22 +8,23 @@ length (*k*) contained within a biological sequence. *K-mers* are not
 related to real, physical molecules.
 
 ![](https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/Figures/kmers.png)
-\#\#\# Kmer based genome survey
+
+### Kmer based genome survey
 
 1.  **Genome size estimation**
 2.  **Repeat Content estimation**
 3.  **Heterozigosity estimation**
 
-For a given sequence of length L, and a k-mer size of k, the total
-k-mer’s possible (*n*) will be given by :
+For a given sequence of length L, and a k-mer size of k, the total k-mer’s possible (*n*) will be given by :
 
-\[ ( L – k ) + 1 \]
+$$( L – k ) + 1$$
 
 Since we sequenced a genome multiple time the total length (N) will be :
 
-\[n = [( L – k ) + 1] * C\]
+$$n = [( L – k ) + 1] * C$$
 
-\[N = n/C\] In real case scenarios we have a **non-uniform** coverage of
+$$N = n/C$$
+In real case scenarios we have a **non-uniform** coverage of
 the genome ( **Repetitive content**; **Sequencing errors**;
 **heterozigosity**; ecc…)
 
