@@ -94,7 +94,5 @@ Other possibilities :
 
 #### Some other example
 
-\[*Ruditapes
-philippinarum*\]<https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/3_KmerBased_GenomeSurvey/Data/Rphil_kmer27.png>)
-[*Reticulitermes
-lucifugus*](https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/3_KmerBased_GenomeSurvey/Data/Rluc.kmc_30_Genomescope.png)
+[*Ruditapes philippinarum*](<https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/3_KmerBased_GenomeSurvey/Data/Rphil_kmer27.png>)
+[*Reticulitermes lucifugus*](https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/3_KmerBased_GenomeSurvey/Data/Rluc.kmc_30_Genomescope.png)
