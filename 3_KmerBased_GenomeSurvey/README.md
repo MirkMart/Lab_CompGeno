@@ -31,7 +31,7 @@ the genome ( **Repetitive content**; **Sequencing errors**;
 
 -----
 
-## Preliminary steps: QC of short reads data
+## Preliminary step: QC of short reads data
 
 Necessary softwares :
 
@@ -84,7 +84,7 @@ Other possibilities :
 
     kat hist -t <THREADS> -m <MER LENGTH> -H <HASH size> -o <OUTPUT PREFIX>
 
-## Estimate Genome size, heterozigosity and repetitive content
+## Genome size, heterozigosity and repetitive content estimation
 
 [Genomescope2](http://qb.cshl.edu/genomescope/genomescope2.0/)
 
