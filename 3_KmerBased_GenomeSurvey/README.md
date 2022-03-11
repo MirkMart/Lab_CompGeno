@@ -17,13 +17,13 @@ related to real, physical molecules.
 
 For a given sequence of length L, and a k-mer size of k, the total k-mer’s possible (*n*) will be given by :
 
-$$\( L – k ) + 1$$
+*( L – k ) + 1*
 
 Since we sequenced a genome multiple time the total length (N) will be :
 
-$$\n = [( L – k ) + 1] * C$$
+*n = [( L – k ) + 1] * C*
 
-$$\N = n/C$$
+*N = n/C*  
 
 In real case scenarios we have a **non-uniform** coverage of
 the genome ( **Repetitive content**; **Sequencing errors**;
