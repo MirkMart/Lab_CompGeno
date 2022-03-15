@@ -134,7 +134,7 @@ scaffolding**
 **The heteroigosity problem
 :**
 
-![](https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/4_GenomeAssembly/Figures/Heterozigosity.png)
+![](https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/4_GenomeAssembly/Figures/Heterozigosity-1.png)
 
 Generally, more moneys you have, more high quality data you have, more
 likely you will assemble a good quality genome. However moneys are not
