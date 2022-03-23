@@ -72,7 +72,7 @@ awk '{ sum += $2; n++ } END { if (n > 0) print sum / n; }'
   * Usefull ```awk``` to sum values of a column :
   
 ```
-awk '{ sum += $2; n++ } END { if (n > 0) print sum / n; }'
+awk '{s+=$1}END{print s}' file'
 ```
 
 4. Count number of sequences in the fasta file ```Example.fa```
