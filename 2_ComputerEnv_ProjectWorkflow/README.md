@@ -41,6 +41,12 @@ Environments and related softwares :
   3. **blobtools**
   4. **MAKER**
   5. **Hypo**
+
+<br/>  
+
+  6. **test_env**
+  * *Orthofinder*
+  * *mafft*
   
 
 Some usefull conda commands:
