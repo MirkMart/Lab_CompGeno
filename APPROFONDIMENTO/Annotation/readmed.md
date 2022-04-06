@@ -30,15 +30,12 @@ The program may use quite a lot of memory and also temporary disk space. Should 
 ### Makedb
 
 ```
-diamond makedb --in /var/local/diamond_db/nr.gz --db ./nr_diamond --taxonmap prot.accession2taxid --taxonnodes nodes.dmp --taxonnames names.dmp
+diamond makedb --in /var/local/diamond_db/nr.gz --db ./nr_diamond
 ```
 **--in** file: Path to the input protein reference database ﬁle in FASTA format (may be gzip compressed).
 
 **--db**: Path to the output DIAMOND database ﬁle.
 
-**--taxonmap**: optional. Path to mapping ﬁle that maps NCBI protein accession numbers to taxon ids. The ﬁle can be downloaded from NCBI: ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/accession2taxid/prot.accession2taxid.gz.
-
-**--taxonnodes** and **--taxonnames**: optional. Needs to be supplied in order to provide taxonomy features. The ﬁles can be downloaded from NCBI: ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdmp.zip.
 
 
 ### Diamond search
