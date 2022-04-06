@@ -45,10 +45,6 @@ diamond makedb --in /var/local/diamond_db/nr.gz --db ./nr_diamond --taxonmap pro
 
 The sensitivity can be adjusted using the options --mid-sensitive, --sensitive, --more-sensitive, --very-sensitive and --ultra-sensitive.
 
-```
-diamond blastp --db /var/local/diamond_db/nr_diamond.dmnd --query input_fasta  -p CPU -o ouptup --outfmt 6 qseqid sseqid evalue bitscore pident staxids stitle --max-target-seqs 5 --evalue 0.005
-```
-
 (see [Blast manual](https://www.ncbi.nlm.nih.gov/books/NBK279668/#usermanual.BLAST_search_strategies) and [Diamond manual](https://github.com/bbuchfink/diamond))
 
 **Bit-score**: the requires size of a sequence database in which the current match could be found just by chance. The higher the bit-score, the better the sequence similarity. The bit-score gives the same value for hits in databases of different sizes. It is independent of query sequence length and database. The bit-score depends on the raw alignment score. Thus, the higher the bit score, the more highly significant the match is.
@@ -62,13 +58,6 @@ m = query sequence length
 n = total database length (sum of all sequences)
 
 **pident**:  % of identical matches
-
-## BLAST search
-
-```
-blastn –db nt –query nt.fsa –out results.out -remote # create custum db
-blastn –db nt –query nt.fsa –out results.out # blast search
-```
 
 ## HMMER Search
 
