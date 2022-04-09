@@ -15,8 +15,8 @@ need an annotation pipeline. But what can we annotate on our genome?
 Eukariotic genomes are very complex (results of evolution by molecular
 tinkering) and gene structures can greatly vary between lineages and
 even between closely relatetd species (exon length, intron length, gene
-length, splicing site sequence patterns, ecc…). In model species, highly
-curated models able to describe each feature exists (with the form of
+length, splicing site sequence patterns, ecc…). In model species exist highly
+curated models able to describe each feature (with the form of
 HMM profiles). This models can be directly used for *ab - initio* gene
 prediction. However for non model species most of the time these
 patterns are unknown. To partially overcome this issue, we can use
