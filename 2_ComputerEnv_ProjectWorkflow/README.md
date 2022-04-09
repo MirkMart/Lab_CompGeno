@@ -51,6 +51,14 @@ Environments and related softwares :
 <br/> 
   
   7. **kakscalculator**
+ 
+ <br/> 
+ 
+  8. **Mosdepth**
+
+<br/> 
+
+  9. **GAAS**
   
 
 Some usefull conda commands:
