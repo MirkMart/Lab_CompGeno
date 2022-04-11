@@ -47,6 +47,8 @@ SAM format consist of a header section and an alignment section.
 samtools view -H samfile #look at the header
 samtools view samfile # look at samfile without header
 samtools view -h samfile # look at the whole samfile
+samtools view -b input.sam > output.bam #from sam to bam
+samtools view -h input.bam > output.sam  #from bam to sam
 ```
 
 **Header:**
