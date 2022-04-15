@@ -61,3 +61,7 @@ One tools to visualize GO enrichment: [REVIGO](http://revigo.irb.hr/)
 
 
 ![workflow](https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/Figures/workflow_ortologhi.png)
+
+# Download data from large datasets
+
+See [here](https://www.ncbi.nlm.nih.gov/genome/doc/ftpfaq/)
