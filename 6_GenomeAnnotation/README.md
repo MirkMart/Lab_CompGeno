@@ -246,12 +246,15 @@ To evaluate our genome annotation we have mutiple options :
 4.  Align the de - novo assembled transctiptome to the genome - based
     predicted one.
 
-For simiplicity we will just take a look at some
-    statistics…
+To print sumamry statistics:
 
     agat_sp_statistics.pl #script for summary statistic, it will take some minutes to run
 
-…and Busco, you should already know how to run it.
+For Busco you should already know how to run it.
+
+/home/PERSONALE/jacopo.martelossi2/scripts/AED_cdf_generator.pl : script for summarize cumulative distribution of AED values.
+
+/home/PERSONALE/jacopo.martelossi2/scripts/quality_filter.perl : script for filter gene models based on AED values.
 
 -----
 
