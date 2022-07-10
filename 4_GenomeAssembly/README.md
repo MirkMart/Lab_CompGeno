@@ -123,7 +123,7 @@ scaffolding**
   - 1.  Nature and characteristic of the genome being sequenced (Ploidy,
         repetitive content, heterozigosity ecc…).
 
-  - 2.  Quality of the extraction protocol.
+  - 2.  Quality of the extracted DNA.
 
   - 3.  Type of sequence technology.
 
@@ -136,12 +136,10 @@ scaffolding**
 
 ![](https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/4_GenomeAssembly/Figures/Heterozigosity-1.png)
 
-Generally, more moneys you have, more high quality data you have, more
+Tipically, more moneys you have, more high-quality data you get and more
 likely you will assemble a good quality genome. However moneys are not
-everything and nowdays big genome projects rely on big constortium with
-bioinformaticians extremly skilled in genome assemblies and able to
-namually curate them in order to correct for high - level
-miss-assemblies (*e.g* [Darwin Tree of
+all and nowdays big genome projects rely on big constortia with
+bioinformaticians extremely experienced in genome assembly and able manually curated them (*e.g* [Darwin Tree of
 Life](https://www.darwintreeoflife.org/data/), [Vertebrate Genomes
 Project](https://vertebrategenomesproject.org/)).
 
@@ -236,6 +234,6 @@ lucifugus](https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/4_Gen
 
 > EXTRA : To remove redundant contigs (*i.e* haplotigs)
 > *[Purge\_dups](https://github.com/dfguan/purge_dups)* is one of the
-> most used softwares. It uses both long - reads coverage and self -
-> alignments informations to identify and remove poorly collapsed region
+> most used softwares. It uses both long - reads coverage and self-alignments 
+> informations to identify and remove poorly collapsed regions
 > of the assembly.
