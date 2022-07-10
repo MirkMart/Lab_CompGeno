@@ -8,3 +8,4 @@
 4. [Genome assembly part 1](https://github.com/jacopoM28/CompOmics_2022/tree/main/4_GenomeAssembly)
 5. [Genome assembly part 2](https://github.com/jacopoM28/CompOmics_2022/tree/main/5_GenomeAssembly2)
 6. [Genome annotation](https://github.com/jacopoM28/CompOmics_2022/tree/main/6_GenomeAnnotation)
+7. [Orthology](https://github.com/jacopoM28/CompOmics_2022/tree/main/7_Orthologs_dNdS)
