@@ -39,6 +39,44 @@ awk '/^>/ { if(NR>1) print "";  printf("%s\n",$0); next; } { printf("%s",$0);}  
 
 ---
 
+## Annotation files (GFF and BED)
+
+**GFF**
+
+```
+Fields must be tab-separated. Also, all but the final field in each feature line must contain a value; "empty" columns should be denoted with a '.'
+
+    seqname - name of the chromosome or scaffold; chromosome names can be given with or without the 'chr' prefix. Important note: the seqname must be one used within Ensembl, i.e. a standard chromosome name or an Ensembl identifier such as a scaffold ID, without any additional content such as species or assembly. See the example GFF output below.  
+    source - name of the program that generated this feature, or the data source (database or project name).  
+    feature - feature type name, e.g. Gene, Variation, Similarity.  
+    start - Start position* of the feature, with sequence numbering starting at 1.  
+    end - End position* of the feature, with sequence numbering starting at 1.  
+    score - A floating point value.  
+    strand - defined as + (forward) or - (reverse).  
+    frame - One of '0', '1' or '2'. '0' indicates that the first base of the feature is the first base of a codon, '1' that the second base is the first base of a codon, and so on..  
+    attribute - A semicolon-separated list of tag-value pairs, providing additional information about each feature.  
+```
+For more informations see [here](https://www.ensembl.org/info/website/upload/gff.html).  
+
+**BED**
+
+```
+The first three required BED fields are:
+
+    - chrom - The name of the chromosome (e.g. chr3, chrY, chr2_random) or scaffold (e.g. scaffold10671).  
+    - chromStart - The starting position of the feature in the chromosome or scaffold. The first base in a chromosome is numbered 0.  
+    - chromEnd - The ending position of the feature in the chromosome or scaffold. The chromEnd base is not included in the display of the feature, however, the number in position format will be represented. For example, the first 100 bases of chromosome 1 are defined as chrom=1, chromStart=0, chromEnd=100, and span the bases numbered 0-99 in our software (not 0-100), but will represent the position notation chr1:1-100.  
+
+The 9 additional optional BED fields are:
+
+    - name - Defines the name of the BED line. This label is displayed to the left of the BED line in the Genome Browser window when the track is open to full display mode or directly to the left of the item in pack mode.  
+    - score - A score between 0 and 1000.  
+    - strand - Defines the strand. Either "." (=no strand) or "+" or "-".  
+```
+
+For more informations see [here](http://genome.ucsc.edu/FAQ/FAQformat#format1).  
+
+
 ## Exercises and usefull commands
 
 Necessary files are stored in ```/home/PERSONALE/jacopo.martelossi2/Data/Reads_Ex```
