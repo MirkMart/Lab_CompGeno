@@ -141,7 +141,7 @@ Arthropoda; Insecta; Pterygota; Diptera
 
 # Task list
 
-![](https://raw.githubusercontent.com/jacopoM28/ompOmics_Tutorship/main/2023/Figures/Project_Task.png)
+![](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/Figures/Tasks.png)
 
 
 
