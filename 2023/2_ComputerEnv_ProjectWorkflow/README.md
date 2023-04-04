@@ -131,7 +131,7 @@ Arthropoda; Insecta; Pterygota; Diptera
 
 <br/>
 
-![](https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/Figures/Aste.png)
+![](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/Figures/Aste.png)
 
 <br/><br/>
 
