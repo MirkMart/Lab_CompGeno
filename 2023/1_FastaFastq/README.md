@@ -78,7 +78,7 @@ For more informations see [here](http://genome.ucsc.edu/FAQ/FAQformat#format1).
 
 [Example](https://github.com/jacopoM28/CompOmics_Tutorship/blob/main/2023/1_FastaFastq/GCF_902806645.1_cgigas_uk_roslin_v1_genomic.gff.gz) of GFF3 file. [Example](https://github.com/jacopoM28/CompOmics_Tutorship/blob/main/2023/1_FastaFastq/Cgig_Genes.bed.gz) of BED file.
 
-[BEDTOOLS](https://bedtools.readthedocs.io/en/latest/) is a comprehensive toolset for working with BED/GFF3 files. If you want to perform arithmetic operations in a genome (e.g merge, compare, extend intervals)
+[BEDTOOLS](https://bedtools.readthedocs.io/en/latest/) is a comprehensive toolset for working with BED/GFF3 files. If you want to perform arithmetic operations in a genome always take a look at the numerous utilities before writing your own functions (e.g merge, compare, extend intervals).  
 
 ## Exercises and usefull commands
 
