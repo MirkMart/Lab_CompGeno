@@ -29,7 +29,7 @@ computations in all biology**
   - 3.  Gap
 filling
 
-![](https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/4_GenomeAssembly/Figures/Genome_assembly.png)
+![](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/4_GenomeAssembly/Figures/Genome_assembly.png)
 
 #### Some defitinitions :
 
@@ -85,12 +85,12 @@ Main assembly algorithms :
   - 1.  **Overlap Layout Consensus
 (OLC)**
 
-![](https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/4_GenomeAssembly/Figures/Overlap-Layout-Consenus.png)
+![](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/4_GenomeAssembly/Figures/Overlap-Layout-Consenus.png)
 
   - 2.  ***De Bruijn Graph*
 approach**
 
-![](https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/4_GenomeAssembly/Figures/DBG.png)
+![](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/4_GenomeAssembly/Figures/DBG.png)
 
 ### 2\. Scaffolding
 
@@ -112,7 +112,7 @@ approach**
   - 2.  **Reference - based/Sinteny - based
 scaffolding**
 
-![](https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/4_GenomeAssembly/Figures/Scaffolding.png)
+![](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/4_GenomeAssembly/Figures/Scaffolding.png)
 
 ### 3\. Gap - filling
 
@@ -131,10 +131,10 @@ scaffolding**
 
   - 5.  Assembly software.
 
-**The heteroigosity problem
+**The heterozigosity problem
 :**
 
-![](https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/4_GenomeAssembly/Figures/Heterozigosity-1.png)
+![](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/4_GenomeAssembly/Figures/Heterozigosity-1.png)
 
 Tipically, more moneys you have, more high-quality data you get and more
 likely you will assemble a good quality genome. However moneys are not
@@ -168,7 +168,7 @@ Some, but not all, metrics :
     included once, included twice
 etc.”
 
-![](https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/4_GenomeAssembly/Figures/KAT.png)
+![](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/4_GenomeAssembly/Figures/KAT.png)
 
 -----
 
@@ -228,9 +228,9 @@ Softwares : [Minimap2](https://github.com/lh3/minimap2);
 
 Compare your results with :  
 \- *[Ruditapes
-philippinarum](https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/4_GenomeAssembly/Figures/R.philippinarum_KmerSpectra.png)*
+philippinarum](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/4_GenomeAssembly/Figures/R.philippinarum_KmerSpectra.png)
 - *[Reticulitermes
-lucifugus](https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/4_GenomeAssembly/Figures/R_lucifugus-main.mx.spectra-cn.png)*
+lucifugus](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/4_GenomeAssembly/Figures/R_lucifugus-main.mx.spectra-cn.png)*
 
 > EXTRA : To remove redundant contigs (*i.e* haplotigs)
 > *[Purge\_dups](https://github.com/dfguan/purge_dups)* is one of the
