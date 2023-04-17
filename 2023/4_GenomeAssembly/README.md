@@ -227,8 +227,8 @@ Softwares : [Minimap2](https://github.com/lh3/minimap2);
     kat comp -t <NUM_THREADS> -o <OUTPUT_PREFIX> '<FASTQ>...' <ASSEMBLY>
 
 Compare your results with :  
-\- *[Ruditapes
-philippinarum](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/4_GenomeAssembly/Figures/R.philippinarum_KmerSpectra.png)
+- *[Ruditapes
+philippinarum](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/4_GenomeAssembly/Figures/R.philippinarum_KmerSpectra.png)*
 - *[Reticulitermes
 lucifugus](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/4_GenomeAssembly/Figures/R_lucifugus-main.mx.spectra-cn.png)*
 
