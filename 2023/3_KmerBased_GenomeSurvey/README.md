@@ -7,7 +7,7 @@ It’s a metematical concept representing substrings (*mers*) of a certain
 length (*k*) contained within a biological sequence. *K-mers* are not
 related to real, physical molecules.
 
-![](https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/Figures/kmers.png)
+![]([https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/Figures/kmers.png](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/Figures/kmers.png)
 
 ### Kmer based genome survey
 
