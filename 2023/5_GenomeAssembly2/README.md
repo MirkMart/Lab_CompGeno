@@ -3,9 +3,9 @@ Genome assembly2
 
 # Contaminants detection
 
-[Blobtools](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/5_GenomeAssembly2/Figures/Blobtools.png)
+[Blobtools](https://blobtools.readme.io/docs)
 
-![](https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/5_GenomeAssembly2/Figures/Blobtools.png)
+![](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/5_GenomeAssembly2/Figures/Blobtools.png)
 
 ### Preliminary steps :
 
