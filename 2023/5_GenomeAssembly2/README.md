@@ -12,7 +12,7 @@ Genome assembly2
 **1. Re - mapping short reads data to the
     assembly**
 
-    minimap2 --secondary=no --MD -ax sr -t <NUMBER_CORE> <FASTQ_R1> <FASTQ_R2> <ASSEMBLY> | samtools view -Sb - > <OUT_BAMFILE>.bam
+    minimap2 --secondary=no --MD -ax sr -t <NUMBER_CORE> <ASSEMBLY> <FASTQ_R1> <FASTQ_R2> | samtools view -Sb - > <OUT_BAMFILE>.bam
     samtools sort -@10 -o <OUT_SORTED_BAMFILE>.sorted.bam Aste.corrected.renamed-sr.bam
     samtools index Aste.corrected.renamed-sr.sorted.bam
 
