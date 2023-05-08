@@ -14,6 +14,7 @@ Genome assembly2
 
     minimap2 --secondary=no --MD -ax sr -t <NUMBER_CORE> <ASSEMBLY> <FASTQ_R1> <FASTQ_R2> | samtools view -Sb - > <OUT_BAMFILE>.bam
     samtools sort -@10 -o <OUT_SORTED_BAMFILE>.sorted.bam Aste.corrected.renamed-sr.bam
+    rm Aste.corrected.renamed-sr.bam
     samtools index Aste.corrected.renamed-sr.sorted.bam
 
 **2. Taxonomic annotation of the
