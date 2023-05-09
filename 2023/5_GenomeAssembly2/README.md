@@ -51,21 +51,3 @@ For this purpose we will use [RagTag](https://github.com/malonge/RagTag)
 
 Where : -C = concatenate unplaced contigs and make
 ‘chr0’
-
-# Further genome evaluation and/or comparison through Whole Genome Alignment
-
-One of the most used software is
-[Mummer](http://mummer.sourceforge.net/) but multple alternative exist
-[LASTZ](https://github.com/lastz/lastz). Take in mind that different
-softwares have different pros and
-    cons
-
-    nucmer -maxmatch -l 100 -c 500 <REFERENCE_GENOME> <QUERY_GENOME> -prefix OUT
-    dnadiff -d <DELTA_FILE>
-
-We can have a more interesting look to WGA through
-[Assemblytics](http://assemblytics.com/), you just need to dowload the
-delta file and upload it to the online
-webserver.
-
-![](https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/5_GenomeAssembly2/Figures/Assemblytics.png)
