@@ -173,7 +173,8 @@ We can also summarize results of RepeatMasker using the
 [AGAT](https://github.com/NBISweden/AGAT) package, a very usefull set of
 perl scripts to manage gff3 files, print the help and run the script :
 
-    agat_sq_repeats_analyzer.pl --help
+    agat_sp_statistics.pl --gff file.gff #Summary statistics of gene models
+    agat_sq_repeats_analyzer.pl --help #Summary statistics of repeats
 
 Now try to summarize the results (in R) to see the genome proportion
 covered by each TE class and compare results with other species and
