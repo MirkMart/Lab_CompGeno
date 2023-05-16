@@ -166,7 +166,7 @@ and a transcript/protein file we can use :
     fasta_merge -d <DATASTORE INDEX FILE>
     gff3_merge -d <DATASTORE INDEX FILE>
 
-Finally we must extract all evidences from the gff file using bash. Try
+Finally we must extract all evidences from the gff file using bash (for example awk on "protein2genome" and "repeatmasker" strings). Try
 to do it by your self.
 
 We can also summarize results of Evidence-based gene annotation and RepeatMasker using the
