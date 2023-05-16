@@ -169,7 +169,7 @@ and a transcript/protein file we can use :
 Finally we must extract all evidences from the gff file using bash. Try
 to do it by your self.
 
-We can also summarize results of RepeatMasker using the
+We can also summarize results of Evidence-based gene annotation and RepeatMasker using the
 [AGAT](https://github.com/NBISweden/AGAT) package, a very usefull set of
 perl scripts to manage gff3 files, print the help and run the script :
 
