@@ -48,7 +48,7 @@ process. One of the most used is
 **[MAKER](http://weatherby.genetics.utah.edu/MAKER/wiki/index.php/MAKER_Tutorial_for_WGS_Assembly_and_Annotation_Winter_School_2018)**
 
 ![](https://raw.githubusercontent.com/jacopoM28/CompOmics_2022/main/Figures/MAKER_Apollo_view.jpeg)
-
+![](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/Figures/MAKER_Apollo_view.jpeg)
 -----
 
 ## 1\. Transposons annotation
