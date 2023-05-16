@@ -7,6 +7,6 @@
 3. [Genome survey](https://github.com/jacopoM28/CompOmics_Tutorship/blob/main/2023/3_KmerBased_GenomeSurvey/README.md)
 4. [Genome assembly part 1](https://github.com/jacopoM28/CompOmics_Tutorship/tree/main/2023/4_GenomeAssembly)
 5. [Genome assembly part 2](https://github.com/jacopoM28/CompOmics_Tutorship/tree/main/2023/5_GenomeAssembly2)
-6. Genome annotation
+6. [Genome annotation](https://github.com/jacopoM28/CompOmics_Tutorship/tree/main/2023/6_GenomeAnnotation)
 7. Orthology
 8. Phylogenomics and gene families analyses
