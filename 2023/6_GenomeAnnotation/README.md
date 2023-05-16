@@ -187,11 +187,11 @@ training won’t work very well, but the process would be the same.
 **SNAP**
 
     maker2zff #To extract gene models based on mutiple filter criterion
-    fathom <INPUT FILE1> <INPUT FILE2> -gene-stats #Print some summary statistics of the selected gene models
-    fathom <INPUT FILE1> <INPUT FILE2> -validate #Validate gene models and print summary statistics
-    fathom <INPUT FILE1> <INPUT FILE2> -categorize 1000 #Extract gene modeles together with 1000 bp at both ends for training
-    fathom <INPUT FILE1> <INPUT FILE2> -export 1000 -plus #Export and convert uni genes to strand plus
-    forge <INPUT FILE1> <INPUT FILE2> #call the parameter estimation program, better in another directory
+    fathom <.ANN FILE> <.DNA FILE> -gene-stats #Print some summary statistics of the selected gene models
+    fathom <.ANN FILE> <.DNA FILE> -validate #Validate gene models and print summary statistics
+    fathom <.ANN FILE> <.DNA FILE> -categorize 1000 #Extract gene modeles together with 1000 bp at both ends for training
+    fathom <UNI.ANN FILE> <UNI.DNA FILE> -export 1000 -plus #Export and convert uni genes to strand plus
+    forge <export.ann> <export.dna> #call the parameter estimation program, better in another directory
     hmm-assembler.pl <NAME> <FORGE DIRECTORY> > <OUTPUT HMM FILE>
 
 **Augustus** Augustus training is more complex and computationally
