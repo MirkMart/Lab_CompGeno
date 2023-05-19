@@ -48,7 +48,7 @@ Environments and related softwares :
   * *Orthofinder*
   * *mafft*
   * *iqtree*
-  * *AMAS**
+  * *AMAS*
 
 <br/> 
   
