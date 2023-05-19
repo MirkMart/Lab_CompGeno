@@ -48,3 +48,20 @@ If we are setting up an experiment involving the Sanger sequencing of a marker, 
 If we are dealing with NGS data such as transcriptomes or WGA we have a lot of nice software to choose from, one of the most popolar is...
 
 ## [Orthofinder](https://github.com/davidemms/OrthoFinder)
+
+In brief, Orthofinder alghoritm is subdivided into 4 major steps:
+
+ 1. **Orthogroups inference** using *bi-directional best hit (BBH)*, costruction of orthogroup graph and clustering genes into discrete ortogroups.
+ 2. **Inference and rooting** of **specie** tree. 
+ 3. **gene tree** inference and rooting for each orthogroup.
+ 4. Inference of **orthologs and gene duplication events** reconciling rooted specie and gene trees.
+ 
+The detailed explanation of each step is not the aim of this course, hoever if you are interested in orthology inference you should have a look at the two Orthofinder papers ([Emms and Kelly, 2015](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-015-0721-2?optIn=false) and [Emms and Kelly, 2019](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1832-y)). Just take in mind the extremely importance of the *bi-directional best hit*, indeed is the only way to take into account possible gene loss in one of the two lineages. (Think about what can happen in orthology inference  if the blue human gene in figure 1A would be lost...) 
+
+Beside these teoretically, but important questions, one of the most valuable things about Orthofinder is its *usability*. A *quick-and-dirty* Orthofinder analyses can be simply run with:
+
+```
+orthofinder -f <proteoms_folder>
+```
+
+However, we can also tune a lot of parameters.
