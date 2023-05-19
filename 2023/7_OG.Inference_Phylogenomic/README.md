@@ -64,4 +64,16 @@ Beside these teoretically, but important questions, one of the most valuable thi
 orthofinder -f <proteoms_folder>
 ```
 
+However remember that isoforms whould be removed from a proteom beforer performing OG inference or their size will be artificially inflated. If you download proteoms from NCBI GCF genomes:
+
+```
+/home/PERSONALE/jacopo.martelossi2/scripts/Longest_Isoform.bash <FEATURE_FILE> <PROTEOME>
+```
+
+Remember that is also always a best practice to rename (using e.g. ```sed```) the proteome headers with something like:
+
+```
+<PROTEIN/GENE_NAME>|<SPECIE_NAME>
+```
+
 
