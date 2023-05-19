@@ -76,4 +76,6 @@ Remember that is also always a best practice to rename (using e.g. ```sed```) th
 <PROTEIN/GENE_NAME>|<SPECIE_NAME>
 ```
 
+Orthofinder will print a lot of usefull ouputs. Some of the most important (IMO) are: ``` ```
+
 
