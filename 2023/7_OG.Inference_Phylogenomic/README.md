@@ -76,6 +76,8 @@ Remember that is also always a best practice to rename (using e.g. ```sed```) th
 <PROTEIN/GENE_NAME>|<SPECIE_NAME>
 ```
 
+NB: In our case having the species name clearly separated from the gene/protein name is **foundamental**!
+
 Orthofinder will print a lot of usefull ouputs. Some of the most important (IMO) are: ```Comparative_Genomics_Statistics/Statistics_Overall.tsv``` and ```Comparative_Genomics_Statistics/Statistics_PerSpecies.tsv```
 
 Orthogrorups can be found in:
@@ -83,6 +85,8 @@ Orthogrorups can be found in:
 - ```Orthogroup_Sequences```
 - ```Single_Copy_Orthologue_Sequences```
 
-We are going to use this latest file for a simple phylogenetic inference
+We are going to use this latest file for a simple phylogenetic inference.
+
+First of all you need to modify the header of OG keeping only the species name. This step is necessary if you want to concatenate all genes in a single super-matrix.
 
 
