@@ -47,6 +47,8 @@ Environments and related softwares :
   6. **test_env**
   * *Orthofinder*
   * *mafft*
+  * *iqtree*
+  * *AMAS**
 
 <br/> 
   
