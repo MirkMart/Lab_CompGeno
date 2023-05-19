@@ -89,4 +89,9 @@ We are going to use this latest file for a simple phylogenetic inference.
 
 First of all you need to modify the header of OG keeping only the species name. This step is necessary if you want to concatenate all genes in a single super-matrix.
 
+To run a simple IQ-TREE analyses type:
+
+```
+iqtree -S <DIR_ALN> -m TESTNEW -bb 1000 -nt AUTO
+```
 
