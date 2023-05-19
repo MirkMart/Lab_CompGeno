@@ -76,6 +76,13 @@ Remember that is also always a best practice to rename (using e.g. ```sed```) th
 <PROTEIN/GENE_NAME>|<SPECIE_NAME>
 ```
 
-Orthofinder will print a lot of usefull ouputs. Some of the most important (IMO) are: ``` ```
+Orthofinder will print a lot of usefull ouputs. Some of the most important (IMO) are: ```Comparative_Genomics_Statistics/Statistics_Overall.tsv``` and ```Comparative_Genomics_Statistics/Statistics_PerSpecies.tsv```
+
+Orthogrorups can be found in:
+
+- ```Orthogroup_Sequences```
+- ```Single_Copy_Orthologue_Sequences```
+
+We are going to use this latest file for a simple phylogenetic inference
 
 
