@@ -95,13 +95,13 @@ To perform a species-tree inference we need to concatenate our single-genes alig
 AMAS.py concat -y nexus -i <Orthogroups> -f fasta -d aa
 ```
 
-Once we concatenated the alignment we could directly run a phylogenetic analyses using the so called "super-matrix" and the partition file if you want to perfom a partition-based analyses (usually recomanded). However, as a preliminar step is really common to try to remove unalignable sites directly from the single-genes alignments (recomanded) or from the concatenated (ONLY if you don't want to perform a concatenated analayses!!!!). This step on only could improve specie-tree inference but can also speed up analyses. For this task we are using [Trimal](http://trimal.cgenomics.org/trimal).
+Once we concatenated the alignments we could directly run a phylogenetic analyses using the so called "super-matrix" and the partition file if we want to perfom a partition-based analyses (usually recomanded; see [here](http://www.iqtree.org/doc/Advanced-Tutorial) for a tutorial). However, as a preliminar step, is really common to try to remove unalignable sites directly from the single-gene alignments (recomanded) or from the concatenated matrix (ONLY if you don't want to perform a concatenated analayses!!!!). This step could not only improve species-tree inference but also speed up analyses. For this task we are using [Trimal](http://trimal.cgenomics.org/trimal).
 
 ```
 trimal -in concatenated.out -gappyout -out <OUT FILE>
 ```
 
-Now we can use our cleaned alignment to perform a species-tree inference and the partition file if we want to implement a partition-based analyses. For this latest case see the iqtree manual [here](http://www.iqtree.org/doc/Advanced-Tutorial).
+Now we can use our cleaned alignment to perform a species-tree inference.
 
 For an unpartitioned analyses we only need the command:
 
@@ -109,5 +109,5 @@ For an unpartitioned analyses we only need the command:
 iqtree -m TESTNEW -bb 1000 -s <TRIMMED ALN> --prefix <PREFIX> -nt AUTO
 ```
 
-Now you have a species tree on which perform gene families evolutionary analyses.
+Congrats you have a species tree on which perform gene families evolutionary analyses!
 
