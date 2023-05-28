@@ -73,7 +73,7 @@ However remember that isoforms whould be removed from a proteom beforer performi
 Remember that is also always a best practice to rename (using e.g. ```sed```) the proteome headers with something like:
 
 ```
-<PROTEIN/GENE_NAME>|<SPECIE_NAME>
+>PROTEIN/GENE_NAME>|<SPECIE_NAME>
 ```
 
 NB: In our case having the species name clearly separated from the gene/protein name is **foundamental**!
@@ -87,19 +87,36 @@ Orthogrorups can be found in:
 
 We are going to use this latest file for a simple phylogenetic inference.
 
-First of all you need to modify the header of OG keeping only the species name. This step is necessary if you want to concatenate all genes in a single super-matrix.
+First of all you need to modify the header of OG keeping only the species name. This step is necessary if you want to concatenate all genes in a single super-matrix. Headers of single copy OG should look something like:
 
-To perform a species-tree inference we need to concatenate our single-genes alignment in one supermatrix (supermatrix approach):
-
-```
-AMAS.py concat -y nexus -i <Orthogroups> -f fasta -d aa
-```
-
-Once we concatenated the alignments we could directly run a phylogenetic analyses using the so called "super-matrix" and the partition file if we want to perfom a partition-based analyses (usually recomanded; see [here](http://www.iqtree.org/doc/Advanced-Tutorial) for a tutorial). However, as a preliminar step, is really common to try to remove unalignable sites directly from the single-gene alignments (recomanded) or from the concatenated matrix (ONLY if you don't want to perform a concatenated analayses!!!!). This step could not only improve species-tree inference but also speed up analyses. For this task we are using [Trimal](http://trimal.cgenomics.org/trimal).
 
 ```
-trimal -in concatenated.out -gappyout -out <OUT FILE>
+>SPECIE_NAME>
 ```
+
+Now we can perform single-gene alignment using [mafft](https://mafft.cbrc.jp/alignment/server/) in AUTO mode.
+
+```
+mafft --auto --anysymbol <FASTA_FILE> > <OUTPUT_FILE>
+```
+
+**SUGGESTION:** Since we will likely have hundreds of genes, try to use a ```for``` cycle.
+
+Usually when working with alignments is a good idea to remove gappy position and/or unalignable regions. This step could not only improve species-tree inference but also speed up analyses. For this task we are using [Trimal](http://trimal.cgenomics.org/trimal).
+
+```
+trimal -in <SINGLE_GENE_ALINGMENT> -gappyout -out <OUTPUT_FILE>
+```
+
+**SUGGESTION:** Since we will likely have hundreds of genes, try to use a ```for``` cycle.
+
+To perform a species-tree inference following a supermatrix approac now we need to concatenate our single-genes alignment.
+
+```
+AMAS.py concat -y nexus -i <SINLE_GENE_ALIGMENTS> -f fasta -d aa
+```
+
+Once we concatenated the alignments we could directly run a phylogenetic analyses using the so called "super-matrix" and the partition file if we want to perfom a partition-based analyses (usually recomanded; see [here](http://www.iqtree.org/doc/Advanced-Tutorial) for a tutorial). 
 
 Now we can use our cleaned alignment to perform a species-tree inference.
 
