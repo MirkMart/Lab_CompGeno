@@ -1,26 +1,37 @@
-# GENE FAMILIES EVOLUTIONARY ANALYSES
+## Estimate divergence time in a Maximum Likelihood framework
 
-## INTRO: 
+Traditionally, divergence time estimation was performed through **Bayesian analyses** (*e.g* Beast) and this is still the common and prefered practice when analyzing from few to a moderant amount of loci. However nowadays, the large amount avaible data from NGS projects has made the use of software based on maximum likelihood more and more frequent, especially when the divergence time estimation is not the main goal of the research (in that case Beast is still more used). Bayesian analyses is indeed able to naturally take into account and display a lot of different sources of uncertainty, from model selection (actually it is not a model selection but a  **model averanging**), to topology and obviously divergence time. Moreover Bayesian inference has the great advantage (but also disadvantage) to be able to incorporate prior in the form of probability distributions. However, it is also a double edge sword, since the long computational time this type of analysis requires.
 
-Evolutionary studies about gene families are becoming very frequent in recent years. For example, in almost all genome paper is present a gene families expansion/contractions analyses. Indeed, has been observed how enormous amount of changes in families size can take place even between closely related organisms. There is much interest in these changes, as even the gain or loss of single genes have been implicated in adaptive divergence between species. In addition, large contractions and expansions of gene families are generally attributed to natural selection.
+As previusly said ML can overcome this issue and, as almost everything, we can carry on this analyses again with IQ-TREE! It implements the least square dating (LSD2) method to build a time tree when you have date information for tips or ancestral nodes ([here](https://academic.oup.com/sysbio/article/65/1/82/2461506) the link for the original paper).
 
-One of the most popular software is **[CAFE](https://academic.oup.com/bioinformatics/article/22/10/1269/237347)**, even if other apporaches based on gene and species tree exist. Its purpose is to analyze changes in gene family size in a way that accounts for phylogenetic history and provides a statistical foundation for evolutionary inferences. The program uses a birth and death process to model gene gain and loss across a user-specified phylogenetic tree. The distribution of family sizes generated under this model can provide a basis for assessing the significance of the observed family size differences among taxa. In breaf, CAFE try to estimates ancestral states of gene families comparing the tip states (one continouse state for each gene family).
+This are the mains functions provided by IQ-TREE:
 
----
+![](https://github.com/for-giobbe/phy/blob/master/2021/Images/LSD.png)
 
-<br/>
+**Tip dating** is commonly used in two different scenarios:
 
-## PREPARING THE DATA
+ * 1. When analyzing viruses
+ * 2. When your have a tree builded up including extinct taxon.
 
-Preparing the data for CAFE it's a really tedious process. Fortunatly Orthofinder already provide us the Orthogroup table which is almost in the correct format. We need just a little bit of bash scripting to change few things:
+**Ancestral dates** are used when you have informations from fossils and you want to constrain, usually between two boundaries, the age of a/multiple specific node/s.
+
+In this tutorial we are going only towards this latest way. Moreover, because it's not a course focused on divergence time estimation and we only need an ultrametric tree for gene family evolutionary analyses, we will use previously estimted divergence time to calibrate our tree. In my case I relied on [this](https://resjournals.onlinelibrary.wiley.com/doi/abs/10.1111/syen.12489#:~:text=Molecular%20divergence%20time%20estimates%20revealed,Jurassic%20(approximately%20197.5%20Mya).) and on [time tree](https://timetree.org/) for the root age. 
+
+The only file that we have to prepare is a date file in which we have to specify the calibration point. It should look something like:
 
 ```
-mkdir Analyses/CAFE
-cp Analyses/Results_Mar30/Orthogroups/Orthogroups.GeneCount.tsv Analyses/CAFE/
-cd Analyses/CAFE/
-sed -i.old 's/_2//g' Orthogroups.GeneCount.tsv
-sed -i.old 's/_//g' Orthogroups.GeneCount.tsv
-cat Orthogroups.GeneCount.tsv | awk '{print tolower($0)}' > Orthogroups.GeneCount_2.tsv 
-sed -i.old $'s/^/NONE\t/g' Orthogroups.GeneCount_2.tsv
-rev Orthogroups.GeneCount_2.tsv | cut -d$'\t' -f 2- | rev > Orthogroups.GeneCount_ForCafe.tsv
+taxon1,taxon2 -50
+taxon3,taxon4,taxon5 -100
+taxon6 -10
 ```
+
+which, for example, mean that the most recent common ancestor (MRCA) of taxon1 and taxon2 was 50 mya (million year ago) and the MRCA of taxon3, taxon4, taxon5 was 100 mya. Note that **no empty space** should be added to the comma-separated list of taxa, as empty space is used as a separator between taxon list and dates.
+
+Now we arer ready to perform our divergence time estimation
+
+```
+iqtree -s ../Aln/concatenated.out --date <CALIBRATION FILE> --date-tip 0 -o <OUTGROUP> -m TESTNEW -nt 6 --prefix Time.Tree --date-options "-u 1" 
+```
+
+
+
