@@ -15,7 +15,7 @@ This are the mains functions provided by IQ-TREE:
 
 **Ancestral dates** are used when you have informations from fossils and you want to constrain, usually between two boundaries, the age of a/multiple specific node/s.
 
-In this tutorial we are going only towards this latest way. Moreover, because it's not a course focused on divergence time estimation and we only need an ultrametric tree for gene family evolutionary analyses, we will use previously estimted divergence time to calibrate our tree. In my case I relied on [this](https://resjournals.onlinelibrary.wiley.com/doi/abs/10.1111/syen.12489#:~:text=Molecular%20divergence%20time%20estimates%20revealed,Jurassic%20(approximately%20197.5%20Mya).) and on [time tree](https://timetree.org/) for the root age. 
+In this tutorial we are going only towards this latest way. Moreover, because it's not a course focused on divergence time estimation and we only need an ultrametric tree for gene family evolutionary analyses, we will use previously estimted divergence time to calibrate our tree. In my case I relied on the [time tree](https://timetree.org/) database. 
 
 The only file that we have to prepare is a date file in which we have to specify the calibration point. It should look something like:
 
@@ -30,8 +30,10 @@ which, for example, mean that the most recent common ancestor (MRCA) of taxon1 a
 Now we arer ready to perform our divergence time estimation
 
 ```
-iqtree -s ../Aln/concatenated.out --date <CALIBRATION FILE> --date-tip 0 -o <OUTGROUP> -m TESTNEW -nt 6 --prefix Time.Tree --date-options "-u 1" 
+iqtree -s <CONCATENATED ALIGNMENT --date <CALIBRATION FILE> --date-tip 0 -o <OUTGROUP> -m TESTNEW -nt 6 --prefix Time.Tree --date-options "-u 1" 
 ```
+
+**NB:** Whis command will re-estimate a species tree with an unpartioned model, you should add the flags ```-te <SPECIES TREE``` and ```-spp BEST-FITTING PARTITIONING SCHEME>``` if you want to re-use a previoulsy estimated species tree and best-fit partitioning scheme.
 
 
 
