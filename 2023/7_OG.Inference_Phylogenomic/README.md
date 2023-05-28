@@ -64,13 +64,13 @@ Beside these teoretically, but important questions, one of the most valuable thi
 orthofinder -f <proteoms_folder>
 ```
 
-However remember that isoforms whould be removed from a proteom beforer performing OG inference or their size will be artificially inflated. If you download proteoms from NCBI GCF genomes:
+However remember that isoforms should be removed from a proteom before performing OG inference. If you downloaded proteoms from NCBI RefSeq GCF genomes you can use:
 
 ```
 /home/PERSONALE/jacopo.martelossi2/scripts/Longest_Isoform.bash <FEATURE_FILE> <PROTEOME>
 ```
 
-Remember that is also always a best practice to rename (using e.g. ```sed```) the proteome headers with something like:
+Remember that it is always a good practice to rename (using e.g. ```sed```) proteome headers just be sure to keep a unique identifier. *e.g*
 
 ```
 >PROTEIN/GENE_NAME>|<SPECIE_NAME>
@@ -87,20 +87,19 @@ Orthogrorups can be found in:
 
 We are going to use this latest file for a simple phylogenetic inference.
 
-First of all you need to modify the header of OG keeping only the species name. This step is necessary if you want to concatenate all genes in a single super-matrix. Headers of single copy OG should look something like:
-
+First of all you need to modify the header of OG keeping only the species name. This step is necessary if you want to concatenate all genes in a single super-matrix.
 
 ```
 >SPECIE_NAME>
 ```
 
-Now we can perform single-gene alignment using [mafft](https://mafft.cbrc.jp/alignment/server/) in AUTO mode.
+Now we can perform single-gene alignments using [mafft](https://mafft.cbrc.jp/alignment/server/) in AUTO mode.
 
 ```
 mafft --auto --anysymbol <FASTA_FILE> > <OUTPUT_FILE>
 ```
 
-**SUGGESTION:** Since we will likely have hundreds of genes, try to use a ```for``` cycle.
+**SUGGESTION:** Since you will likely have hundreds of genes, try to use a ```for``` cycle.
 
 Usually when working with alignments is a good idea to remove gappy position and/or unalignable regions. This step could not only improve species-tree inference but also speed up analyses. For this task we are using [Trimal](http://trimal.cgenomics.org/trimal).
 
@@ -110,21 +109,17 @@ trimal -in <SINGLE_GENE_ALINGMENT> -gappyout -out <OUTPUT_FILE>
 
 **SUGGESTION:** Since we will likely have hundreds of genes, try to use a ```for``` cycle.
 
-To perform a species-tree inference following a supermatrix approac now we need to concatenate our single-genes alignment.
+To perform a species-tree inference following a supermatrix approach now we need to concatenate our single-gene alignments.
 
 ```
 AMAS.py concat -y nexus -i <SINLE_GENE_ALIGMENTS> -f fasta -d aa
 ```
 
-Once we concatenated the alignments we could directly run a phylogenetic analyses using the so called "super-matrix" and the partition file if we want to perfom a partition-based analyses (usually recomanded; see [here](http://www.iqtree.org/doc/Advanced-Tutorial) for a tutorial). 
-
-Now we can use our cleaned alignment to perform a species-tree inference.
-
-For an unpartitioned analyses we only need the command:
+Once we have concatenated the alignments we can directly run a phylogenetic analyses using the so called "super-matrix" and the partition file if we want to perfom a partition-based analyses (usually recomanded; see [here](http://www.iqtree.org/doc/Advanced-Tutorial) for a tutorial). For an unpartitioned analyses we only need the command:
 
 ```
 iqtree -m TESTNEW -bb 1000 -s <TRIMMED ALN> --prefix <PREFIX> -nt AUTO
 ```
 
-Congrats you have a species tree on which perform gene families evolutionary analyses!
+Congrats you have a species tree on which perform gene families evolutionary analyses! Take in mind that you can try to perform more sophisticated analyses using partition models!
 
