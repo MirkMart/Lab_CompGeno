@@ -40,7 +40,27 @@ Tip to remove last column of a file:
 rev <INFILE>   | cut -d$'\t' -f 2- | rev > <OG GENE COUNT CAFE READY> 
 ```
 
-After converting your nexus file into newick we are ready to use CAFE with a single lambda
+After converting your nexus file into newick we are ready to use CAFE with a single lambda:
 
-```cafe5 -i <OG GENE COUNT CAFE READY> -t <TIME TREE> -o CAFE_1Lambda -p
 ```
+cafe5 -i <OG GENE COUNT> -t <NEWICK TIME TREE> -o CAFE_1Lambda -p
+```
+
+To estimate an error model:
+
+```
+cafe5 -i <OG GENE COUNT> -t <NEWICK TIME TREE> -o Error_model -p -e
+```
+
+To calculate mutiple lambdas you must tell CAFE how many different λs there are, and which species or clades share these different λs. The lambdas and their locations are specified in a tree file. In my case the file looks like this:
+
+```
+(Llon:1,(Aste:1,(Cqui:2,Aaeg:2):1):1);
+```
+
+To run the 2 lambda analyses taking into consideration the error model:
+
+```
+cafe5 -i Orthogroups.GeneCount_CAFE.tsv -t TimeTree_CAFE.nwk -o 2L -p -y TimeTree_CAFE_2l.nwk -e Error_model/Base_error_model.txt
+```
+
