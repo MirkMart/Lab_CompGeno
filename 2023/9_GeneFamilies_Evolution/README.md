@@ -12,23 +12,35 @@ One of the most popular software is **[CAFE](https://academic.oup.com/bioinforma
 
 ## PREPARING THE DATA
 
-Preparing the data for CAFE it's a really tedious process. Fortunatly Orthofinder already provide us the Orthogroup table which is almost in the correct format. We need just a little bit of bash scripting to change few things:
+Preparing the data for CAFE it's a really tedious process. Fortunatly Orthofinder already provide us the Orthogroup table which is almost in the correct format. Just be sure that species name match between the Orthogroup table and the species tree and that it's present an additional first column with random values. In my case the formatted file is:
 
 ```
-sed -i.old 's/_2//g' <OG GENE COUNT>
-sed -i.old 's/_//g'  <OG GENE COUNT>
-cat  <OG GENE COUNT> | awk '{print tolower($0)}' > <OG GENE COUNT 2> 
-sed -i.old $'s/^/NONE\t/g' <OG GENE COUNT 2> 
-rev <OG GENE COUNT 2>  | cut -d$'\t' -f 2- | rev > <OG GENE COUNT CAFE READY> 
+NONE  Orthogroup  Aaeg  Aste  Cqui  Llon
+NONE  OG0000000 93  0 5 9
+NONE  OG0000001 81  0 5 0
+NONE  OG0000002 33  21  25  1
+NONE  OG0000003 10  5 8 0
+NONE  OG0000004 0 0 5 90
+NONE  OG0000005 0 0 58  1
+NONE  OG0000006 26  0 16  9
+NONE  OG0000007 1 0 4 91
+NONE  OG0000008 0 0 0 48 
+
 ```
 
-Now we need to change a bit also our time tree. First of all we need to convert the nexus file into newick. For this operation I usally use figtree. Just open the nexus treefile - ensuring to have divergence time annotated - and save it as newick. Then :
+Tip to add a NONE column:
 
-```
-cat <TIME TREE> | awk '{print tolower($0)}' > <TIME TREE>
+``` 
+sed -i.old $'s/^/NONE\t/g' <INFILE> 
+``` 
+
+Tip to remove last column of a file:
+
+``` 
+rev <INFILE>   | cut -d$'\t' -f 2- | rev > <OG GENE COUNT CAFE READY> 
 ```
 
-Now we are ready to use CAFE
+After converting your nexus file into newick we are ready to use CAFE with a single lambda
 
 ```cafe5 -i <OG GENE COUNT CAFE READY> -t <TIME TREE> -o CAFE_1Lambda -p
 ```
