@@ -1,3 +1,5 @@
+**IMPORTANT:** Use CAFE conda environemnt for iqtree dating!
+
 ## Estimate divergence time in a Maximum Likelihood framework
 
 Traditionally, divergence time estimation was performed through **Bayesian analyses** (*e.g* Beast) and this is still the common and prefered practice when analyzing from few to a moderant amount of loci. However nowadays, the large amount avaible data from NGS projects has made the use of software based on maximum likelihood more and more frequent, especially when the divergence time estimation is not the main goal of the research (in that case Beast is still more used). Bayesian analyses is indeed able to naturally take into account and display a lot of different sources of uncertainty, from model selection (actually it is not a model selection but a  **model averanging**), to topology and obviously divergence time. Moreover Bayesian inference has the great advantage (but also disadvantage) to be able to incorporate prior in the form of probability distributions. However, it is also a double edge sword, since the long computational time this type of analysis requires.
