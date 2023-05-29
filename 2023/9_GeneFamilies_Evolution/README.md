@@ -61,6 +61,6 @@ To calculate mutiple lambdas you must tell CAFE how many different λs there are
 To run the 2 lambda analyses taking into consideration the error model:
 
 ```
-cafe5 -i Orthogroups.GeneCount_CAFE.tsv -t TimeTree_CAFE.nwk -o 2L -p -y TimeTree_CAFE_2l.nwk -e Error_model/Base_error_model.txt
+cafe5 -i Orthogroups.GeneCount_CAFE.tsv -t TimeTree_CAFE.nwk -o 2L -p -y TimeTree_CAFE_2l.nwk -eError_model/Base_error_model.txt
 ```
 
