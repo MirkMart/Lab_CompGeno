@@ -115,9 +115,26 @@ http://amigo.geneontology.org/amigo
 Input: protein fasta
 
 Pannzer2 use SANSparallel (Interactive homology search against Uniprot) to perform homology searches.
+ 
+
+### GO enrichment
+
+To see if our genes of interest (for example genes differentially expressed in one condition), show an enrichment in some functional annotation.
+
+We use [topGO](https://bioconductor.org/packages/release/bioc/html/topGO.html). topGO requires:
+
+1. **Gene universe** the complete list of genes
+2. **Genes of interest**
+3. **GO annotation** with the followinf format:
+
+    gene_ID\<TAB>GO_ID1, GO_ID2, GO_ID3, ....
+
+There are two types of test statistics we can choose: Fisher's exact test which is based on **gene counts**, and a Kolmogorov-Smirnov like test which computes enrichment based on **gene scores**, which consider p-values.
+
+One tools to visualize GO enrichment: [REVIGO](http://revigo.irb.hr/)
 
 
-## KEGG PATHWAY
+### KEGG PATHWAY
 
 https://www.genome.jp/kegg/ # pathways db
 
@@ -125,6 +142,6 @@ https://www.genome.jp/kegg/kaas/ # assign pathways to our sequences
 
 https://www.genome.jp/kegg/mapper.html 
 
- ## INTERPROSCAN
+ ### INTERPROSCAN
   
   https://www.ebi.ac.uk/interpro/search/sequence/ #Annotate mutiple features of a protein sequences based on a collection of databases 
