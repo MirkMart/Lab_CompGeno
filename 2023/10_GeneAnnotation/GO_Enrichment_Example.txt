@@ -1,6 +1,10 @@
 #go2genes = go term annotation for all genese
 #list_expanded_genes.txt = list of genes of interest
 
+library(tidyr)
+library(plyr)
+library(topGO)
+
 geneID2GO <- readMappings(file = "go2genes.txt")
 geneUniverse <- names(geneID2GO)
 
