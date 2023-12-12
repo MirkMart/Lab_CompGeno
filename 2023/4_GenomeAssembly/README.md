@@ -187,7 +187,7 @@ assemblers, but keep in mind that many others exist and each one of them could p
 
 #### Produce final consensus in fasta format
 
-    wtpo-cns -t <NUMBER_OF_CORES> -i <LAYOUT_FILE> -fo <OUT_PREFIX>
+    wtpoa-cns -t <NUMBER_OF_CORES> -i <LAYOUT_FILE> -fo <OUT_PREFIX>
 
 See the GitHub page for usefull tips (Remeber to check also the “issue”
 page)
