@@ -177,7 +177,7 @@ etc.”
 ## Contig level assembly :
 
 We will use **[Wtdbg2](https://github.com/ruanjue/wtdbg2)** a very fast
-assemblers, but keep in mind that many others exist (*e.g*
+assemblers, but keep in mind that many others exist and each one of them could perform better with different kind of data(*e.g*
 [CANU](https://github.com/marbl/canu);
 [Falcon](https://github.com/falconry/falcon);[HiFiasm](https://github.com/chhylp123/hifiasm))
 
