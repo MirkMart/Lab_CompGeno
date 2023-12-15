@@ -201,7 +201,7 @@ Softwares : [Minimap2](https://github.com/lh3/minimap2);
 **Pre - requisite :** Mapping short and long reads
     data
 
-    minimap2 -x <PRESET_Options> --MD [other_options] <target.fa> <fastq>
+    minimap2 -ax <PRESET_Options> --MD [other_options] <target.fa> <fastq>
     samtools sort -@<NUM_THREADS> -o <OUT_FILE> <INFILE>
     samtools index <INFILE>
 
