@@ -202,6 +202,8 @@ Softwares : [Minimap2](https://github.com/lh3/minimap2);
     data
 
     minimap2 -ax <PRESET_Options> --MD [other_options] <target.fa> <fastq>
+    samtools view -Sb <SAM FILE> > <BAM FILE>
+    rm <SAM FILE>
     samtools sort -@<NUM_THREADS> -o <OUT_FILE> <INFILE>
     samtools index <INFILE>
 
