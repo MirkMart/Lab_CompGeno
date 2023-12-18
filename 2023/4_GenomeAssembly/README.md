@@ -206,6 +206,7 @@ Softwares : [Minimap2](https://github.com/lh3/minimap2);
     rm <SAM FILE>
     samtools sort -@<NUM_THREADS> -o <OUT_FILE> <INFILE>
     samtools index <INFILE>
+    echo -e "$R1\n$R2" > <READS_PATH>
 
 > OPTIONAL Calulcate mean coverage of short and long reads with
 > [Mosdepth](https://github.com/brentp/mosdepth)
