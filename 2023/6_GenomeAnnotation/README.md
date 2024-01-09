@@ -65,7 +65,7 @@ Due to computationally limits I have alredy run RepeatModeler for you,
 the path of the consensus library
     is:
 
-    /home/PERSONALE/jacopo.martelossi2/Analyses/Anopheles_stephensi/Genome_annotation/Aste-families.fa
+    /home/PERSONALE/jacopo.martelossi2/Old_Analyses/Anopheles_stephensi/Genome_annotation/Aste-families.fa
 
 RepeatMasker will be run inside Maker and we will summarize results at
 the end.
