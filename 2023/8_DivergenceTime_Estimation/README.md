@@ -32,7 +32,7 @@ which, for example, mean that the most recent common ancestor (MRCA) of taxon1 a
 Now we arer ready to perform our divergence time estimation
 
 ```
-iqtree -s <CONCATENATED ALIGNMENT --date <CALIBRATION FILE> --date-tip 0 -o <OUTGROUP> -m TESTNEW -nt 6 --prefix Time.Tree --date-options "-u 1" 
+iqtree -s <CONCATENATED ALIGNMENT --date <CALIBRATION FILE> --date-tip 0 -o <OUTGROUP> -m TESTNEW -nt 6 --prefix Time.Tree --date-options "-u 1 -k" 
 ```
 
 **NB:** Whis command will re-estimate a species tree with an unpartioned model, you should add the flags ```-te <SPECIES TREE``` and ```-spp BEST-FITTING PARTITIONING SCHEME>``` if you want to re-use a previoulsy estimated species tree and best-fit partitioning scheme.
