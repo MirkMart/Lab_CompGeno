@@ -64,3 +64,7 @@ To run the 2 lambda analyses taking into consideration the error model:
 cafe5 -i Orthogroups.GeneCount_CAFE.tsv -t TimeTree_CAFE.nwk -o 2L -p -y TimeTree_CAFE_2l.nwk -eError_model/Base_error_model.txt
 ```
 
+For a detailed description of CAFE outputs, see the [manual](https://github.com/hahnlab/CAFE5)
+
+Once you have your set of gene of intereset you can perform enrichment analyses using TopGO. [Here](https://github.com/jacopoM28/CompOmics_Tutorship/tree/main/2023/9_GeneFamilies_Evolution) you can find the script and some example files.
+
