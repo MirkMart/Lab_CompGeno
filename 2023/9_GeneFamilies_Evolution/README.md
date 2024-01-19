@@ -66,5 +66,5 @@ cafe5 -i Orthogroups.GeneCount_CAFE.tsv -t TimeTree_CAFE.nwk -o 2L -p -y TimeTre
 
 For a detailed description of CAFE outputs, see the [manual](https://github.com/hahnlab/CAFE5)
 
-Once you have your set of gene of intereset you can perform enrichment analyses using TopGO. [Here](https://github.com/jacopoM28/CompOmics_Tutorship/tree/main/2023/9_GeneFamilies_Evolution) you can find the script and some example files. To annotate all proteins included in OG used by CAFE you can use [Revigo](http://revigo.irb.hr/)
+Once you have your set of gene of intereset you can perform enrichment analyses using TopGO. [Here](https://github.com/jacopoM28/CompOmics_Tutorship/tree/main/2023/9_GeneFamilies_Evolution) you can find the script and some example files. To annotate all proteins included in OG used by CAFE you can use [Panzer](http://ekhidna2.biocenter.helsinki.fi/sanspanz/). Reduced visualization of GO terms can be performed with [Revigo](http://revigo.irb.hr/)
 
