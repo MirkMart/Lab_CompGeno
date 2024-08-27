@@ -1,4 +1,4 @@
-# CompOmics_2022
+# Laboratory of Comparative Genomics 2024-2025
 
 ## Overview :
 0. [BASH introduction](https://github.com/jacopoM28/CompOmics_Tutorship/tree/main/2023/0_Bash)
