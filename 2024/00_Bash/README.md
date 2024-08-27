@@ -62,7 +62,7 @@ chmod #change permissions of your files (or directory with chmod –r)
 
 ## Edit files
 ` vi nomefile #create new empty file`
-> avoid special characters; once created new file press “i" to write, after editing press Ctrl+c+: and type wq to save and exit from file or q! to exit without saving
+> avoid special characters; once created new file press “i" to write, after editing press Ctrl+c or esc and type `:wq` to save and exit from file or ':q!' to exit without saving
 ```
 cp filename pathwheretocopy #copy file somewhere using absolute or relative path of where to copy
 mv filename pathwheretocopy #mv file somewhere using absolute or relative path of where to copy
@@ -82,11 +82,11 @@ cp –r foldername #copy folder
 mv foldername pathwheretomove #move folder
 rm –r foldername #remove folder
 ```
-> tip: be VERY careful with rm, once you removed something there is no way to undo it; remember bash is case sensitive, the file, folder or scritp "Data" is different from "data".
+> tip: be VERY careful with `rm`, once you removed something there is no way to undo it; remember bash is case sensitive, the file, folder or scritp "Data" is different from "data".
 ---
 ## Download and transfer data
 
-wget can handle HTTP and FTP links
+`wget` can handle HTTP and FTP links
 ```
 wget https://github.com/jacopoM28/CompOmics_2022/archive/refs/heads/main.zip
 ```
@@ -94,9 +94,9 @@ For public data we don’t need any authentication to gain access to this file, 
 ```
 curl –O link #-O saves the file with its original filename
 ```
-curl can transfer files using more protocols than wget. It supports FTP, FTPS, HTTP, HTTPS, SCP, SFTP, TFTP, TELNET, DICT, LDAP, LDAPS, FILE, POP3, IMAP, SMTP, RTMP and RTSP
+`curl` can transfer files using more protocols than wget. It supports FTP, FTPS, HTTP, HTTPS, SCP, SFTP, TFTP, TELNET, DICT, LDAP, LDAPS, FILE, POP3, IMAP, SMTP, RTMP and RTSP
 
-scp (secure copy): transfer data from local computer to remote host, or from two remote hosts. scp works just like cp, except we need to specify both host and path
+`scp` (secure copy): transfer data from local computer to remote host, or from two remote hosts. scp works just like cp, except we need to specify both host and path
 
 ## Common way to transfer data
 
