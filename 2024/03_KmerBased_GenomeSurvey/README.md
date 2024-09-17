@@ -21,8 +21,10 @@ For a given sequence of length L, and a k-mer size of k, the total k-mer’s pos
 Since we sequenced a genome multiple time the total length (N) will be :
 
 ```math
-n = [( L – k ) + 1] * C \\
-\\[1em]
+n = [( L – k ) + 1] * C
+```
+
+```math
 N = n/C
 ```
 
