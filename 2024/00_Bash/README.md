@@ -20,7 +20,7 @@ Using [putty](https://www.putty.org/) for Windows
 
 ## Paths, files and directories
 
-Open linux or mac terminal; if you have windows download [cygwin]([https://www.cygwin.com/](https://gitforwindows.org/))
+Open linux or mac terminal; if you have windows download [git bash](https://gitforwindows.org/)
 
 ```bash
 ssh username@ip #login to a server via ssh, it will ask for your password
