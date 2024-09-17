@@ -5,7 +5,9 @@
 [https://rlab.unibo.it](https://rlab.unibo.it)
 
 login using your unibo email address and password
+
 To copy text (with Windows): select text to copy and paste it on command line using right click
+
 To copy text (with Mac): select text and press control+Shift+C to copy, control+Shift+V to paste
 
 ## Common ways to login to a Server
@@ -18,7 +20,7 @@ Using [putty](https://www.putty.org/) for Windows
 
 ## Paths, files and directories
 
-Open linux or mac terminal; if you have windows download [cygwin](https://www.cygwin.com/)
+Open linux or mac terminal; if you have windows download [cygwin]([https://www.cygwin.com/](https://gitforwindows.org/))
 
 ```bash
 ssh username@ip #login to a server via ssh, it will ask for your password
