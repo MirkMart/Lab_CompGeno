@@ -1,6 +1,6 @@
 # Genome annotation
 
-Once you have a de - novo assembled genome, what you usually want to know is what genomic geatures are on that genome. For this purpose we need an annotation pipeline. But what can we annotate on our genome?
+Once you have a de - novo assembled genome, what you usually want to know is what genomic features are on that genome. For this purpose we need an annotation pipeline. But what can we annotate on our genome?
 
 1. Repetitive elements (Transposons, low complexity regions, Microsatellistes)
 2. Protein - coding Genes
