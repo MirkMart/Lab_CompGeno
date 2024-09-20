@@ -14,9 +14,9 @@ Basically, assemblers needs to solve giant jigsaw puzzles with millions of piece
 
 ## Main steps in basic genome assembly
 
-- 1. Contig assembly + error correction (depending on the type of reads)
-- 2. Scaffolding
-- 3. Gap filling
+1. Contig assembly + error correction (depending on the type of reads)
+2. Scaffolding
+3. Gap filling
 
 ![assembly](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/4_GenomeAssembly/Figures/Genome_assembly.png)
 
