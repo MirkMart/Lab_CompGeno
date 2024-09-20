@@ -2,7 +2,7 @@
 
 ## Conda environments
 
-Most of the software that you are going to use are already installed in different CONDA environments. You can have a look at [THIS](https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf) cheet - shet for some usefull tips on Conda.
+Most of the software that you are going to use are already installed in different CONDA environments. You can have a look at [THIS](https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf) cheat sheet for some usefull tips on Conda.
 
 Environments and related softwares :
 
@@ -83,8 +83,8 @@ conda create --name <ENV_NAME> python=2.7
 
 ```bash
 /var/local/ # databases
-/home/PERSONALE/jacopo.martelossi2/Data/Reads_Ex #File for fasta/fastq exercises
-/home/PERSONALE/jacopo.martelossi2/Data/Anopheles_stephensi #Data for genome assembly and annotation
+/home/PERSONALE/mirko.martini3/Data/Reads_Ex #File for fasta/fastq exercises
+/home/PERSONALE/mirko.martini3/Data/Anopheles_stephensi #Data for genome assembly and annotation
 ```
 
 ---
@@ -98,7 +98,7 @@ conda create --name <ENV_NAME> python=2.7
   5. **Files, file names and folders organized in a logical way**
   6. **Humans doing rote activities tend to make many mistakes, have your computer do as much of this rote work as possible**
   7. **Internet is your best friend and mentor, google everything that you don't understand!**
-  8. **If an error rise first of all try to solve the problem by yourself:** a) read the error message carefully; b) read again the help of the software; c) check for typos, they are everywhere; d) GOOGLE it!
+  8. **If an error rise first of all try to solve the problem by yourself:** a) read the error message carefully; b) read again the help of the software; c) check for typos, they are everywhere; d) **GOOGLE it**!
 
 e.g: One easy and fast way to remember your code :
 
@@ -109,6 +109,6 @@ sh Blastp.sh
 
 ### Some usefull online resources
 
-  1. **Stack Overflow**
-  2. **BioStars**
+  1. [Stack Overflow](https://stackoverflow.com/)
+  2. [BioStars](https://www.biostars.org/)
   3. **Issue page of GitHub**. Remember to remove ```is:open``` in filters bar.

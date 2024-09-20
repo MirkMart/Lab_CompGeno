@@ -6,9 +6,8 @@
 
 login using your unibo email address and password
 
-To copy text (with Windows): select text to copy and paste it on command line using right click
-
-To copy text (with Mac): select text and press control+Shift+C to copy, control+Shift+V to paste
+* To copy text (with Windows): select text to copy and paste it on command line using right click
+* To copy text (with Mac): select text and press control+Shift+C to copy, control+Shift+V to paste
 
 ## Common ways to login to a Server
 
@@ -256,6 +255,16 @@ The first component of this regular expression is `^\(chr[^:]+\):`. This matches
 > $ echo "chr1:abRsZtjf-dhThdbUdj" | \
 sed -E 's/^(chr[^:]+):([a-zA-Z]+)-([a-zA-Z]+)/\1\t\2\t\3/'
 > chr1 abRsZtjf dhThdbUdj
+
+## Conda
+
+```bash
+conda init bash # initialize conda
+conda env list # see list of environments
+conda activate "environment_name" # activate environment_name
+conda list # see packages installed in that environment_name
+conda deactivate # close environment 
+```
 
 ## Bash scripting
 

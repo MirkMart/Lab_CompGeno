@@ -80,7 +80,7 @@ For more informations see [here](http://genome.ucsc.edu/FAQ/FAQformat#format1).
 
 ## Exercises and usefull commands
 
-Necessary files are stored in ```/home/PERSONALE/jacopo.martelossi2/Data/Reads_Ex```
+Necessary files are stored in `/home/PERSONALE/mirko.martini3/Data/Reads_Ex`
 
 **IMPORTANT** - Do NOT copy the file, get used to [SYMLINKS](https://linuxize.com/post/how-to-create-symbolic-links-in-linux-using-the-ln-command/), don't waste space with garbage!
 
