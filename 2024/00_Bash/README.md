@@ -256,6 +256,8 @@ The first component of this regular expression is `^\(chr[^:]+\):`. This matches
 sed -E 's/^(chr[^:]+):([a-zA-Z]+)-([a-zA-Z]+)/\1\t\2\t\3/'
 > chr1 abRsZtjf dhThdbUdj
 
+---
+
 ## Conda
 
 ```bash
@@ -265,6 +267,22 @@ conda activate "environment_name" # activate environment_name
 conda list # see packages installed in that environment_name
 conda deactivate # close environment 
 ```
+
+---
+
+## Git and GitHub
+
+```bash
+git add <file> #add file to the stagin area
+git commit -m "commit message" #creates a new a commit 
+git push #push any new commit
+git pull #pull any changes from online repositories
+git rm <file> #remove any file automatically adding this change to the staging area
+git mv <file> #mv any file automatically adding this change to the staging area
+git status #display the current state of the git repository
+```
+
+---
 
 ## Bash scripting
 
