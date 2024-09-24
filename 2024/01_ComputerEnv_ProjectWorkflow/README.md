@@ -112,3 +112,23 @@ sh Blastp.sh
   1. [Stack Overflow](https://stackoverflow.com/)
   2. [BioStars](https://www.biostars.org/)
   3. **Issue page of GitHub**. Remember to remove ```is:open``` in filters bar.
+
+---
+
+## Git and GitHub tutorial
+
+[Git](https://git-scm.com/) is a version control system used to track changes in files and coordinate work on those files among multiple people. [GitHub](https://github.com/) is an hosting service for Git repositories.
+
+To synchronise our first repository we can follow one of the many useful [tutorial](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository?platform=linux&tool=webui) that GitHub developers have written during these years.
+
+usefult commands:
+
+```bash
+git add <file> #add file to the stagin area
+git commit -m "commit message" #creates a new a commit 
+git push #push any new commit
+git pull #pull any changes from online repositories
+git rm <file> #remove any file automatically adding this change to the staging area
+git mv <file> #mv any file automatically adding this change to the staging area
+git status #display the current state of the git repository
+```
