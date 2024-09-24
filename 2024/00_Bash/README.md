@@ -130,10 +130,6 @@ scp -r username@ip:path/to/file/to/copy /where/to/paste/it # copy a directory
 using Windows:
 [Cyberduck](https://cyberduck.io/)
 
-## Transfer data from/to our workstation
-
-[tutorial Onedrive](https://liveunibo-my.sharepoint.com/:f:/g/personal/giorgio_provenzano_unibo_it/EnPpRJ8iqLxAsgQ9WpE_hw8B_vayFtTNm-C_pJwgExV1Bw)
-
 ## Data integrity
 
 ```bash
