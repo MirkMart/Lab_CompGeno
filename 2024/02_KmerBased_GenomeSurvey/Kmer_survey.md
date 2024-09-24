@@ -41,6 +41,8 @@ Necessary softwares :
 
 ### Fastqc
 
+It is a quality control tool for high throughput sequence data.
+
 ```bash
 fastqc seqfile1 seqfile2 .. seqfileN
 ```
