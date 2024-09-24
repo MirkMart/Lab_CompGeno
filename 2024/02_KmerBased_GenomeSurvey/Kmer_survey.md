@@ -39,7 +39,7 @@ Necessary softwares :
 1. **[fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)**
 2. **[trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic)**
 
-### Fastqc
+### Fastqc (2-3 mins)
 
 It is a quality control tool for high throughput sequence data.
 
