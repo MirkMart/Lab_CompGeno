@@ -8,6 +8,7 @@ login using your unibo email address and password
 
 * To copy text (with Windows): select text to copy and paste it on command line using right click
 * To copy text (with Mac): select text and press control+Shift+C to copy, control+Shift+V to paste
+* If these methods do not work: Ctrl+Shift+Alt and use the text space provided as a bridge between Guacamole and any exterior windows
 
 ## Common ways to login to a Server
 
