@@ -24,6 +24,7 @@ with **screen**:
 
 ```bash
 screen #open new screen
+screen -R <screen_name> #open a new screen name screen_name
 Ctrl+a+d #close screen
 Ctrl+d #kill screen
 screen -ls #list of all screen attached
