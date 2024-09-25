@@ -55,17 +55,28 @@ trimmomatic PE -threads 20 -phred33 SRR11672503_1.fastq.gz SRR11672503_2.fastq.g
 
 where :
 
-- ILLUMINACLIP:TruSeq3-PE.fa:2:30:10
+- 'PE': specifies that trimmomatic should run in paired-end mode
+- '-threads 20': use 20 threads for parallel processing
+- '-phred33': type of quality score format
+- the next six are input and output names that MUST be given in a specific order:
+  - first input (1)
+  - second imput (2)
+  - first output (first input) for trimmed and paired forward reads reads (1)
+  - second output (first input) for the trimmed and unpaired forward reads (those that cannot be paired) (1)
+  - first output (second input) for trimmed and paired forward reads reads (2)
+  - second output (second input) for the trimmed and unpaired forward reads (those that cannot be paired) (2)
+- 'ILLUMINACLIP:TruSeq3-PE.fa:2:30:10'
   - path to adapters fasta;
   - seedMismatches: specifies the maximum mismatch count which will still allow a full match to be performed;
   - palindromeClipThreshold: specifies how accurate the match between the two ‘adapter ligated’ reads must be for PE palindrome read alignment;
-  - simple clip threshold: the minimum score of the full alignment between adapter and read for the clipping to take place
-- LEADING:3 #Remove leading low quality or N bases (below quality 3)
-- TRAILING:3 #Remove trailing low quality or N bases (below quality 3)
-- SLIDINGWINDOW:4:15
+  - simple clip threshold: the minimum score of the full alignment between adapter andcd ../ read for the clipping to take place
+- 'LEADING:3' #Remove leading low quality or N bases (below quality 3)
+- 'TRAILING:3' #Remove trailing low quality or N bases (below quality 3)
+- 'SLIDINGWINDOW:4:15'
   - windowSize: specifies the number of bases to average across;
   - requiredQuality: specifies the average quality required.
-- MINLEN:36
+- 'MINLEN:36'
+- '2> stats_trimmomatic': standard error redirection to a file named stats_trimmomatic
 
 See the [manual](http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf) for deeper explanation of parameters.
 
