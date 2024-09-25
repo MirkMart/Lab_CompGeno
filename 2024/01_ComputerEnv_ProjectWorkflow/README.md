@@ -25,6 +25,7 @@ Environments and related softwares :
     * *minimap2*
     * *canu*
     * *assembly_stats*
+    * *kat*
 
 2. **Assembly_tools**
     * *ragtag*
