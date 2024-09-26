@@ -104,7 +104,7 @@ In particular:
 
 ## Genome size, heterozigosity and repetitive content estimation
 
-[Genomescope2](http://qb.cshl.edu/genomescope/genomescope2.0/)
+[Genomescope2](http://genomescope.org/genomescope2.0/)
 
 **Watch out for lower and upper count boundaries**.
 
