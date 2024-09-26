@@ -97,7 +97,7 @@ kat hist -t <THREADS> -m <MER LENGTH> -o <OUTPUT PREFIX> <paired_1> <paired_2>
 
 In particular:
 
-- 't' : inform the program about how many thread (parallelisation) it should use (4).
+- '-t' : inform the program about how many thread (parallelisation) it should use (4).
 - '-m' : is the dimension of the k-mer we will use (27).
 - '-o' : determines the prefix of the output.
 - in the end we append the two input files.
