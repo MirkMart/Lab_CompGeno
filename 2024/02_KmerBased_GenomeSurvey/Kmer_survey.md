@@ -104,7 +104,13 @@ In particular:
 
 ## Genome size, heterozigosity and repetitive content estimation
 
+The file we will use is the one without any extension. we can rename it '<name>.hist'. After its download, we have to delete all the comments at its head before uploading it to genomescope.
+
 [Genomescope2](http://genomescope.org/genomescope2.0/)
+
+A useful description of how interpret a genomescope graph is [here](https://bioinformaticsworkbook.org/dataAnalysis/GenomeAssembly/genomescope.html#gsc.tab=0)
+
+[This](http://genomescope.org/genomescope2.0/analysis.php?code=io1omtb13sTy7izIPz8F) is how our result should like.
 
 **Watch out for lower and upper count boundaries**.
 
