@@ -55,9 +55,9 @@ trimmomatic PE -threads 20 -phred33 SRR11672503_1.fastq.gz SRR11672503_2.fastq.g
 
 where :
 
-- 'PE': specifies that trimmomatic should run in paired-end mode
-- '-threads 20': use 20 threads for parallel processing
-- '-phred33': type of quality score format
+- 'PE' : specifies that trimmomatic should run in paired-end mode
+- '-threads 20' : use 20 threads for parallel processing
+- '-phred33' : type of quality score format
 - the next six are input and output names that MUST be given in a specific order:
   - first input (1)
   - second imput (2)
@@ -87,17 +87,30 @@ Other possibilities :
 
 -----
 
-## Compute *k-mer* frequency
+## Compute *k-mer* frequency (~ 7 mins for 20 threads)
 
 [KAT](https://kat.readthedocs.io/en/latest/index.html);[Jellyfish](https://github.com/gmarcais/Jellyfish);[BBmap](https://sourceforge.net/projects/bbmap/)
 
 ```bash
-kat hist -t <THREADS> -m <MER LENGTH> -H <HASH size> -o <OUTPUT PREFIX>
+kat hist -t <THREADS> -m <MER LENGTH> -o <OUTPUT PREFIX> <paired_1> <paired_2>
 ```
+
+In particular:
+
+- '-t' : inform the program about how many thread (parallelisation) it should use (4).
+- '-m' : is the dimension of the k-mer we will use (27).
+- '-o' : determines the prefix of the output.
+- in the end we append the two input files.
 
 ## Genome size, heterozigosity and repetitive content estimation
 
-[Genomescope2](http://qb.cshl.edu/genomescope/genomescope2.0/)
+The file we will use is the one without any extension. we can rename it '<name>.hist'. After its download, we have to delete all the comments at its head before uploading it to genomescope.
+
+[Genomescope2](http://genomescope.org/genomescope2.0/)
+
+A useful description of how interpret a genomescope graph is [here](https://bioinformaticsworkbook.org/dataAnalysis/GenomeAssembly/genomescope.html#gsc.tab=0)
+
+[This](http://genomescope.org/genomescope2.0/analysis.php?code=io1omtb13sTy7izIPz8F) is how our result should like.
 
 **Watch out for lower and upper count boundaries**.
 

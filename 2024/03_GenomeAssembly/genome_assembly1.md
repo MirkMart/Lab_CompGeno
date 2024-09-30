@@ -100,44 +100,80 @@ Some, but not all, metrics :
 
 ### Contig level assembly
 
-We will use **[Wtdbg2](https://github.com/ruanjue/wtdbg2)** a very fast assemblers, but keep in mind that many others exist and each one of them could perform better with different kind of data(*e.g* [CANU](https://github.com/marbl/canu); [Falcon](https://github.com/falconry/falcon);[HiFiasm](https://github.com/chhylp123/hifiasm))
+We will use **[Wtdbg2](https://github.com/ruanjue/wtdbg2)** a very fast assemblers that use long reads, but keep in mind that many others exist and each one of them could perform better with different kind of data(*e.g* [CANU](https://github.com/marbl/canu); [Falcon](https://github.com/falconry/falcon);[HiFiasm](https://github.com/chhylp123/hifiasm))
 
-#### Assemble reads, costruction of contig layout and edge sequences
+#### Assemble reads, costruction of contig layout and edge sequences (14 mins - 30 threads)
 
-```bahs
+```bash
 wtdbg2 -x rs -g <EXPECTED_GENOMESIZE> -t <NUMBERS_OF_CORES> -i <FASTQ> -fo <OUT_PREFIX> #Default parameters
 ```
 
-#### Produce final consensus in fasta format
+- '-x' #define the sequecing method. rs means PacBio RSII, informing the program of some default parameters (that are listed in the help page of the program).
+- '-g' #the expected genome size inferred using GenomeScope
+- '-t' #number of cores to parallelise the process
+- '-i' #require the long-read file, which can be defined compressed
+- '-fo' #the prefix of our output
 
-```bahs
+#### Produce final consensus in fasta format (~70 mins with 30 threads)
+
+wtpoa-cns is needed to polish or generate a consensus sequence from long-read data. It operates after the initial assembly of the genome has been constructed to improve the accuracy of the assembled contigs.
+
+```bash
 wtpoa-cns -t <NUMBER_OF_CORES> -i <LAYOUT_FILE> -fo <OUT_PREFIX>
 ```
 
-See the GitHub page for usefull tips (Remeber to check also the “issue” page)
+See the GitHub page for usefull tips (Remeber to check also the “issue” page).
+
+Before proceding, it is time to check the quality of our first assembly. In this case we will use only BUSCO, checking the completness based on a given known set of genes.
+
+```bash
+export NUMEXPR_MAX_THREADS=<CPU_number>
+busco -m <MODE> -l <LINEAGE> -c <CPU_NUMBER> -o <OUTPUT_NAME> -i <INPUT>
+```
+
+The first `export` is needed to set the `NUMEXPR_MAX_THREADS` equals to the number of the cores that we will be using during the real busco command. The option are:
+
+- '-m' #define if we are using genomes or proteomes
+- '-l' #redirect to the link of the library of reference
+- '-c' #the numebr of cores for parallelise the process
+- '-o' #name of the output **folder**
+- '-i' #the input. In out case the raw assembly
 
 ### Genome polishing with short and long reads
 
 Softwares : [Minimap2](https://github.com/lh3/minimap2); [Hypo](https://github.com/kensung-lab/hypo); [Samtools](http://www.htslib.org/)
 
-#### Pre-requisite: Mapping short and long reads
+#### Pre-requisite: Mapping short and long reads (sr ~50 mins with 30 threads + pac ~49 mins with 30 threads)
 
 ```bash
-data
-    minimap2 -ax <PRESET_Options> --MD [other_options] <target.fa> <fastq>
-    samtools view -Sb <SAM FILE> > <BAM FILE>
-    rm <SAM FILE>
-    samtools sort -@<NUM_THREADS> -o <OUT_FILE> <INFILE>
-    samtools index <INFILE>
-    echo -e "$R1\n$R2" > <READS_PATH>
+minimap2 -ax <PRESET_Options> --MD -t <cores_number> <target.fa> <fastq>
+samtools view -Sb <SAM FILE> > <BAM FILE>
+rm <SAM FILE>
+samtools sort -@<NUM_THREADS> -o <OUT_FILE> <INFILE>
+samtools index <INFILE>
+echo -e "$R1\n$R2" > <READS_PATH>
 ```
+
+With:
+
+- '-a' #output in .sam format
+- '-x' #preset option applied always before others. For short reads 'sr', for long PacBio reads vs refence mapping 'map-pb'
+- '--MD' #output the MD tag (optional alignment tag that encodes mismatched bases in a read when aligned to a reference sequence)
+
+- samtools view #allow conversion between SAM BAN and CRAM
+- '-S' #input format autodetection
+- '-b' #BAM output
+
+- samtools sort #sort alignment file
+
+- samtools index #index alignment
 
 > OPTIONAL Calulcate mean coverage of short and long reads with [Mosdepth](https://github.com/brentp/mosdepth)
 
-#### Hypo
+#### Hypo (~ 43 mins with 30 threads)
 
 ```bash
-hypo -d <DRAFT_Contigs> -r <READS_PATH> -s <APPROXIMATE_GENOMESIZE> -c <SHORT_READSCOVERAGE>
+hypo -d <DRAFT_Contigs> -r <READS_PATH> -s <APPROXIMATE_GENOMESIZE> -c <SHORT_READSCOVERAGE> -b <SORTED_BAM_SR> -B <SORTED_BAM_PB> -t <NUMBER_THREADS>
 ```
 
 ### Genome evaluation
@@ -145,16 +181,16 @@ hypo -d <DRAFT_Contigs> -r <READS_PATH> -s <APPROXIMATE_GENOMESIZE> -c <SHORT_RE
 #### N50
 
 ```bash
-assembly-stats <ASSEMBLY>
+assembly-stats <ASSEMBLY> > <stats_log>
 ```
 
-#### Busco
+#### Busco (~ 8 mins with 30 cores, 10 with 20)
 
 ```bash
 busco -m <MODE> -l <LINEAGE> -c <CPU_NUMBER> -o <OUTPUT_NAME> -i <INPUT>
 ```
 
-#### KAT
+#### KAT (~ 17 mins with 10 threads, 10 mins with 20)
 
 ```bash
 kat comp -t <NUM_THREADS> -o <OUTPUT_PREFIX> '<FASTQ>...' <ASSEMBLY>
