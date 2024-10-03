@@ -46,7 +46,7 @@ For this purpose we will use [RagTag](https://github.com/malonge/RagTag)
 1. Reference based error correction
 
     ```bash
-    ragtag.py correct -t 20 <REFERENCE_GENOME> A<DRAFT_GENOME>
+    ragtag.py correct -t 20 <REFERENCE_GENOME> <DRAFT_GENOME>
     ```
 
 2. Scaffolding**

@@ -1,0 +1,48 @@
+*.tar
+*.tar.*
+*.jar
+*.exe
+*.msi
+*.zip
+*.tgz
+*.log
+*.log.*
+*.sig
+
+#added by me
+*.dir
+*.pag
+*.out
+subfiles/
+busco_downloads/
+*.faa
+*.fa
+*.gff
+*.fna
+*.gz
+RAxML_bestTree.*
+
+pkg/
+src/
+
+### Linux ###
+*~
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
+
+
+.Rproj.user
+02_analysis/00_R/.RData
+*TRACCER.notes.txt
+/02_analysis/04_Trees/03_time_tree/02_mcmctree/out_mcmctree
+02_analysis/00_R/.Rhistory

@@ -277,6 +277,7 @@ git pull #pull any changes from online repositories
 git rm <file> #remove any file automatically adding this change to the staging area
 git mv <file> #mv any file automatically adding this change to the staging area
 git status #display the current state of the git repository
+git rm --cached <FILENAME> #remove a file from those that are synchronised
 ```
 
 ---

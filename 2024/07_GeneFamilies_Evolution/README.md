@@ -34,7 +34,7 @@ sed -i.old $'s/^/NONE\t/g' <INFILE>
 Tip to remove last column of a file:
 
 ```bash
-rev <INFILE>   | cut -d$'\t' -f 2- | rev > <OG GENE COUNT CAFE READY> 
+rev <INFILE> | cut -d$'\t' -f 2- | rev > <OG GENE COUNT CAFE READY> 
 ```
 
 After converting your nexus file into newick we are ready to use CAFE with a single lambda:

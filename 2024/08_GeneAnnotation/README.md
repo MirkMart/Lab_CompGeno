@@ -9,6 +9,10 @@ Annotation tool using probabilistic models:
 
 * [HMMER](http://hmmer.org/): use hidden Markov models (HMMs) profiles. It is often used together with a profile database, such as Pfam or many of the databases that participate in Interpro.
 
+## Input file
+
+The first thing to functionally explore our data is creating a file that can be annotate. The best one is a list of protein choosen by selecting the longest sequence in each trimmed orthogroup without taking into consideration gaps. This secure the use of the longest protein that is for sure clustered in an orthogroup and implemented in our analyses. To do it we can use the script [longest_protein_OGs](./longest_protein_OG.sh).
+
 ## Databases
 
 * Nr: Non-redundant protein sequences from GenPept, Swissprot, PIR, PDF, PDB, and NCBI RefSeq
@@ -38,7 +42,7 @@ where:
 
 ### Diamond search
 
-The sensitivity can be adjusted using the options `--mid-sensitive`, `--sensitive`, `--more-sensitive`, `--very-sensitive` and `--ultra-sensitive`.
+The sensitivity can be adjusted using the options `--mid-sensitive`, `--sensitive`, `--more-sensitive`, `--very-sensitive` and `--ultra-sensitive`. Even if more time consuming, the last one is always the recommended one.
 
 (see [Blast manual](https://www.ncbi.nlm.nih.gov/books/NBK279668/#usermanual.BLAST_search_strategies) and [Diamond manual](https://github.com/bbuchfink/diamond))
 
@@ -86,11 +90,17 @@ Useful links:
 
 ### Get GO terms from protein sequences
 
-[Pannzer2](http://ekhidna2.biocenter.helsinki.fi/sanspanz/)
+GOterms annotation can be performes with a graet variety of programs. [PANNZER](http://ekhidna2.biocenter.helsinki.fi/sanspanz/) and [eggNOG mapper](http://eggnog-mapper.embl.de/) are two common online tool. They are often reduntant, so we will annotate our proteome using the command line program [InterProScan](https://interproscan-docs.readthedocs.io/en/latest/index.html).
 
-**Input**: protein fasta
+```bash
+/home/PERSONALE/dbs/interproscan-5.65-97.0/interproscan.sh -i <LONGEST_PROTEINS_INPUT> -goterms -pa -b <OUTPUT-FILE-BASE> -cpu <N_CPUS>
+```
 
-Pannzer2 use SANSparallel (Interactive homology search against Uniprot) to perform homology searches.
+With:
+
+* -goterms #enables the GO annotation
+* -pa #enables the REACTOME pathway annotation
+* -b #output file name
 
 ### GO enrichment
 
@@ -100,23 +110,28 @@ We use [topGO](https://bioconductor.org/packages/release/bioc/html/topGO.html). 
 
 1. **Gene universe** the complete list of genes
 2. **Genes of interest**
-3. **GO annotation** with the followinf format:
+3. **GO annotation** with the following format ([example](./go2genes.txt)):
 
     ```text
-    gene_ID\<TAB>GO_ID1, GO_ID2, GO_ID3, ....
+    gene_ID\tGO_ID1, GO_ID2, GO_ID3, ....
     ```
 
 There are two types of test statistics we can choose: Fisher's exact test which is based on **gene counts**, and a Kolmogorov-Smirnov like test which computes enrichment based on **gene scores**, which consider p-values.
+
+An example of how to perform an enrichment analysis is present [here](./GO_enrichment.R).
 
 One tools to visualize GO enrichment: [REVIGO](http://revigo.irb.hr/)
 
 ## KEGG PATHWAY
 
-[pathways db](https://www.genome.jp/kegg/)
+KEGG (Kyoto Encyclopedia of Genes and Genomes) is a comprehensive database and bioinformatics resource used to understand high-level functions and utilities of biological systems. One of the greatest strength of KEGG is that almost each known gene or pathways has been associated to a KEGG identifier. K terms work no too dissimilar than GOterms, but gene ones identify the orthogroup of belonging. As GoTerms, also KEGGterm can be analysed with enrichment anaylsis using the R package `clusterProfiler`.
 
-[pathway annotation](https://www.genome.jp/kegg/kaas/)
+Kegg annotated genes can be used to group together genes tha belong to the same pathway, in order to focus on them if particalarly interesting. Again, annotation program are many, but the one we suggest you to utilise is [KAAS](https://www.genome.jp/kegg/kaas/).
 
-[kegg pathway mapper](https://www.genome.jp/kegg/mapper.html)
+Useful links are:
+
+* [pathways db](https://www.genome.jp/kegg/)
+* [KEGG orthology](https://www.genome.jp/kegg/ko.html)
 
 ## INTERPROSCAN
   

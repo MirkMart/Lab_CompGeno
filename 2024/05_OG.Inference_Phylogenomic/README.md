@@ -1,6 +1,6 @@
 # Ortholgy inference
 
-When setting up a phylogenetic/phylogenomic project, the first necessary step is identify **orthologs genes..**
+When setting up a phylogenetic/phylogenomic project, the first necessary step is identify **orthologs genes..**. Even before, you need to create your personal dataset ([dataset_creation.md](./dataset_creation.md))
 
 ## Orthologs, Paralogs and Orthogroups
 
@@ -56,7 +56,7 @@ In brief, Orthofinder alghoritm is subdivided into 4 major steps:
 3. **gene tree** inference and rooting for each orthogroup.
 4. Inference of **orthologs and gene duplication events** reconciling rooted specie and gene trees.
 
-The detailed explanation of each step is not the aim of this course, hoever if you are interested in orthology inference you should have a look at the two Orthofinder papers ([Emms and Kelly, 2015](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-015-0721-2?optIn=false) and [Emms and Kelly, 2019](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1832-y)). Just take in mind the extremely importance of the *bi-directional best hit*, indeed is the only way to take into account possible gene loss in one of the two lineages. (Think about what can happen in orthology inference  if the blue human gene in figure 1A would be lost...).
+The detailed explanation of each step is not the aim of this course, hoever if you are interested in orthology inference you should have a look at the two Orthofinder papers ([Emms and Kelly, 2015](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-015-0721-2?optIn=false) and [Emms and Kelly, 2019](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1832-y)). Just take in mind the extremely importance of the *bi-directional best hit*, indeed is the only way to take into account possible gene loss in one of the two lineages. (Think about what can happen in orthology inference if the blue human gene in figure 1A would be lost...).
 
 Beside these teoretically, but important questions, one of the most valuable things about Orthofinder is its *usability*. A *quick-and-dirty* Orthofinder analyses can be simply run with:
 
@@ -64,13 +64,13 @@ Beside these teoretically, but important questions, one of the most valuable thi
 orthofinder -f <proteoms_folder>
 ```
 
-However remember that isoforms should be removed from a proteom before performing OG inference. If you downloaded proteoms from NCBI RefSeq GCF genomes you can use:
+However remember that isoforms should be removed from a proteom before performing OG inference. If you downloaded proteoms from NCBI RefSeq **GCF** genomes you can use:
 
 ```bash
 /home/PERSONALE/jacopo.martelossi2/scripts/Longest_Isoform.bash <FEATURE_FILE> <PROTEOME>
 ```
 
-Remember that it is always a good practice to rename (using e.g. ```sed```) proteome headers just be sure to keep a unique identifier. *e.g* `><PROTEIN/GENE_NAME>|<SPECIE_NAME>`
+Remember that it is always a good practice to rename (using e.g. `sed`) proteome headers just be sure to keep a unique identifier. *e.g* `<PROTEIN/GENE_NAME>|<SPECIE_NAME>`
 
 NB: In our case having the species name clearly separated from the gene/protein name is **foundamental**!
 
@@ -82,6 +82,32 @@ Orthogrorups can be found in:
 * `Single_Copy_Orthologue_Sequences`
 
 We are going to use this latest file for a simple phylogenetic inference.
+
+## Paralog filtering
+
+After orthology inference, paralogs can get into the way. There are many programs that deal with this problem. Two are [DISCO](https://github.com/JSdoubleL/DISCO/) and [PhyloPyPruner](https://pypi.org/project/phylopypruner/). Differently than Orthofinder, these two program compute phylogenetic tree-based orthology inference. To make everything easier we will use DISCO.
+
+DISCO script requires a specific header syntax to properly work. Luckily, the supported syntax is the one we alrady implemented and used so far (SPECIES|SEQUENCE_ID). The script wants as inputs simple gene tree, **not** resolved ones (they represent a more direct Orthofinder output without any further elaboration).
+
+```bash
+python3 disco.py -i <TREE> -o <OUTPUT> -d "|" -m <N_SPECIES_TO_MAINTAIN> --remove_in_paralogs --single_tree --keep-labels 2>/dev/null
+```
+
+with:
+
+* -i #input tree file
+* -o #output file name
+* -d #delimiter between species name and sequence name
+* -m #number of species that the polished tree, after paralogs pruning, should contain at least
+* --remore_in_paralogs #Remove in-paralogs before rooting/scoring tree.
+* --single_tree #only output single large tree
+* --keep-labels #Keep original leaf labels instead of relabeling them with their species labels
+
+This last option is particular important since we are using DISCO a bit improperly. Maintaing labels is indispensable since we are working on trees and not orthogroups, so we have to rebuild these last ones after the pruning. To do it, we will use the script [recreate_disco_ortho.sh](./recreate_disco_ortho.sh). The only thing to do specify in place of ORIGINAL_FOLDER the folder containing original orthogroups inferred by Orthofinder.
+
+## Alignments and trimming
+
+Our fist step is building a species tree where branches are proportional to the mean amino acid change among species. We will work for this task with single copy complete orthogroups, those that contain every species and only one sequence for each of them.
 
 First of all you need to modify the header of OG keeping only the species name. This step is necessary if you want to concatenate all genes in a single super-matrix.
 
@@ -95,21 +121,42 @@ Now we can perform single-gene alignments using [mafft](https://mafft.cbrc.jp/al
 mafft --auto --anysymbol <FASTA_FILE> > <OUTPUT_FILE>
 ```
 
-**SUGGESTION:** Since you will likely have hundreds of genes, try to use a for cycle.
+**SUGGESTION:** Since you will likely have hundreds of genes, try to use a `for` cycle.
 
-Usually when working with alignments is a good idea to remove gappy position and/or unalignable regions. This step could not only improve species-tree inference but also speed up analyses. For this task we are using [Trimal](http://trimal.cgenomics.org/trimal).
+Usually when working with alignments is a good idea to remove gappy position and/or unalignable regions. This step could not only improve species-tree inference but also speed up analyses. For this task we are using [BMGE](https://gitlab.pasteur.fr/GIPhy/BMGE).
+
+BMGE is a sequence trimmer developed to improve the quality of multiple sequence alignments by identifying and removing poorly aligned regions using an entropy-based approach. Another important parameter is `-g`, which specifies how to treat gap positions. The two numbers given to the option are <col_rate:row_rate>: the first one indicates sequence completeness (sequences with more than <col_rate>% of gaps are eliminated), while the second controls gap positions (vertically, those positions with more than <row_rate>% absence are eliminated).
 
 ```bash
-trimal -in <SINGLE_GENE_ALINGMENT> -gappyout -out <OUTPUT_FILE>
+java -jar /usr/local/BMGE-1.12/BMGE.jar -i <input_alignment> -t AA -m BLOSUM30 -h 0.5 -g <col_rate:row_rate> -of <OUTPUT_FILE> -oh <OUTPUT_HTML>
 ```
 
-**SUGGESTION:** Since we will likely have hundreds of genes, try to use a ```for``` cycle.
+With:
+
+* -jar #identify the program executive file
+* -i #input alignment files
+* -t #sequence type. in this case AA
+* -m #matrix. When compared species are dissimilar, it is recommended to use always BLOSUM30
+* -h #maximum entropy value
+* -g # <col_rate:row_rate> : real numbers corresponding to the maximum gap rates allowed per sequence and character, respectively
+* -of #output in FASTA format. Define also the output name
+* -oh #output in HTML format. Days of a future past: these outputs will be understood later
+
+**SUGGESTION:** Since we will likely have hundreds of genes, try to use a `for` cycle.
 
 To perform a species-tree inference following a supermatrix approach now we need to concatenate our single-gene alignments.
 
 ```bash
-AMAS.py concat -y nexus -i <SINLE_GENE_ALIGMENTS> -f fasta -d aa
+AMAS.py concat -y nexus -i <SINGLE_GENE_ALIGMENTS> -f fasta -d aa
 ```
+
+Where:
+
+* concat #enables the concatenator function of AMAS
+* -y #specify the output format
+* -i #input files. They all need to be listed
+* -f #format of the input files
+* -d #type of sequence (amino acid)
 
 Once we have concatenated the alignments we can directly run a phylogenetic analyses using the so called "super-matrix" and the partition file if we want to perfom a partition-based analyses (usually recomanded; see [here](http://www.iqtree.org/doc/Advanced-Tutorial) for a tutorial). For an unpartitioned analyses we only need the command:
 
