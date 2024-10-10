@@ -1,6 +1,6 @@
 # Genome annotation
 
-Once you have a de - novo assembled genome, what you usually want to know is what genomic features are on that genome. For this purpose we need an annotation pipeline. But what can we annotate on our genome?
+Once you have a de-novo assembled genome, what you usually want to know is what genomic features are on that genome. For this purpose we need an annotation pipeline. But what can we annotate on our genome?
 
 1. Repetitive elements (Transposons, low complexity regions, Microsatellistes)
 2. Protein - coding Genes
@@ -17,10 +17,10 @@ Eukariotic genomes are very complex (results of evolution by molecular tinkering
 1. Annotation of repetitive elements in the genome. Repetitive regions and transposons must be excluded from gene annotation because they have completly different structures.
 2. Alignment of high quality external evidences (Transcriptomes and proteins).
 3. Extraction of an initial set of highly confident gene models.
-4. Training of *ab - initio* gene predictors softwares.
+4. Training of *ab-initio* gene predictors softwares.
 5. Re - annotation of the genome through trained models. **Steps 3, 4 and 5 are usually repeated multiple times to improve gene prediction at each iteration**
 6. Collection of all gene models and creation of a consensus set based on support given by external evidences (usually gene models low or not supported by external evidences are discared).
-7. Evaluation of our final gene - set.
+7. Evaluation of our final gene set.
 
 Luckly, multiple genome annotation pipeline exist to facilitate this process. One of the most used is **[MAKER](http://weatherby.genetics.utah.edu/MAKER/wiki/index.php/MAKER_Tutorial_for_WGS_Assembly_and_Annotation_Winter_School_2018)**
 
