@@ -139,6 +139,8 @@ The first `export` is needed to set the `NUMEXPR_MAX_THREADS` equals to the numb
 - '-o' #name of the output **folder**
 - '-i' #the input. In out case the raw assembly
 
+The reference database is `/home/PERSONALE/mirko.martini3/2024/Data/busco_dbs/diptera_odb10`
+
 ### Genome polishing with short and long reads
 
 Softwares : [Minimap2](https://github.com/lh3/minimap2); [Hypo](https://github.com/kensung-lab/hypo); [Samtools](http://www.htslib.org/)
@@ -189,6 +191,8 @@ assembly-stats <ASSEMBLY> > <stats_log>
 ```bash
 busco -m <MODE> -l <LINEAGE> -c <CPU_NUMBER> -o <OUTPUT_NAME> -i <INPUT>
 ```
+
+The reference database is `/home/PERSONALE/mirko.martini3/2024/Data/busco_dbs/diptera_odb10`
 
 #### KAT (~ 17 mins with 10 threads, 10 mins with 20)
 

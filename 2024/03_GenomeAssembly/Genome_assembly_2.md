@@ -45,7 +45,7 @@ Usefull script to remove a list of sequences (works also with multiline fasta):
 
 ```bash
 awk '{ if ((NR>1)&&($0~/^>/)) { printf("\n%s", $0); } else if (NR==1) { printf("%s", $0); } else { printf("\t%s", $0); } }' in.fa | grep -w -v -Ff patterns.txt - | tr "\t" "\n" > out.fa
-#The first part ensures the FASTA is in oneline form. Then Filter out everything is contained inside the patterns file, outputting a fasta file oneline with only desired contigs.
+#The first part ensures the FASTA is in oneline form and reformat the file obtaing ">header\tsequence". In this way it is easier to process the file with grep. Then filters out everything is contained inside the patterns file, outputting a fasta file oneline with only desired contigs.
 ```
 
 With:
