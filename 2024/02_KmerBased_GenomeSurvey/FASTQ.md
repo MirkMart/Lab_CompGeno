@@ -38,6 +38,8 @@ FASTA file: usually two lines per sequence.
 awk '/^>/ { if(NR>1) print "";  printf("%s\n",$0); next; } { printf("%s",$0);}  END {printf("\n");}' < infile.fa > outfile.fa
 ```
 
+This command checks if the line starts with ">" (the header identifier in FASTA format). When it starts with it, if the line is not the first one of the file, it interspaces new headers (`printf("%s\n",$0)`) with empty lines (`print ""`). Next ensures that all headers are processes before starting with the real sequences. Then sequences are appended sequentially without new lines in empty species between headers (`{ printf("%s",$0)`). The END command conclued the file with a trailing new line.
+
 ---
 
 ## Annotation files (GFF and BED)
@@ -95,7 +97,7 @@ Necessary files are stored in `/home/PERSONALE/mirko.martini3/Data/Reads_Ex`
 
 * Tips :
   * Think about the sequencing strategy.
-  * Usefull ```awk``` to calculate mean value of a column, ([here](https://stackoverflow.com/questions/19149731/use-awk-to-find-average-of-a-column) a full explanation) :
+  * Usefull `awk` to calculate mean value of a column, ([here](https://stackoverflow.com/questions/19149731/use-awk-to-find-average-of-a-column) a full explanation):
   
     ```bash
     awk '{ sum += $2; n++ } END { if (n > 0) print sum / n; }'
@@ -106,15 +108,15 @@ Necessary files are stored in `/home/PERSONALE/mirko.martini3/Data/Reads_Ex`
 >3. Calculate mean expected coverage for each library given a genome size of 12Mb. What should you change if you had both PE reads?
 
 * Tips :
-  * Usefull ```awk``` to sum values of a column :
+  * Usefull `awk` to sum values of a column:
   
     ```bash
     awk '{s+=$1}END{print s}' file'
     ```
 
->4. Count number of sequences in the fasta file ```Example.fa```
+>4. Count number of sequences in the fasta file `Example.fa`
 
->5. Extract the sequence ```XP_001647772.2``` and store it in a new file. How was the protein annotated?
+>5. Extract the sequence `XP_001647772.2` and store it in a new file. How was the protein annotated?
 
 * Tips:
   * Watch out for "nested" patterns!
