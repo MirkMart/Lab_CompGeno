@@ -83,9 +83,10 @@ conda create --name <ENV_NAME> python=2.7
 ### Usefull paths
 
 ```bash
-/var/local/ # databases
-/home/PERSONALE/mirko.martini3/Data/Reads_Ex #File for fasta/fastq exercises
-/home/PERSONALE/mirko.martini3/Data/Anopheles_stephensi #Data for genome assembly and annotation
+/var/local/ # Pfam, taxonkitn and uniprot databases
+/home/PERSONALE/mirko.martini3/2024/Data/Anopheles_reference #Anopheles reference FTP folder. Important for annotation
+/home/PERSONALE/mirko.martini3/2024/Example_reads #File for fasta/fastq exercises
+/home/PERSONALE/mirko.martini3/2024/Data/reads #Data for genome assembly and annotation
 ```
 
 ---
