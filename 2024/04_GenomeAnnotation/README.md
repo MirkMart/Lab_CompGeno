@@ -38,7 +38,7 @@ Due to computationally limits I have alredy run RepeatModeler for you, the path 
 
 RepeatMasker will be run inside Maker and we will summarize results at the end.
 
-## 2.1 MAKER rnd 1
+## 2.1 MAKER rnd 1 (~24.5 hours with 40 CPUs)
 
 First of all you need to collect yout external evidences, for example on NCBI or Uniprot. Unfortunately we don’t have a transcriptome but in real scenarios is almost mandatory. Then you need to create and compile the maker configuration file necessary for the run.
 
@@ -131,10 +131,10 @@ Now we need to set the paths of the input files in the `opts.ctl` file.
     TMP= #specify a directory other than the system default temporary directory for temporary files
 ```
 
-The changes to do are:
+Changes to do:
 
-- add genome path.
-- add proteome path (external evidence).
+- add genome.
+- add proteome (external evidence. Multiple ones can be listed using commas).
 - remove model_org.
 - provide RepeatModeler library.
 - protein2genome= from 0 to 1 #This change enable maker to use protein homology to infer prediction (needed since we are feeding the program with a known proteome)
@@ -142,6 +142,10 @@ The changes to do are:
 - pred_stats from 0 to 1 #This enables the program to calculate phred score for each annotation.
 - add minimum length of protein allowed to be added to the annotation (min_protein=50)
 
+External evidence (proteomes):
+`/home/PERSONALE/mirko.martini3/01_2024/00_Data/02_annotation/Proteomes`
+
+**To be known**: AED is a measure of annotation quality, indicating how well the predicted gene matches external evidence. It ranges from 0 (perfect match) to 1 (no match).
 
 Then just type:
 
@@ -156,32 +160,46 @@ fasta_merge -d <DATASTORE INDEX FILE>
 gff3_merge -d <DATASTORE INDEX FILE>
 ```
 
-Finally we must extract all evidences from the gff file using bash (for example awk on "protein2genome" and "repeatmasker" strings). Try to do it by your self.
+Finally we must extract all evidences from the gff file using bash (awk on "protein2genome" and "repeatmasker" strings). Try to do it by your self.
 
 We can also summarize results of Evidence-based gene annotation and RepeatMasker using the [AGAT](https://github.com/NBISweden/AGAT) package, a very usefull set of perl scripts to manage gff3 files, print the help and run the script :
 
 ```bash
-agat_sp_statistics.pl --gff file.gff #Summary statistics of gene models
-agat_sq_repeats_analyzer.pl --help #Summary statistics of repeats
+agat_sp_statistics.pl --gff file.gff -o <output_file> #Summary statistics of gene models
+agat_sq_repeats_analyzer.pl -i <input_file> -o <output_file> #Summary statistics of repeats
 ```
 
 Now try to summarize the results (in R) to see the genome proportion covered by each TE class and compare results with other species and assemblies.
 
+We can also assess the completeness of our first proteome using BUSCO. In this way, we can study how proteome quality changes along our pipeline.
+
 ## 2.2 SNAP and Augustus training
 
-**NB :** take in mind that without trancripts evidences gene predictors training won’t work very well, but the process would be the same.
+**NB:** take in mind that without transcripts evidences gene predictors training won’t work very well, but the process would be the same.
 
 ### SNAP
 
+SNAP is a gene prediction tool designed to identify protein-coding genes in genomic DNA sequences, particularly in newly sequenced genomes. SNAP uses a probabilistic approach based on HMMs to model various features of genes and can be trained using a set of known gene models to improve its accuracy for a specific organism. SNAP is often used alongside other gene prediction tools and results from multiple tools can be combined to create a consensus annotation.
+
+Fathom is part of te SNAP package and it is used to prepare, train, and elaborate our gene prediction.
+
 ```bash
-maker2zff #To extract gene models based on mutiple filter criterion
+#I suggest you to create a small script with all these commands because are really fast
+maker2zff -c 0 -e 0  -l 80 -x 0.1 -d <datastore_index> #To extract gene models based on mutiple filter criterion. It transforms maker output into .zff files, the format for SNAP
 fathom <.ANN FILE> <.DNA FILE> -gene-stats #Print some summary statistics of the selected gene models
-fathom <.ANN FILE> <.DNA FILE> -validate #Validate gene models and print summary statistics
+fathom <.ANN FILE> <.DNA FILE> -validate #Validate gene models and print summary statistics. output is in the stdout and cannot be redirected
 fathom <.ANN FILE> <.DNA FILE> -categorize 1000 #Extract gene modeles together with 1000 bp at both ends for training
-fathom <UNI.ANN FILE> <UNI.DNA FILE> -export 1000 -plus #Export and convert uni genes to strand plus
+fathom <UNI.ANN FILE> <UNI.DNA FILE> -export 1000 -plus #Export and convert unique genes to strand plus. Tipically, only the unique genes are sued for training and testing. The value limits the intergenic sequence at the ends.
 forge <export.ann> <export.dna> #call the parameter estimation program, better in another directory
 hmm-assembler.pl <NAME> <FORGE DIRECTORY> > <OUTPUT HMM FILE>
 ```
+
+With in the `maker2zff` command:
+
+- -c #The fraction of splice sites confirmed by an EST alignment, default 0.5 (50% of the splice sites should be supported by EST data).
+- -e #The fraction of exons that overlap an EST alignment, default 0.5 (50% of the exons in a predicted gene must overlap with an EST for the gene to be kept).
+- -l #The min length of the protein sequence produced by the mRNA. It filters out very short, potentially false predictions (e.g., fragments or incomplete genes).
+- -x #Max AED to allow 0.5 is default
 
 ### Augustus
 
@@ -200,16 +218,17 @@ However, in this course we will use a more straigthforward way, training Augustu
 busco -i Aste.ragtag_scaffolds.chr.fa -c 36 -l ../../../dbs/arthropoda_odb10 --augustus --long -m genome --out Aste_BuscoTraining --augustus_parameters='--progress=true'
 ```
 
-Since also this process is quite computanionally intensive and the trained models must be present in a specific path were Augustus will search for them, I have already trained for you augusutus. The name of the models is **Aste**
+Since also this process is quite computanionally intensive and the trained models must be present in a specific path were Augustus will search for them, I have already trained for you augusutus. The name of the models is **Aste** (just use Aste when it will be required).
 
-## 2.3 MAKER rnd 2
+## 2.3 MAKER rnd 2 (~12h with 40 CPUs)
 
 Now you must change the maker config file specifing :
 
-1. The path of repeats and proteins alignment files.
+1. The path of repeats and proteins alignment files (protein_gff and rm_gff).
 2. The path of the SNAP models.
 3. The name of the Augusutus models.
-4. Deactive `protein2genome` and `est2genome`.
+4. Deactive `protein2genome` and `est2genome` (only if you are changing the previous control file).
+5. In the case you want to perform a third round, remeber to change also pred_stats from 0 to 1.
 
 Finally, run again MAKER and collect the gff and protein/transcript files.
 
@@ -222,7 +241,7 @@ To evaluate our genome annotation we have mutiple options :
 1. Compare gene statistics with bibliography knowledge (*e.g* Mean gene length, mean exon length, mean number of exon and introns per gene, ecc…)
 2. Busco on predicted proteins.
 3. Summarize AED values.
-4. Align the de - novo assembled transctiptome to the genome - based predicted one.
+4. Align the de-novo assembled transctiptome to the genome-based predicted one.
 
 To print sumamry statistics:
 
