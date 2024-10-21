@@ -89,7 +89,9 @@ Other possibilities :
 
 ## Compute *k-mer* frequency (~ 7 mins for 20 threads)
 
-[KAT](https://kat.readthedocs.io/en/latest/index.html);[Jellyfish](https://github.com/gmarcais/Jellyfish);[BBmap](https://sourceforge.net/projects/bbmap/)
+Analysing k-mers can be done with many different tools ([KAT](https://kat.readthedocs.io/en/latest/index.html), [Jellyfish](https://github.com/gmarcais/Jellyfish), or [BBmap](https://sourceforge.net/projects/bbmap/)). We will use KAT. 
+
+KAT ( K-mer Analysis Toolkit) is a bioinformatics toolset used to perform various analyses on k-mer distributions from sequence data, primarily in genome assembly and evaluation. K-mers are used to analyze the structure, quality, and completeness of genome assemblies, and to compare datasets such as sequencing reads and assembled genomes.
 
 ```bash
 kat hist -t <THREADS> -m <MER LENGTH> -o <OUTPUT PREFIX> <paired_1> <paired_2>
@@ -100,7 +102,7 @@ In particular:
 - '-t' : inform the program about how many thread (parallelisation) it should use (4).
 - '-m' : is the dimension of the k-mer we will use (27).
 - '-o' : determines the prefix of the output.
-- in the end we append the two input files.
+- finally, append the two input files.
 
 ## Genome size, heterozigosity and repetitive content estimation
 
