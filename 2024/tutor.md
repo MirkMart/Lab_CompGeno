@@ -1,5 +1,9 @@
 # For tutors
 
+## Conda init
+
+Remeber to `conda init` before starting the course, maybe parallele to GitHub. After `init` you need to restart the shell. You need to delete every screen that was created before, because it will be without conda.
+
 ## blastn for bloobtool
 
 When blastn for Bloobtool use Sidius.
@@ -18,7 +22,7 @@ Downloaded database on Liliana `home/PERSONALE/dbs/blastdb`. changed ownership w
 
 ```bash
 sudo chown -R 'PERSONALE\mirko.martini3':'PERSONALE\domain^users' blastdb/`
-#'' used to take literally whta was inside
+#'' used to take literally what was inside
 #PERSONALE\domain^users is the group
 ```
 

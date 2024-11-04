@@ -58,7 +58,7 @@ Main assembly algorithms :
     - Bacterial Artificial Chromosome–End Sequencing
     - Linked-Read Sequencing
     - Optical Maps
-    - Proximity Ligation : Regions of the genome that are close together in sequence generally have more frequent physical contact than parts of the genome that are far apart in sequence. Nevertheless, regions of the same chromosome, even those megabases away, contact each other more often than they contact other chromosomes.
+    - Proximity Ligation: Regions of the genome that are close together in sequence generally have more frequent physical contact than parts of the genome that are far apart in sequence. Nevertheless, regions of the same chromosome, even those megabases away, contact each other more often than they contact other chromosomes.
 
 2. **Reference - based/Sinteny - based scaffolding**
 
@@ -170,7 +170,7 @@ With:
 
 - samtools index #index alignment
 
-> OPTIONAL Calulcate mean coverage of short and long reads with [Mosdepth](https://github.com/brentp/mosdepth)
+> OPTIONAL Calculate mean coverage of short and long reads with [Mosdepth](https://github.com/brentp/mosdepth)
 
 #### Hypo (~ 43 mins with 30 threads)
 

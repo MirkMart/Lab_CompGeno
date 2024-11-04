@@ -228,7 +228,7 @@ Now you must change the maker config file specifing :
 2. The path of the SNAP models.
 3. The name of the Augusutus models.
 4. Deactive `protein2genome` and `est2genome` (only if you are changing the previous control file).
-5. In the case you want to perform a third round, remeber to change also pred_stats from 0 to 1.
+5. In the case you want to perform a third round, remember to change also pred_stats from 0 to 1.
 
 Finally, run again MAKER and collect the gff and protein/transcript files.
 
