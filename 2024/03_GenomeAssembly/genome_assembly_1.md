@@ -148,12 +148,11 @@ Softwares : [Minimap2](https://github.com/lh3/minimap2); [Hypo](https://github.c
 #### Pre-requisite: Mapping short and long reads (sr ~50 mins with 30 threads + pac ~49 mins with 30 threads)
 
 ```bash
-minimap2 -ax <PRESET_Options> --MD -t <cores_number> <target.fa> <fastq>
+minimap2 -ax <PRESET_Options> --MD -t <cores_number> <target.fa> <fastq1> <fastq2> > <SAM_FILE>
 samtools view -Sb <SAM FILE> > <BAM FILE>
 rm <SAM FILE>
 samtools sort -@<NUM_THREADS> -o <OUT_FILE> <INFILE>
 samtools index <INFILE>
-echo -e "$R1\n$R2" > <READS_PATH>
 ```
 
 With:
@@ -170,11 +169,12 @@ With:
 
 - samtools index #index alignment
 
-> OPTIONAL Calculate mean coverage of short and long reads with [Mosdepth](https://github.com/brentp/mosdepth)
+> INDIVIDUAL WORK Calculate mean coverage of short and long reads with [Mosdepth](https://github.com/brentp/mosdepth). Solutions are [here](./mosdepth_solution.md)
 
 #### Hypo (~ 43 mins with 30 threads)
 
 ```bash
+echo -e "$R1\n$R2" > <READS_PATH>
 hypo -d <DRAFT_Contigs> -r <READS_PATH> -s <APPROXIMATE_GENOMESIZE> -c <SHORT_READSCOVERAGE> -b <SORTED_BAM_SR> -B <SORTED_BAM_PB> -t <NUMBER_THREADS>
 ```
 
@@ -192,7 +192,7 @@ assembly-stats <ASSEMBLY> > <stats_log>
 busco -m <MODE> -l <LINEAGE> -c <CPU_NUMBER> -o <OUTPUT_NAME> -i <INPUT>
 ```
 
-The reference database is `/home/PERSONALE/mirko.martini3/2024/Data/busco_dbs/diptera_odb10`
+The reference database is `/home/PERSONALE/mirko.martini3/01_2024/00_Data/04_busco_dbs/diptera_odb10`
 
 #### KAT (~ 17 mins with 10 threads, 10 mins with 20)
 
