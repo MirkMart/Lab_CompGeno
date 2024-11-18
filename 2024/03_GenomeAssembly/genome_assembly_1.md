@@ -193,6 +193,7 @@ assembly-stats <ASSEMBLY> > <stats_log>
 #### Busco (~ 8 mins with 30 cores, 10 with 20)
 
 ```bash
+export NUMEXPR_MAX_THREADS=<CPU_NUMBER>
 busco -m <MODE> -l <LINEAGE> -c <CPU_NUMBER> -o <OUTPUT_NAME> -i <INPUT>
 ```
 
