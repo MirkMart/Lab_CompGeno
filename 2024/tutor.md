@@ -113,6 +113,14 @@ set -g history-limit 5000
 
 ## Maker RepeatMasker
 
-During MAKER run it seems to preceed weven though there is an import error for the module `h5py` when running `/usr/local/anaconda3/envs/MAKER/share/RepeatMasker/famdb.py`. Indeed even if the conda environment is python2.7, the shebang recalls python3. For this reason I sudo changed it from `#!/usr/bin/env python3` to `#!/usr/local/anaconda3/envs/MAKER/bin/python` (path obtained with `which python` inside MAKER environment).
+During MAKER run it seems to preceed even though there is an import error for the module `h5py` when running `/usr/local/anaconda3/envs/MAKER/share/RepeatMasker/famdb.py`. Indeed even if the conda environment is python2.7, the shebang recalls python3. For this reason I sudo changed it from `#!/usr/bin/env python3` to `#!/usr/local/anaconda3/envs/MAKER/bin/python` (path obtained with `which python` inside MAKER environment).
 
 This did not resolve the problem. There was a new one about syntax. For this reason shebang returned to be the original one, but I deactivated conda and install h5py for python3 of the entire system.
+
+## Install NCBI-Datasets
+
+```bash
+sudo conda create -n datasets -c conda-forge ncbi-datasets-cli
+```
+
+Then follow the command line suggested by the genome you want to download
