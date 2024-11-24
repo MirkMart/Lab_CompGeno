@@ -52,8 +52,8 @@ Then we can open the Cron editor with 'crontab -e'. Here we apply the syntax of 
 If we want only to run the script every 20 minutes from 9.00 to 11.00 on Mondays and Tuesdays, and from 14.00 to 16.00 on Wendsday only from September to February, we add the following lines.
 
 ```bash
-*/20 9-10 * 9-12 1,2 <script_path>
-*/20 9-10 * 1-2 1,2 <script_path>
+*/20 11-12 * 9-12 1,2 <script_path>
+*/20 11-12 * 1-2 1,2 <script_path>
 */20 14-15 * 9-12 3 <script_path>
 */20 14-15 * 1-2 3 <script_path>
 ```
