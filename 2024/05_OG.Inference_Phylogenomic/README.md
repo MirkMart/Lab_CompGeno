@@ -105,6 +105,8 @@ with:
 
 This last option is particular important since we are using DISCO a bit improperly. Maintaing labels is indispensable since we are working on trees and not orthogroups, so we have to rebuild these last ones after the pruning. To do it, we will use the script [recreate_disco_ortho.sh](./recreate_disco_ortho.sh). The only thing to do specify in place of ORIGINAL_FOLDER the folder containing original orthogroups inferred by Orthofinder.
 
+You can find the script `recreate_disco_ortho.sh` in `/home/PERSONALE/mirko.martini3/00_Lab_CompGeno/2024/05_OG.Inference_Phylogenomic/recreate_disco_ortho.sh`
+
 ## Alignments and trimming
 
 Our fist step is building a species tree where branches are proportional to the mean amino acid change among species. We will work for this task with single copy complete orthogroups, those that contain every species and only one sequence for each of them.

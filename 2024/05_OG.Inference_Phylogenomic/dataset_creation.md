@@ -2,19 +2,34 @@
 
 To start a project in comparative genomics, you need genomes to compare. Once species of intereset have been identified (no more than 5-6 + _Anopheles stephensi_) you need to download their data.
 
-## Download
+## Download using NCBI datasets
 
-Modern machines can support specific tools. One example is `dataset` which has been desgined to work with NCBI datasets, the new NCBI repository for all the genomic, taxonomic, and genetic content of the famous center. In our case, you will adopt a more "direct" approach using the ftp protocol and the command `wget`.
+Modern machines can support specific tools. One example is `dataset` which has been desgined to work with NCBI datasets, the new NCBI repository for all the genomic, taxonomic, and genetic content of the famous center.
 
-Using NCBI datasets, filter genomes of interest (those already annotated) and list their accession number in a file. Controlling their FTP site, you can double check if annotation is present (`.faa` file should be present, but more in particular you are interested in `.gff`). Manually speaking, from this FTP page you can copy the link of a file you need and yse `wget` to retrieve it.
+NCBI kindly provide us the command we should run. It is similar to the following one, which has simply been cut to retrieve only the two files we need to continue with our tutorial.
+
+```bash
+#Activate Datasets environment
+datasets download genome accession <ACCESSION_NUMBER> --include gff3,genome
+```
+
+Since species we want are at least 4, I recommend you to use a for loop to iterate through many accession number, making the process easier and more direct.
+
+## Download using directly FTP
+
+A second more "direct" approach is using the ftp protocol and the command `wget`.
+
+Using NCBI datasets, filter genomes of interest (those already annotated) and list their accession number in a file. By controlling their FTP site, you can double check if annotation is present (`.faa` file should be present, but more in particular you are interested in `.gff`). Manually speaking, from this FTP page you can copy the link of a file you need and yse `wget` to retrieve it.
 
 To ease and make faster the process, you can use the script [download_genome_gff_url_ncbi](./download_genome_gff_url_ncbi.sh) that needs only the abovementioned file listing accession number of interest (optionally you can complete the file with a second column listing the ID you choose for the species and a third with its complete scientific name). This script also needs a file that summarise all assembly present in NCBI that is here `/home/PERSONALE/mirko.martini3/2024/Data/assembly_summary` (originallly, they are located in NCBI FTP site GenBank and RefSeq of folders).
 
-**Remember** not to copy but instead to get used using symlinks (`ln -S <file_to_link> <location_where_to_link>`)
+**Remember** not to copy but instead to get used using symlinks (`ln -s <file_to_link> <location_where_to_link>`)
 
 ```bash
 bash download_genome_gff_url_ncbi.sh <LIST> <ASSEMBLY_SUMMARY_GCF> <ASSEMBLY_SUMMARY_GCA>
 ```
+
+You can find the script at `/home/PERSONALE/mirko.martini3/00_Lab_CompGeno/2024/05_OG.Inference_Phylogenomic/download_genome_gff_url_ncbi.sh`
 
 ## Longest sequence and translation
 
@@ -23,6 +38,7 @@ In a genome, after annotation, it is not uncommon to have multiple isoforms of t
 ```bash
 agat_sp_keep_longest_isoform.pl --gff <GFF_file> -o <output_file>
 agat_sp_extract_sequences.pl -g <GFF_longest_file> -f <FASTA_file> -t cds -p --cfs --output <output_file>
+#N.B. AGAT use a particular module that wants FASTA file to be wrappend. Here it is important NOT to have single line FASTA. If you already have, try to use the command 'fold'
 ```
 
 option description:
@@ -51,6 +67,8 @@ Then run the script [pseudogene_find_eliminate.sh](./pseudogene_find_eliminate.s
 ```bash
 bash pseudogene_find_eliminate.sh
 ```
+
+You can find the script here `/home/PERSONALE/mirko.martini3/00_Lab_CompGeno/2024/05_OG.Inference_Phylogenomic/pseudogene_find_eliminate.sh`
 
 ## Days of Future Past
 

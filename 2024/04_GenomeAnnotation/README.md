@@ -194,7 +194,7 @@ forge <export.ann> <export.dna> #call the parameter estimation program, better i
 hmm-assembler.pl <NAME> <FORGE DIRECTORY> > <OUTPUT HMM FILE>
 ```
 
-With in the `maker2zff` command:
+With:
 
 - -c #The fraction of splice sites confirmed by an EST alignment, default 0.5 (50% of the splice sites should be supported by EST data).
 - -e #The fraction of exons that overlap an EST alignment, default 0.5 (50% of the exons in a predicted gene must overlap with an EST for the gene to be kept).
@@ -251,9 +251,9 @@ agat_sp_statistics.pl #script for summary statistic, it will take some minutes t
 
 For Busco you should already know how to run it.
 
-`/home/PERSONALE/jacopo.martelossi2/scripts/AED_cdf_generator.pl` : script for summarize cumulative distribution of AED values.
+`/home/PERSONALE/mirko.martini3/01_2024/03_scripts/AED_cdf_generator.pl` : script for summarize cumulative distribution of AED values.
 
-`/home/PERSONALE/jacopo.martelossi2/scripts/quality_filter.perl` : script for filter gene models based on AED values.
+`/home/PERSONALE/mirko.martini3/01_2024/03_scripts/quality_filter.perl` : script for filter gene models based on AED values.
 
 -----
 

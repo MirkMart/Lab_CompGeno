@@ -6,8 +6,8 @@
 mkdir 00_raw_proteomes
 mv *.fa 00_raw_proteomes/
 
-for proteome in *.faa; do
-	species=$(basename -s .faa "$proteome")
+for proteome in 00_raw_proteomes/*.fa; do
+	species=$(basename -s .fa "$proteome")
 	grep -B1 '*' "$proteome" | grep ">" - >> "$species"_pseudogenes_name.txt
 done
 
@@ -16,7 +16,7 @@ done
 for pseudo_file in *_pseudogenes_name.txt; do
 	species=$(basename -s _pseudogenes_name.txt "$pseudo_file")
 	while IFS=$'\t' read -r header; do
-		sed -E -i "/${header}/{N;d;}" "$species".faa # N option loads the next line found after the pattern and put it into pattern space too; d delete the pattern space
+		sed -E -i "/${header}/{N;d;}" 00_raw_proteomes/"$species".fa # N option loads the next line found after the pattern and put it into pattern space too; d delete the pattern space
 	done < "$pseudo_file" 
 done 
 

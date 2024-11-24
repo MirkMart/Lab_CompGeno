@@ -183,7 +183,8 @@ gunzip feature_table.txt.gz
 bash /home/PERSONALE/jacopo.martelossi2/scripts/Longest_Isoform.bash feature_table.txt file.protein.faa
 #Check feature_count on coding_genes, should be equal to grep -c ">" of protein.NoIsoform.faa
 
-#Re-format the downloaded proteoms headers keeping the id and the species id_name (es. XP_007 | Aalb)
+#Re-format the downloaded proteoms headers keeping the id and the species id_name (es. Anoste|XP_007). For our annotation proteine with an incremental numeration will do it.
+awk '/^>/ {printf ">Anoste|protein%d\n", ++count; next} {print}' Anoste_anno2.all.maker.proteins.fasta > Anoste.faa
 sed -E 's/^>([^ ]+).*/>\1|Species/' your_input.fasta > modified_output.fasta
 
 #Re-format the Aste_proteom by keeping gene id and adding Aste
