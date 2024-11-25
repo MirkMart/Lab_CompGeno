@@ -53,7 +53,7 @@ With:
 - -w #ensures to mach the exact name
 - -v #invert the recognised pattern
 - -Ff #compares directly to file
-- - #use as stdin the stdout of the precedent command
+- '-' #use as stdin the stdout of the precedent command
 
 To use it we have to create a file where we list all contaminated contigs. To do so, we have to decide based on which parameters we can filter our blobDB_table.
 
