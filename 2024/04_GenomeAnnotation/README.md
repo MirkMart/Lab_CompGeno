@@ -34,7 +34,7 @@ For a quick and dirty transposons annotation we usually used **[RepeatModeler](h
 
 Due to computationally limits I have alredy run RepeatModeler for you, the path of the consensus library is:
 
-> /home/PERSONALE/mirko.martini3/2024/Data/annotation/Anoste_RepeatModeler_library.fa
+> /home/PERSONALE/mirko.martini3/01_2024/00_Data/02_annotation/Anoste_RepeatModeler_library.fa
 
 RepeatMasker will be run inside Maker and we will summarize results at the end.
 
