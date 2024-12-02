@@ -23,12 +23,12 @@ However, as usual in biology, be aware of this latest corollary, recently orthol
 
 Orthology is **always** defined by phylogenetics and unit of comparison:
 
-1. **One-to-one ortologs:** in both species is present only one copy of the gene, arise after speciation event (x1 and y1, x2 and y2).
-2. **Many-to-one** and **one-to-many ortologs:** after specieation event, one or more duplication events occured in one of the two lineages, as a result we have **three or more** ortholog genes (x2 and z1)!
+1. **One-to-one orthologs:** in both species is present only one copy of the gene, arise after speciation event (x1 and y1, x2 and y2).
+2. **Many-to-one** and **one-to-many ortologs:** after specieation event, one or more duplication events occured in one of the two lineages, as a result we have **three or more** ortholog genes (x1, y1, and z1)!
 3. **Many-to-many ortologs:** after speciation event, one or more duplications events occured in both lineages, as a result we have **multiple copies** of ortologs genes.
-4. **Paralogs:** (x1 and x2, x1 and y2)
-5. **In-paralogs:** is definied over a triplet. It involves a pair of genes and a speciation event of reference. A gene pair is an in-paralog if they are paralogs and duplicated after the speciation event of reference (x1 and y2 with respect to S1).
-6. **Out-paralogs:** is also a relation defined over a pair of genes and a speciation event of reference. This pair is out-paralogs if the duplication event through which they are related to each other predates the speciation event of reference (x1 and y2 with respect to S2).
+4. **Paralogs:** (x1 and x2, y1 and y2)
+5. **In-paralogs:** is definied over a triplet. It involves a pair of genes and a speciation event of reference. A gene pair is an in-paralog if they are paralogs and duplicated after the speciation event of reference (x1 and x2 with respect to S1).
+6. **Out-paralogs:** is also a relation defined over a pair of genes and a speciation event of reference. This pair is out-paralogs if the duplication event through which they are related to each other predates the speciation event of reference (x1 and x2 with respect to S2).
 
 ![Example](../99_Figures/Orthologs_Paralogs.png)
 
