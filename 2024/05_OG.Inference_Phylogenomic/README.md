@@ -30,7 +30,7 @@ Orthology is **always** defined by phylogenetics and unit of comparison:
 5. **In-paralogs:** is definied over a triplet. It involves a pair of genes and a speciation event of reference. A gene pair is an in-paralog if they are paralogs and duplicated after the speciation event of reference (x1 and y2 with respect to S1).
 6. **Out-paralogs:** is also a relation defined over a pair of genes and a speciation event of reference. This pair is out-paralogs if the duplication event through which they are related to each other predates the speciation event of reference (x1 and y2 with respect to S2).
 
-![Example](../Figures/Orthologs_Paralogs.png)
+![Example](../99_Figures/Orthologs_Paralogs.png)
 
 ...and others (see chapter "Inferring Orthology and Paralogy" [Anisimova, 2019](https://core.ac.uk/download/pdf/289121767.pdf)).
 
@@ -47,7 +47,7 @@ If we are setting up an experiment involving the Sanger sequencing of a marker, 
 
 If we are dealing with NGS data such as transcriptomes or WGA we have a lot of nice software to choose from, one of the most popolar is...
 
-## [Orthofinder](https://github.com/davidemms/OrthoFinder)
+## [Orthofinder](https://github.com/davidemms/OrthoFinder) (no more than 15 minutes with 40 CPUs)
 
 In brief, Orthofinder alghoritm is subdivided into 4 major steps:
 
@@ -56,7 +56,7 @@ In brief, Orthofinder alghoritm is subdivided into 4 major steps:
 3. **gene tree** inference and rooting for each orthogroup.
 4. Inference of **orthologs and gene duplication events** reconciling rooted specie and gene trees.
 
-The detailed explanation of each step is not the aim of this course, hoever if you are interested in orthology inference you should have a look at the two Orthofinder papers ([Emms and Kelly, 2015](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-015-0721-2?optIn=false) and [Emms and Kelly, 2019](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1832-y)). Just take in mind the extremely importance of the *bi-directional best hit*, indeed is the only way to take into account possible gene loss in one of the two lineages. (Think about what can happen in orthology inference if the blue human gene in figure 1A would be lost...).
+The detailed explanation of each step is not the aim of this course, however if you are interested in orthology inference you should have a look at the two Orthofinder papers ([Emms and Kelly, 2015](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-015-0721-2?optIn=false) and [Emms and Kelly, 2019](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1832-y)). Just take in mind the extremely importance of the *bi-directional best hit*, indeed is the only way to take into account possible gene loss in one of the two lineages. (Think about what can happen in orthology inference if the blue human gene in figure 1A would be lost...).
 
 Beside these teoretically, but important questions, one of the most valuable things about Orthofinder is its *usability*. A *quick-and-dirty* Orthofinder analyses can be simply run with:
 
@@ -64,34 +64,32 @@ Beside these teoretically, but important questions, one of the most valuable thi
 orthofinder -f <proteoms_folder>
 ```
 
-However remember that isoforms should be removed from a proteom before performing OG inference. If you downloaded proteoms from NCBI RefSeq **GCF** genomes you can use:
-
-```bash
-/home/PERSONALE/jacopo.martelossi2/scripts/Longest_Isoform.bash <FEATURE_FILE> <PROTEOME>
-```
-
-Remember that it is always a good practice to rename (using e.g. `sed`) proteome headers just be sure to keep a unique identifier. *e.g* `<PROTEIN/GENE_NAME>|<SPECIE_NAME>`
+> Remember to remove isoforms from a proteom before performing OG inference
+> Remember that it is always a good practice to rename (using e.g. `sed`) proteome headers just be sure to keep a unique identifier. *e.g* `<SPECIE_NAME>|<PROTEIN/GENE_NAME>` or `<PROTEIN/GENE_NAME>|<SPECIE_NAME>`. In our pipeline it is not demanding since Orthofinder run will paste the name of the proteome to the sequence header, doing it for us.
 
 NB: In our case having the species name clearly separated from the gene/protein name is **foundamental**!
 
-Orthofinder will print a lot of usefull ouputs. Some of the most important (IMO) are: ```Comparative_Genomics_Statistics/Statistics_Overall.tsv``` and ```Comparative_Genomics_Statistics/Statistics_PerSpecies.tsv```
+Orthofinder will print a lot of usefull ouputs. Some of the most important (IMO) are: `Comparative_Genomics_Statistics/Statistics_Overall.tsv` and `Comparative_Genomics_Statistics/Statistics_PerSpecies.tsv`
 
 Orthogrorups can be found in:
 
 * `Orthogroup_Sequences`
 * `Single_Copy_Orthologue_Sequences`
 
-We are going to use this latest file for a simple phylogenetic inference.
+We are going to use these latest files for a simple phylogenetic inference.
 
 ## Paralog filtering
 
 After orthology inference, paralogs can get into the way. There are many programs that deal with this problem. Two are [DISCO](https://github.com/JSdoubleL/DISCO/) and [PhyloPyPruner](https://pypi.org/project/phylopypruner/). Differently than Orthofinder, these two program compute phylogenetic tree-based orthology inference. To make everything easier we will use DISCO.
 
-DISCO script requires a specific header syntax to properly work. Luckily, the supported syntax is the one we alrady implemented and used so far (SPECIES|SEQUENCE_ID). The script wants as inputs simple gene tree, **not** resolved ones (they represent a more direct Orthofinder output without any further elaboration).
+DISCO script requires a specific header syntax to properly work. Luckily, the supported syntax is the one we alrady implemented and used so far (SPECIES|SEQUENCE_ID). The script wants as inputs simple gene tree, **not** resolved ones (they represent a more direct Orthofinder output without any further elaboration). Before running it install treeswift if it is not in `text_env`.
 
 ```bash
-python3 disco.py -i <TREE> -o <OUTPUT> -d "|" -m <N_SPECIES_TO_MAINTAIN> --remove_in_paralogs --single_tree --keep-labels 2>/dev/null
+pip install treeswift #it is a common command to install python modules
+python3 disco.py -i <TREE> -o <OUTPUT> -d "|" -m <N_SPECIES_TO_MAINTAIN> --remove_in_paralogs --single_tree --keep-labels --verbose 2>/dev/null
 ```
+
+You can find the disco script here `/home/PERSONALE/mirko.martini3/00_Lab_CompGeno/2024/05_OG.Inference_Phylogenomic/disco.py`
 
 with:
 
@@ -103,19 +101,13 @@ with:
 * --single_tree #only output single large tree
 * --keep-labels #Keep original leaf labels instead of relabeling them with their species labels
 
-This last option is particular important since we are using DISCO a bit improperly. Maintaing labels is indispensable since we are working on trees and not orthogroups, so we have to rebuild these last ones after the pruning. To do it, we will use the script [recreate_disco_ortho.sh](./recreate_disco_ortho.sh). The only thing to do specify in place of ORIGINAL_FOLDER the folder containing original orthogroups inferred by Orthofinder.
+This last option is particular important since we are using DISCO a bit improperly. Maintaing labels is indispensable since we are working on trees and not orthogroups, so we have to rebuild these last ones after the pruning. To do it, we will use the script [recreate_disco_ortho.sh](./recreate_disco_ortho.sh). The only thing to do specify in place of ORIGINAL_FOLDER the folder containing original orthogroups inferred by Orthofinder. Before that remember to delete those files that did not pass our filter and had not been populated (N.B. try to do it by yourself)
 
 You can find the script `recreate_disco_ortho.sh` in `/home/PERSONALE/mirko.martini3/00_Lab_CompGeno/2024/05_OG.Inference_Phylogenomic/recreate_disco_ortho.sh`
 
 ## Alignments and trimming
 
 Our fist step is building a species tree where branches are proportional to the mean amino acid change among species. We will work for this task with single copy complete orthogroups, those that contain every species and only one sequence for each of them.
-
-First of all you need to modify the header of OG keeping only the species name. This step is necessary if you want to concatenate all genes in a single super-matrix.
-
-```text
->SPECIE_NAME
-```
 
 Now we can perform single-gene alignments using [mafft](https://mafft.cbrc.jp/alignment/server/) in AUTO mode.
 
@@ -127,10 +119,10 @@ mafft --auto --anysymbol <FASTA_FILE> > <OUTPUT_FILE>
 
 Usually when working with alignments is a good idea to remove gappy position and/or unalignable regions. This step could not only improve species-tree inference but also speed up analyses. For this task we are using [BMGE](https://gitlab.pasteur.fr/GIPhy/BMGE).
 
-BMGE is a sequence trimmer developed to improve the quality of multiple sequence alignments by identifying and removing poorly aligned regions using an entropy-based approach. Another important parameter is `-g`, which specifies how to treat gap positions. The two numbers given to the option are <col_rate:row_rate>: the first one indicates sequence completeness (sequences with more than <col_rate>% of gaps are eliminated), while the second controls gap positions (vertically, those positions with more than <row_rate>% absence are eliminated).
+BMGE is a sequence trimmer developed to improve the quality of multiple sequence alignments by identifying and removing poorly aligned regions using an entropy-based approach. Another important parameter is `-g`, which specifies how to treat gap positions (vertically, positions with more than <row_rate>% absence are eliminated).
 
 ```bash
-java -jar /usr/local/BMGE-1.12/BMGE.jar -i <input_alignment> -t AA -m BLOSUM30 -h 0.5 -g <col_rate:row_rate> -of <OUTPUT_FILE> -oh <OUTPUT_HTML>
+bmge -i <input_alignment> -t AA -m BLOSUM30 -e 0.5 -g <gap> -of <OUTPUT_FILE> -oh <OUTPUT_HTML>
 ```
 
 With:
@@ -139,17 +131,21 @@ With:
 * -i #input alignment files
 * -t #sequence type. in this case AA
 * -m #matrix. When compared species are dissimilar, it is recommended to use always BLOSUM30
-* -h #maximum entropy value
-* -g # <col_rate:row_rate> : real numbers corresponding to the maximum gap rates allowed per sequence and character, respectively
+* -e #maximum entropy value
+* -g #<row_rate> : real numbers corresponding to the maximum gap rates allowed character
 * -of #output in FASTA format. Define also the output name
 * -oh #output in HTML format. Days of a future past: these outputs will be understood later
 
 **SUGGESTION:** Since we will likely have hundreds of genes, try to use a `for` cycle.
 
-To perform a species-tree inference following a supermatrix approach now we need to concatenate our single-gene alignments.
+To perform a species-tree inference following a supermatrix approach now we need to concatenate our single-gene alignments. Before doing so, you need to modify the header of trimmed aligned OGs keeping only the species name. This step is necessary if you want to concatenate all genes in a single super-matrix.
+
+```text
+>SPECIE_NAME
+```
 
 ```bash
-AMAS.py concat -y nexus -i <SINGLE_GENE_ALIGMENTS> -f fasta -d aa
+AMAS.py concat -y nexus -i <SINGLE_GENE_ALIGMENTS> -f fasta -d aa -t <name_output>
 ```
 
 Where:
@@ -159,6 +155,8 @@ Where:
 * -i #input files. They all need to be listed
 * -f #format of the input files
 * -d #type of sequence (amino acid)
+
+You can find AMAS here `/home/PERSONALE/mirko.martini3/00_Lab_CompGeno/2024/05_OG.Inference_Phylogenomic/AMAS.py`.
 
 Once we have concatenated the alignments we can directly run a phylogenetic analyses using the so called "super-matrix" and the partition file if we want to perfom a partition-based analyses (usually recomanded; see [here](http://www.iqtree.org/doc/Advanced-Tutorial) for a tutorial). For an unpartitioned analyses we only need the command:
 

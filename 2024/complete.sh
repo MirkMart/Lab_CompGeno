@@ -7,26 +7,26 @@ fastqc SRR11672503_1.fastq.gz SRR11672503_2.fastq.gz
 trimmomatic PE -threads 20 -phred33 SRR11672503_1.fastq.gz SRR11672503_2.fastq.gz SRR11672503_1_paired.fastq SRR11672503_1_unpaired.fastq SRR11672503_2_paired.fastq SRR11672503_2_unpaired.fastq ILLUMINACLIP:/usr/local/anaconda3/share/trimmomatic-0.39-2/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36 2> stats_trimmomatic
 
 ## KAT hist: compute k-mer frequency
-kat hist -o Aste_kmer27 -t 4 -m 27 Trimmomatic/SRR11672503_1_paired.fastq Trimmomatic/SRR11672503_2_paired.fastq
-# Remove comments from Aste_kmer27 and upload to GenomeScope2 to take the lenght parameter (len) for the following assembly
+kat hist -o Anoste_kmer27 -t 4 -m 27 Trimmomatic/SRR11672503_1_paired.fastq Trimmomatic/SRR11672503_2_paired.fastq
+# Remove comments from Anoste_kmer27 and upload to GenomeScope2 to take the lenght parameter (len) for the following assembly
     #http://qb.cshl.edu/genomescope/genomescope2.0/analysis.php?code=0HnIKI37lVX1nZliWksR
 
 ## Assemble reads, construction of contig layout and edge sequences
-wtdbg2 -x rs -g GenomeScope_lenght -t 6 -i SRR11672506.fastq.gz -o Aste #Contig Assembly
-wtpoa-cns -t 6 -i .ctg.lay.gz -o Aste #Consensus Sequences
+wtdbg2 -x rs -g GenomeScope_lenght -t 6 -i SRR11672506.fastq.gz -o Anoste #Contig Assembly
+wtpoa-cns -t 6 -i .ctg.lay.gz -o Anoste #Consensus Sequences
 
 ## BUSCO
 conda activate Assembly_tools
-busco -i Aste.raw.fa -m geno -l ../../../../../../PERSONALE/jacopo.martelossi2/dbs/diptera_odb10 --cpu 6 -o Aste_busco
+busco -i Anoste.raw.fa -m geno -l ../../../../../../PERSONALE/jacopo.martelossi2/dbs/diptera_odb10 --cpu 6 -o Anoste_busco
 
 ## Genome polishing
 #short-reads(sr)
-minimap2 -ax sr --MD -t 6 ../Consensus/Aste.raw.fa ../../../Fastqc/SRR11672503_1.fastq.gz ../../../Fastqc/SRR11672503_2.fastq.gz > Aste.raw-sr.sam
+minimap2 -ax sr --MD -t 6 ../Consensus/Anoste.raw.fa ../../../Fastqc/SRR11672503_1.fastq.gz ../../../Fastqc/SRR11672503_2.fastq.gz > Anoste.raw-sr.sam
 #long-reads PacBio (pb)
-minimap2 -ax map-pb --MD -t 6 ../Consensus/Aste.raw.fa ../SRR11672506.fastq.gz > Aste.raw-pb.sam
+minimap2 -ax map-pb --MD -t 6 ../Consensus/Anoste.raw.fa ../SRR11672506.fastq.gz > Anoste.raw-pb.sam
 
 ##KAT
-kat comp -o Aste.kat -t 6 '../../../Fastqc/SRR11672503_1_paired.fastq.gz ../../../Fastqc/SRR11672503_2_paired.fastq.gz' ../Consensus/Aste.raw.fa
+kat comp -o Anoste.kat -t 6 '../../../Fastqc/SRR11672503_1_paired.fastq.gz ../../../Fastqc/SRR11672503_2_paired.fastq.gz' ../Consensus/Anoste.raw.fa
 
 ## Samtools script
 SAM=$1
@@ -42,23 +42,23 @@ realpath ../../../Fastqc/SRR11672503_1_paired.fastq.gz > Sr.path
 realpath ../../../Fastqc/SRR11672503_2_paired.fastq.gz >> Sr.path
 
 conda activate Mosdepth
-mosdepth -n --fast-mode --by 500 Aste.raw-sr.sorted.wgs Aste.raw-sr.sorted.bam
-zcat Aste.raw-sr.sorted.wgs.regions.bed.gz | awk '{sum += $4;count++} END {print sum / count}'
+mosdepth -n --fast-mode --by 500 Anoste.raw-sr.sorted.wgs Anoste.raw-sr.sorted.bam
+zcat Anoste.raw-sr.sorted.wgs.regions.bed.gz | awk '{sum += $4;count++} END {print sum / count}'
 
 conda activate Hypo
-hypo -d ../Consensus/Aste.raw.fa -r @Sr.path -s 224m -c 136 -B ../Polishing/Aste.raw-pb.sorted.bam -b ../Polishing/Aste.raw-sr.sorted.bam
+hypo -d ../Consensus/Anoste.raw.fa -r @Sr.path -s 224m -c 136 -B ../Polishing/Anoste.raw-pb.sorted.bam -b ../Polishing/Anoste.raw-sr.sorted.bam
 
 # Final Genome statistics
 conda activate Assembly_tools
-busco -i Hypo.fa -m geno -l ../../../../../../PERSONALE/jacopo.martelossi2/dbs/diptera_odb10 --cpu 6 -o Aste_busco
-kat comp -o Aste.kat -t 6 '../../../Fastqc/SRR11672503_1_paired.fastq.gz ../../../Fastqc/SRR11672503_2_paired.fastq.gz' Hypo.fa
+busco -i Hypo.fa -m geno -l ../../../../../../PERSONALE/jacopo.martelossi2/dbs/diptera_odb10 --cpu 6 -o Anoste_busco
+kat comp -o Anoste.kat -t 6 '../../../Fastqc/SRR11672503_1_paired.fastq.gz ../../../Fastqc/SRR11672503_2_paired.fastq.gz' Hypo.fa
 
 
 ## Secondary mapping
-minimap2 --secondary=no --MD -ax sr -t 6 ../Primary_assembly/Hypo/hypo_Aste.raw.fasta ../../Fastqc/SRR11672503_1_paired.fastq.gz ../../Fastqc/SRR11672503_2_paired.fastq.gz | samtools view -Sb - > Aste.corrected.renamed-sr.bam
-samtools sort -@10 -o Aste.corrected.renamed-sr.sorted.bam Aste.corrected.renamed-sr.bam
-rm Aste.corrected.renamed-sr.bam
-samtools index Aste.corrected.renamed-sr.sorted.bam
+minimap2 --secondary=no --MD -ax sr -t 6 ../Primary_assembly/Hypo/hypo_Anoste.raw.fasta ../../Fastqc/SRR11672503_1_paired.fastq.gz ../../Fastqc/SRR11672503_2_paired.fastq.gz | samtools view -Sb - > Anoste.corrected.renamed-sr.bam
+samtools sort -@10 -o Anoste.corrected.renamed-sr.sorted.bam Anoste.corrected.renamed-sr.bam
+rm Anoste.corrected.renamed-sr.bam
+samtools index Anoste.corrected.renamed-sr.sorted.bam
 
 ## BLAST
 blastn -query <ASSEMBLY> -db <PATH/TO/nt/> -outfmt '6 qseqid staxids bitscore std sscinames sskingdoms stitle' -max_target_seqs 25 -max_hsps 1 -num_threads 25 -evalue 1e-25 -out <OUTFILE>
@@ -69,18 +69,18 @@ blastn -query <ASSEMBLY> -db <PATH/TO/nt/> -outfmt '6 qseqid staxids bitscore st
 ## Contaminats detection - BlobTools Workflow A
 conda activate blobtools
 
-../../blobtools/blobtools create -i ../Assembly/Primary_assembly/Hypo/hypo_Aste.raw.fasta -b ../Assembly/Primary_assembly/Polishing/Aste.raw-sr.sorted.bam -t hypo_Aste.raw.blastn -o Aste.corrected1
-../../blobtools/blobtools view -i Aste.corrected1.blobDB.json -o Aste-phylum #view the contaminants contigs to remove
-../../blobtools/blobtools plot -i Aste.corrected1.blobDB.json -o Aste-phylum #view contigs in the plot and search for contaminants
+../../blobtools/blobtools create -i ../Assembly/Primary_assembly/Hypo/hypo_Anoste.raw.fasta -b ../Assembly/Primary_assembly/Polishing/Anoste.raw-sr.sorted.bam -t hypo_Anoste.raw.blastn -o Anoste.corrected1
+../../blobtools/blobtools view -i Anoste.corrected1.blobDB.json -o Anoste-phylum #view the contaminants contigs to remove
+../../blobtools/blobtools plot -i Anoste.corrected1.blobDB.json -o Anoste-phylum #view contigs in the plot and search for contaminants
 
 ## Removing contaminants filtering by GC content
-grep -v "#" Aste-phylum.Aste.corrected.blobDB.table.txt | awk '$3 > 0.53' | grep -v "Arthropoda" | cut -f1 > contaminants_contigs.txt
-awk '{ if ((NR>1)&&($0~/^>/)) { printf("\n%s", $0); } else if (NR==1) { printf("%s", $0); } else { printf("\t%s", $0); } }' ../Assembly/Primary_assembly/Hypo/hypo_Aste.raw.fasta | grep -w -v -Ff contaminants_contigs.txt - | tr "\t" "\n" > Aste.corrected-noCont.fa
+grep -v "#" Anoste-phylum.Anoste.corrected.blobDB.table.txt | awk '$3 > 0.53' | grep -v "Arthropoda" | cut -f1 > contaminants_contigs.txt
+awk '{ if ((NR>1)&&($0~/^>/)) { printf("\n%s", $0); } else if (NR==1) { printf("%s", $0); } else { printf("\t%s", $0); } }' ../Assembly/Primary_assembly/Hypo/hypo_Anoste.raw.fasta | grep -w -v -Ff contaminants_contigs.txt - | tr "\t" "\n" > Anoste.corrected-noCont.fa
 
 ## Error correction and scaffolding
 conda activate Assembly_tools
-ragtag.py correct -t 20 <REFERENCE_GENOME> Aste.corrected-noCont.fa
-ragtag.py scaffold -C -t 20 -o ragtag_output/ <REFERENCE_GENOME> ragtag_output/Aste.correct.fa
+ragtag.py correct -t 20 <REFERENCE_GENOME> Anoste.corrected-noCont.fa
+ragtag.py scaffold -C -t 20 -o ragtag_output/ <REFERENCE_GENOME> ragtag_output/Anoste.correct.fa
     # -C creates a 0-chromosome that comprises all contigs that did not map on the reference assembly, this 0-chromosome will have to be removed
 # Reference Genome: /home/PERSONALE/jacopo.martelossi2/Data/Anopheles_stephensi/NCBI_GCF/GCF_013141755.1_UCI_ANSTEP_V1.0_chromosomes.fasta
 
@@ -95,31 +95,31 @@ maker -CTL
             # est=path/to/assembled/RNASeq (don't use it)
         # protein=/home/PERSONALE/jacopo.martelossi2/Data/Anopheles_stephensi/Proteomes/GCF_000001215.4_Release_6_plus_ISO1_MT_protein.faa
         # model_org=*leave blank
-        # rmlib=/home/PERSONALE/jacopo.martelossi2/Old_Analyses/Anopheles_stephensi/Genome_annotation/Aste-families.fa
+        # rmlib=/home/PERSONALE/jacopo.martelossi2/Old_Analyses/Anopheles_stephensi/Genome_annotation/Anoste-families.fa
         # protein2genome=1
             # unmask=1 is used to annotate and compare the unmasked genome to masked genome in order to search for genes that were included in the TE library (don't use it)
         #phred_stats=1 (AED - Annotation Edit Distance: general measure of how well the predicted gene is supported by external evidence (uses Jakkard distance: calculated by overlapping level)
         #min_protein=50
             #alt_splice=1 on,y with RNA-Seq (don't use it)
             #split_hit: if the same protein produces two alignments with a distance greater then split_hit parameter, the two alignments are considered separated hits
-maker -base Aste_rnd1
+maker -base Anoste_rnd1
 
-fasta_merge -d Aste_rnd1_master_datastore_index.log
-gff3_merge -d Aste_rnd1_master_datastore_index.log
+fasta_merge -d Anoste_rnd1_mAnoster_datastore_index.log
+gff3_merge -d Anoste_rnd1_mAnoster_datastore_index.log
 
-awk '$2 == "protein2genome"' Aste_rnd1.all.gff > protein2genome.gff
-awk '$2 == "repeatmasker"' Aste_rnd1.all.gff > RepeatMasker.gff
+awk '$2 == "protein2genome"' Anoste_rnd1.all.gff > protein2genome.gff
+awk '$2 == "repeatmasker"' Anoste_rnd1.all.gff > RepeatMasker.gff
 
 conda activate GAAS
-agat_sp_statistics.pl --gff Aste_rnd1.all.gff -o Aste_rnd1.statistics #Summary statistics of gene models
-agat_sq_repeats_analyzer.pl -i -o Aste_rnd1.repeats.analyzer #Summary statistics of repeats                    ?????
+agat_sp_statistics.pl --gff Anoste_rnd1.all.gff -o Anoste_rnd1.statistics #Summary statistics of gene models
+agat_sq_repeats_analyzer.pl -i -o Anoste_rnd1.repeats.analyzer #Summary statistics of repeats                    ?????
 
 #Launch BUSCO on protein-mode on the predicted proteome
 conda activate Assembly_tools
-busco -i Aste_rnd1.all.maker.protein.fasta -m prot -l ../../../../../PERSONALE/jacopo.martelossi2/dbs/diptera_odb10 --cpu 6 -o Aste.proteins.busco
+busco -i Anoste_rnd1.all.maker.protein.fasta -m prot -l ../../../../../PERSONALE/jacopo.martelossi2/dbs/diptera_odb10 --cpu 6 -o Anoste.proteins.busco
 
 conda activate MAKER
-maker2zff -c 0 -e 0  -l 80 -x 0.1 -d Aste_rn1.maker.output/Aste_rnd1_master_datastore_index.log    #To extract gene models based on mutiple filter criterion
+maker2zff -c 0 -e 0  -l 80 -x 0.1 -d Anoste_rn1.maker.output/Anoste_rnd1_mAnoster_datastore_index.log    #To extract gene models based on mutiple filter criterion
     #genome.dna = sequence
     #genome.ann = gene models
 cut -d" " -f5 genome.ann | sort -u | grep -v ">" | wc -l    #count the number of genes, if too much we can put more filters in maker2zff flags(-l, -x, -o)
@@ -132,43 +132,43 @@ fathom uni.ann uni.dna -export 1000 -plus               #Export and convert uni 
 mkdir Params
 forge ../export.ann ../export.dna                       #Call the parameter estimation program, better in another directory
 cd ..
-hmm-assembler.pl Aste_snap Params/ > Aste_snap.hmm
+hmm-assembler.pl Anoste_snap Params/ > Anoste_snap.hmm
 
 mkdir rnd2
-ln -s Aste_rnd1.maker.output/protein2genome.gff
-ln -s Aste_rnd1.maker.output/RepeatMasker.gff
-ln -s Aste_rnd1.maker.output/Aste.ragtag_scaffolds.chr.fa
+ln -s Anoste_rnd1.maker.output/protein2genome.gff
+ln -s Anoste_rnd1.maker.output/RepeatMasker.gff
+ln -s Anoste_rnd1.maker.output/Anoste.ragtag_scaffolds.chr.fa
 
 maker -CTL
 # maker_opts
     #change genome in maker_opts
     #change protein_gff as realpath to protein2gff
     #change rm_gff as realpath to RepeatMask
-    #change snaphmm as realpath to Aste_snap-hmm
-    #augustus_species=Aste
+    #change snaphmm as realpath to Anoste_snap-hmm
+    #augustus_species=Anoste
     #model_org=*leave blank
-    #change augustus_species=Aste
+    #change augustus_species=Anoste
     #est2genome=0
     #protein2genome=0
     #min_protein=50
     #AED_threshold=0.5
-maker -base Aste_rnd2
+maker -base Anoste_rnd2
 
-fasta_merge -d Aste_rnd2_master_datastore_index.log  # In this case there will be multiple fasta files
-gff3_merge -d Aste_rnd2_master_datastore_index.log
+fasta_merge -d Anoste_rnd2_mAnoster_datastore_index.log  # In this case there will be multiple fasta files
+gff3_merge -d Anoste_rnd2_mAnoster_datastore_index.log
 # At the end of this process we will use the maker.protein and maker.transcript files of proteins predicted by maker
 
 #Final statistics
 conda activate GAAS
-agat_sp_statistics.pl --gff Aste_rnd2.all.gff -o Aste_rnd2.statistics #Summary statistics of gene models
+agat_sp_statistics.pl --gff Anoste_rnd2.all.gff -o Anoste_rnd2.statistics #Summary statistics of gene models
 agat_sq_repeats_analyzer.pl  #Summary statistics of repeats
 
 #Launch BUSCO on protein-mode on the predicted proteome
 conda activate Assembly_tools
-busco -i Aste_rnd2.all.maker.protein.fasta -m prot -l ../../../../../PERSONALE/jacopo.martelossi2/dbs/diptera_odb10 --cpu 6 -o Aste.proteins.busco
+busco -i Anoste_rnd2.all.maker.protein.fasta -m prot -l ../../../../../PERSONALE/jacopo.martelossi2/dbs/diptera_odb10 --cpu 6 -o Anoste.proteins.busco
 
 conda activate MAKER
-/home/PERSONALE/jacopo.martelossi2/scripts/AED_cdf_generator.pl -b 0.025 Aste_rnd2.all.maker.gff > AED.stats #plot in R with ggplot2
+/home/PERSONALE/jacopo.martelossi2/scripts/AED_cdf_generator.pl -b 0.025 Anoste_rnd2.all.maker.gff > AED.stats #plot in R with ggplot2
     # -b :intervals every 0.025
 # Cumulative distribution of AED: what percentage of our dataset has a value equal or lower then an x value (AED)
 # AED is better when lower (indicates the quality of annotation)
@@ -184,11 +184,11 @@ bash /home/PERSONALE/jacopo.martelossi2/scripts/Longest_Isoform.bash feature_tab
 #Check feature_count on coding_genes, should be equal to grep -c ">" of protein.NoIsoform.faa
 
 #Re-format the downloaded proteoms headers keeping the id and the species id_name (es. Anoste|XP_007). For our annotation proteine with an incremental numeration will do it.
-awk '/^>/ {printf ">Anoste|protein%d\n", ++count; next} {print}' Anoste_anno2.all.maker.proteins.fasta > Anoste.faa
-sed -E 's/^>([^ ]+).*/>\1|Species/' your_input.fasta > modified_output.fasta
 
-#Re-format the Aste_proteom by keeping gene id and adding Aste
-sed 's/>augustus_masked-\(.*\)-gene-\(.*\)-mRNA-1 protein/>gene-\2|Aste/' your_input.fasta > your_output.fasta
+for prot in *.faa; do sed -i -E "s/>(.[^-]+)-([XM|NM]_[0-9]*\.[0-9]) (.+$)/>\2/" "$prot"; done
+
+#Re-format the Anoste_proteom by keeping gene id and adding Anoste
+awk '/^>/ {printf ">protein%d\n", ++count; next} {print}' Anoste_anno2.all.maker.proteins.fasta > Anoste.faa
 
 
 ## Orthology inference
@@ -200,43 +200,43 @@ cd Orthogroups/
 #Orthogroups.tsv : For every orthogroup there are proteins associated
 #Orthogroups.GeneCount.tsv : Percentage or number of proteins per species
 
-#Align single copy orthogroups
-cd Analysis/Tree/Aln/
-ln -s Single_Copy_Orthologue_Sequences/
-for i in OG000*; do mafft --auto --thread 10 "$i" > "${i/.fa/.mafft}"; done
+#incrementing single copy orthogroups pruning those multicopy. Then delete those that did not pass our filter and are empty
+for tree in *; do echo "$tree"; python3 01_DISCO/disco.py -i "$tree" -o 01_DISCO/${tree/_tree.txt/_disco.nwk} -d "|" -m 3 --remove_in_paralogs --single_tree --keep-labels --verbose 2>/dev/null; done > 01_DISCO/disco.log
+find . -type f -empty -delete
+#delete those that are already known to be single copy complete
+for fa in 00_orthofinder/Results_Nov30/Single_Copy_Orthologue_Sequences/*.fa; do name=$(basename $fa); rm ${name/.fa/_disco.nwk}; done
+#recreate new orthogroups
+bash /home/PERSONALE/mirko.martini3/00_Lab_CompGeno/2024/05_OG.Inference_Phylogenomic/recreate_disco_ortho.sh ../../00_orthofinder/Results_Nov30/Orthogroup_Sequences
 
-for i in *.mafft; do trimal -in "$i" -gappyout -out "${i/.mafft/.trimmed.mafft}"; done
+#Align single copy orthogroups
+for fa in *; do mafft --auto --anysymbol "$fa" > 02_aligned/00_single_complete/${fa/.fa/_aligned.fa}
+
+for fa in *; do bmge -i "$fa" -t AA -m BLOSUM30 -e 0.5 -g 0.4 -of 03_trimmed/00_fasta/00_single_complete/${fa/_aligned.fa/_trimmed.fa} -oh 03_trimmed/01_html/${fa/_aligned.fa/_trimmed.html}; done
 #Trimming reduces alignment dimension, reducing computational time
 
 # NCBI alignment viewer: used to see alignment coverage (view variable regions and core regions)
     #View one trimmed and one non-trimmed sequence: After trimming all major drops in coverage are removed
 
 # Concatenating protein fasta
-for i in *trimmed.mafft; do sed 's/>.*|/>/' "$i" > "${i/.mafft/.renamed.mafft}"; done
-AMAS.py concat -y nexus -i *renamed.mafft -f fasta -d aa
+for fa in *; do sed -i -E 's/\|.+$//g' "$fa"; done
+python3 AMAS.py concat -y nexus -i *.fa -f fasta -d aa -c 10 -t cosncatenated.nexus
 #Creates a concatenated file and a partitioning file in nexus format(.txt)
 
-## Phylogenetic inference
-conda activate test_env
-cd Tree/iqtree
-iqtree -s concatenated.out -spp partitions.txt -bb 1000 -nt AUTO
-    # -spp: proportional branches based on the partition file, this allows to estimate longer or shorter branches for each partition
+## Phylogenetic inference (~40 hours with 25 CPUs)
+iqtree -m TESTNEW -bb 1000 -s concatenated.nexus --prefix species_tree -nt AUTO    
+    # -p: optional if you want to infere based on partition (one per each gene)
     # -bb 1000: one thousand of bootstrap, although this is ultrafast bootstrap so you need at least 1000 replicates (100 with std bootstrap)
 
-# Partitions.txt.treefile (newick format)
+# species_tree.treefile (newick format)
     # itol online (https://itol.embl.de/upload.cgi) to view treefile file
 
 ## Divergence Time Estimation
-cd Tree/Time_tree
 #Find secondary calibration information on timetree (https://timetree.org/) using adjusted_time
 #Create time estimation file
-nano Dates.txt
-    #taxon1,taxon2  -calibration_time (scale is not important as long as it is consistent)
-    #Aste,Llon  -241
+vi calibration.txt
 
-iqtree -s concatenated.out --date Dates.txt --date-tip 0 -o "<taxon>" -spp partitions.txt.best_scheme.nex -nt 6 --prefix Time.Tree --date-options "-u 1 -k" -te partitions.txt.treefile
+iqtree -s ../../02_Orthogroups/03_trimmed/00_fasta/concatenated.nexus --date calibration.txt --date-tip 0 -o Dromel -m TESTNEW -nt 6 --prefix time_tree --date-options "-u 1"
     #-u : branches shorter than 1 collapse in a politomy
-# Time.Tree.timetree.nex (nexus format) to view on ITOL
 
 ## CAFE
 mkdir CAFE
@@ -256,8 +256,8 @@ conda activate CAFE
 #Base_family_results.txt: family id - p-value - is there a significant change in the branch?
 cut -f3 Base_family_results.txt | sort | unique -c #to see how many families have significant changes
 
-grep "Aste<5>\*" Base_asr.tre | wc -l #to find all significant modifications in Aste branch
-varAste=$(grep "<5>\*" Base_asr.tre | cut -d ":" -f8 | cut -d"_" -f2)
+grep "Anoste<5>\*" Base_asr.tre | wc -l #to find all significant modifications in Anoste branch
+varAnoste=$(grep "<5>\*" Base_asr.tre | cut -d ":" -f8 | cut -d"_" -f2)
 varAaeg=$(grep "<1>\*" Base_asr.tre | cut -d ":" -f1 | cut -d"_" -f2)
 varAsub=$(grep "<2>\*" Base_asr.tre | cut -d ":" -f2 | cut -d"_" -f2)
 varCqui=$(grep "<4>\*" Base_asr.tre | cut -d ":" -f6 | cut -d"_" -f2)
@@ -266,15 +266,15 @@ varWsmi=$(grep "<3>\*" Base_asr.tre | cut -d ":" -f4 | cut -d"_" -f2)
 var8=$(grep "<5>\*" Base_asr.tre | cut -d":" -f9 | cut -d"_" -f2) #previous node (8) value for significant families
 varOG=$(grep "<5>\*" Base_asr.tre | cut -d" " -f4)
 
-paste <(printf %s "$varOG") <(printf %s "$varAste") <(printf %s "$var8") > Aste_Significant.txt
+pAnoste <(printf %s "$varOG") <(printf %s "$varAnoste") <(printf %s "$var8") > Anoste_Significant.txt
 #upload to R and create another column that subtracts the first and the second column: based on if it's negative or positive it is a contraction or expansion
-awk '{print $0, $2 - $3}' Aste_Significant.txt > Aste_Significant.txt.diff
-sort -k4,4n Aaeg_Significant.txt.diff | grep -v "-" | awk '{print $1}' > Aste_Significant.GO
-while read line; do grep "Aste" Orthofinder/orthogroup_Sequences/"$line"*.fa; done < Aste_Significant.GO > Aste_Significant_Genes.txt
+awk '{print $0, $2 - $3}' Anoste_Significant.txt > Anoste_Significant.txt.diff
+sort -k4,4n Aaeg_Significant.txt.diff | grep -v "-" | awk '{print $1}' > Anoste_Significant.GO
+while read line; do grep "Anoste" Orthofinder/orthogroup_Sequences/"$line"*.fa; done < Anoste_Significant.GO > Anoste_Significant_Genes.txt
 
 
 #Panzer2: reasearch by homology of GO-Terms (http://ekhidna2.biocenter.helsinki.fi/sanspanz/)
-    #upload all Aste proteins
+    #upload all Anoste proteins
     #GO prediction: Arthropoda
 
 http://ekhidna2.biocenter.helsinki.fi/barcosel/tmp//VvjXh3TeoFe/index.html

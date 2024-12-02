@@ -1,4 +1,4 @@
-# Divergence Time Estimation
+# Divergence Time Estimation (1h40m with 6 CPUs)
 
 **IMPORTANT:** Use CAFE conda environemnt for iqtree dating!
 
@@ -10,7 +10,7 @@ As previusly said ML can overcome this issue and, as almost everything, we can c
 
 This are the mains functions provided by IQ-TREE:
 
-![time tree reconstruction](../Figures/LSD.png)
+![time tree reconstruction](../99_Figures/LSD.png)
 
 **Tip dating** is commonly used in two different scenarios:
 
@@ -29,12 +29,18 @@ taxon3,taxon4,taxon5 -100
 taxon6 -10
 ```
 
-which, for example, mean that the most recent common ancestor (MRCA) of taxon1 and taxon2 was 50 mya (million year ago) and the MRCA of taxon3, taxon4, taxon5 was 100 mya. Note that **no empty space** should be added to the comma-separated list of taxa, as empty space is used as a separator between taxon list and dates.
+which, for example, mean that the most recent common ancestor (MRCA) of taxon1 and taxon2 was 50 mya (million year ago) and the MRCA of taxon3, taxon4, taxon5 was 100 mya. Note that **no empty space** should be added to the comma-separated list of taxa, as empty space is used as a separator between taxon list and dates. Scale is not consistent if we are consistent.
 
 Now we arer ready to perform our divergence time estimation
 
 ```bash
-iqtree -s <CONCATENATED ALIGNMENT --date <CALIBRATION FILE> --date-tip 0 -o <OUTGROUP> -m TESTNEW -nt 6 --prefix Time.Tree --date-options "-u 1 -k" 
+iqtree -s <CONCATENATED ALIGNMENT> --date <CALIBRATION FILE> --date-tip 0 -o <OUTGROUP> -m TESTNEW -nt 6 --prefix time_tree --date-options "-u 1" 
 ```
+
+with:
+
+- --date-tip 0 #disables tip dating
+- --date #enable fossil calibration dating
+- --date-options "-u 1 -k" # `-u 1` restrain the minimum branch length to 1. `-k` confirm to use fossils calibration
 
 **NB:** Whis command will re-estimate a species tree with an unpartioned model, you should add the flags ```-te <SPECIES TREE``` and ```-spp BEST-FITTING PARTITIONING SCHEME>``` if you want to re-use a previoulsy estimated species tree and best-fit partitioning scheme.

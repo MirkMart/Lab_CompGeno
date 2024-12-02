@@ -56,7 +56,7 @@ option description:
 
 Even though you cannot untrust everything is made by someone else or by a program, it is ture that sometimes you are true. Annotation files contains mistakes, and sequences labeled with the CDS tag can contain STOP codons inside the sequences. In this case you are looking at a pseudogene, not a gene, and you must delete it from your proteome/genome since you are interested only in working coding sequences.
 
-The first thign to do is to transform your multi line FASTA into a single line FASTA (a common practise since many programs do not recognise multi line FASTA).
+The first thing to do is to transform your multi line FASTA into a single line FASTA (a common practise since many programs do not recognise multi line FASTA). Specifically in this case it is not demanding since it is the first step performed by the script for psedogene removal.
 
 ```bash
 awk '{if(NR==1) {print $0} else {if($0 ~ /^>/) {print "\n"$0} else {printf $0}}}' <multi_line_proteome> > <single_line_proteome>
