@@ -1,15 +1,17 @@
 #!/bin/bash
 
-if [ ! -d "../disco_single_OG" ]; then
-  mkdir -p "../disco_single_OG"
+#create output folder
+if [ ! -d "../01_disco_single_OG" ]; then
+  mkdir -p "../01_disco_single_OG"
 fi
 
+OG_folder=$1
+
 # recreate orthogroups using original ones
-for tree in *.tre; do
-	name=$(basename -s .tre "$tree")
-	OG=$(basename -s .tre "$tree")
+for tree in *.nwk; do
+	OG=$(basename -s _disco.nwk "$tree")
 	while IFS= read -r sequence; do
-		grep -A1 "$sequence" ORIGINAL_FOLDER/"$OG".fa >> ../disco_single_OG/"$name".fa
-	done < <(grep -o -E "[A-Z][a-z]{4}.[^:]+" "$tree")
+		grep -A1 "$sequence" "$OG_folder"/"$OG".fa >> ../01_disco_single_OG/"$OG".fa
+	done < <(grep -o -E "[A-Z][a-z]{5}.[^:]+" "$tree")
 done
 

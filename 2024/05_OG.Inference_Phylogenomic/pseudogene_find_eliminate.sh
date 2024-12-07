@@ -1,24 +1,32 @@
 #!/bin/bash/
 
 # list each plausible pseudogene present. 
-# raw proteomes should have *.fa extension
 
-mkdir 00_raw_proteomes
-mv *.fa 00_raw_proteomes/
+mkdir raw_proteomes
+mv *.faa raw_proteomes/
 
-for proteome in 00_raw_proteomes/*.fa; do
-	species=$(basename -s .fa "$proteome")
-	grep -B1 '*' "$proteome" | grep ">" - >> "$species"_pseudogenes_name.txt
+#make proteome one line
+cd raw_proteomes
+for proteome in *.faa; do
+	awk '{if(NR==1) {print $0} else {if($0 ~ /^>/) {print "\n"$0} else {printf $0}}}' "$proteome" > ../${proteome/.faa}".faa"
+done
+cd ..
+
+#Extract all pseudogene names
+mkdir 00_pseudogene_name
+
+for proteome in *.faa; do
+	species=$(basename -s .faa "$proteome")
+	grep -B1 '*' "$proteome" | grep ">" >> 00_pseudogene_name/"$species"_pseudogenes_name.txt
 done
 
-# This part wants to eliminate sequences that have been defined as pseudogenes genomes 
+#removes sequences identified as pseudogenes
 
-for pseudo_file in *_pseudogenes_name.txt; do
+for pseudo_file in 00_pseudogene_name/*_pseudogenes_name.txt; do
 	species=$(basename -s _pseudogenes_name.txt "$pseudo_file")
 	while IFS=$'\t' read -r header; do
-		sed -E -i "/${header}/{N;d;}" 00_raw_proteomes/"$species".fa # N option loads the next line found after the pattern and put it into pattern space too; d delete the pattern space
+		sed -E -i "/${header}/{N;d;}" "$species".faa # N option loads the next line found after the pattern and put it into pattern space too; d delete the pattern space
 	done < "$pseudo_file" 
-done 
+done
 
-mkdir 01_pseudogene_name
-mv *_pseudogenes_name.txt 01_pseudogene_name/
+mv 00_pseudogene_name ../00_genome
