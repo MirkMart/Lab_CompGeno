@@ -24,12 +24,22 @@ There are three type of model that can be used:
 - **site models**: allow the ω ratio to vary among sites.
 - **branch-site models**: allow ω to vary both among sites in the protein and across branches on the tree and aim to detect positive selection affecting a few sites along particular lineages
 
-### Pre-requisites
+## Pre-requisites
+
+### Retrotranslation
+
+To perform retrotraslation we will use [retrotranslation.R](./scripts/retrotranslation.R). Before the real retrotranslation, we have to prepare our data, in particular our nucleotide alignment. First of all, we have to create orthogroups with nucleotide fasta sequences based on those inferred with OethoFinder. To do so, we use [create_nucleo_orthogroups.sh](./scripts/create_nucleo_orthogroups.sh). 
+
+```bash
+grep "selected:" <trimmed_html> > <kept_html>
+```
+
+### Codeml analysis
 
 We will use the scrip [codeml.sh](./scripts/codeml.sh), which perform both CodeML and LRT analysis—this last one using the second script [LRT.py](./scripts/LRT.py). To use the script, it is important to have a precise folder structure. The script must be saved in the working directoy, which must contain three other folders:
 
 - seq : contains the sequences of the orthogroups of interest (aligned and trimmed).
-- tree1 : with as many sequences as those in seq/. These trees must be named after their respecitve sequence, with the extension '.nwk' instead of '.fna'. These trees serve to inform the program about how many omega classes we want to infer and specify how to group branches. This first fod the script will work with these tree identifying the full model.
+- tree1 : with as many trees as sequences in seq/. These trees must be named after their respecitve sequence, with the extension '.nwk' instead of '.fna'. These trees serve to inform the program about how many omega classes we want to infer and specify how to group branches. This first fod the script will work with these tree identifying the full model.
 - tree2: as above (tree1) but with the second model, the reduced one or nested.
 
 In this case, sequences used are not constituted by amino acids, but nucleotides. We must perform what is known as retrotranslation.
@@ -38,7 +48,7 @@ Tree file format must follow the guidelines that are reported in the PAML docume
 
 >((Hsa_Human, Hla_gibbon) #1, ((Cgu/Can_colobus, Pne_langur), Mmu_rhesus), (Ssc_squirrelM, Cja_marmoset));
 
-### Run the analysis
+Then you can run the analysis:
 
 ```bash
 for seq in seq/*.fna; do bash codeml.sh "$seq" codeml.ctl; done

@@ -84,6 +84,8 @@ After orthology inference, paralogs can get into the way. There are many program
 
 DISCO script requires a specific header syntax to properly work. Luckily, the supported syntax is the one we alrady implemented and used so far (SPECIES|SEQUENCE_ID). The script wants as inputs simple gene tree, **not** resolved ones (they represent a more direct Orthofinder output without any further elaboration). Before running it install treeswift if it is not in `text_env`.
 
+Before performing any filter, change the name of the sequences used by Orthofinder to create these tree. You can see that they are not the one you provided in your proteomes (`speciesname|proteinID`) but there is a new head and each one is now `speciesname_speciesname|proteinID`. You have to bring back the old name, the one you chose. Try to do it (for example, you can use sed and substitute avery occurance of species names followed by an underscore with nothing).
+
 ```bash
 pip install treeswift #it is a common command to install python modules
 python3 disco.py -i <TREE> -o <OUTPUT> -d "|" -m <N_SPECIES_TO_MAINTAIN> --remove_in_paralogs --single_tree --keep-labels --verbose 2>/dev/null

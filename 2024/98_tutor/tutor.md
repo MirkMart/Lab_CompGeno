@@ -124,3 +124,9 @@ sudo conda create -n datasets -c conda-forge ncbi-datasets-cli
 ```
 
 Then follow the command line suggested by the genome you want to download
+
+## Change headers of Orthogroups without species (ORTHOFINDER REQUIRE SPECIES NAME. It is automatically appended only in tree)
+
+```bash
+for fa in *.fa; do for header in $(grep ">" "$fa"); do species=$(grep -oP ".{7}(?=${header/\>/})" ../../00_Results_Dec03/Gene_Trees/${fa/_aligned_output.fa/_tree.txt}); sed -i "s/$header/>$species${header/\>/}/" $fa; done; done
+```

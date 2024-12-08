@@ -28,6 +28,7 @@ NONE  OG0000008 0 0 0 48
 Tip to add a NONE column:
 
 ```bash
+# Adding an extension after -i is usefull to create a backup file automatically.
 sed -i.old $'s/^/NONE\t/g' <INFILE> 
 ```
 
@@ -37,19 +38,30 @@ Tip to remove last column of a file:
 rev <INFILE> | cut -d$'\t' -f 2- | rev > <OG GENE COUNT CAFE READY> 
 ```
 
-After converting your nexus file into newick we are ready to use CAFE with a single lambda:
+After converting your nexus file into newick we are ready to use CAFE. We can ru the program inferring one or more lambdas. Before any attempt, it is common to estimated a general error model:
 
 ```bash
-cafe5 -i <OG GENE COUNT> -t <NEWICK TIME TREE> -o CAFE_1Lambda -p
+cafe5 -i <OG GENE COUNT> -t <NEWICK TIME TREE> -o Error_model -e
 ```
 
-To estimate an error model:
+With:
+
+- -i #input gene count tsv
+- -t #time tree in newick format
+- -o #the name of the output folder. It is greatly recommended to do so
+- -e #will infer the error model
+
+Then we can run the program specifying the error model just inferred.
 
 ```bash
-cafe5 -i <OG GENE COUNT> -t <NEWICK TIME TREE> -o Error_model -p -e
+cafe5 -i <OG GENE COUNT> -t <NEWICK TIME TREE> -o CAFE_1Lambda -eBase_error_model.txt
 ```
 
-To calculate mutiple lambdas you must tell CAFE how many different λs there are, and which species or clades share these different λs. The lambdas and their locations are specified in a tree file. In my case the file looks like this:
+with:
+
+- -e<name_error_model> #important not to leave any space. As above, but here you specify the error model just inferred.
+
+To compute mutiple lambdas you must tell CAFE how many different λs there are, and which species or clades share these different λs. The lambdas and their locations are specified in a tree file (that will specified with -y. It is a different tree file). An example tree file:
 
 ```text
 (Llon:1,(Aste:1,(Cqui:2,Aaeg:2):1):1);
@@ -58,9 +70,9 @@ To calculate mutiple lambdas you must tell CAFE how many different λs there are
 To run the 2 lambda analyses taking into consideration the error model:
 
 ```bash
-cafe5 -i Orthogroups.GeneCount_CAFE.tsv -t TimeTree_CAFE.nwk -o 2L -p -y TimeTree_CAFE_2l.nwk -eError_model/Base_error_model.txt
+cafe5 -i Orthogroups.GeneCount_CAFE.tsv -t TimeTree_CAFE.nwk -o 2L -y TimeTree_CAFE_2l.nwk -eError_model/Base_error_model.txt
 ```
 
-For a detailed description of CAFE outputs, see the [manual](https://github.com/hahnlab/CAFE5)
+For a detailed description of CAFE outputs, see the [manual](https://github.com/hahnlab/CAFE5). `*` is used to identify significant changes. Try to use grep to find significantly changed trees or gene family (orthogroups). These one would be great candidates to further functional studies.
 
-Once you have your set of gene of intereset you can perform enrichment analyses using TopGO. [Here](https://github.com/jacopoM28/CompOmics_Tutorship/tree/main/2023/9_GeneFamilies_Evolution) you can find the script and some example files. To annotate all proteins included in OG used by CAFE you can use [Panzer](http://ekhidna2.biocenter.helsinki.fi/sanspanz/). Reduced visualization of GO terms can be performed with [Revigo](http://revigo.irb.hr/)
+Once you have your set of gene of intereset you can perform [enrichment analyses](../09_GeneAnnotation_functional_enrichment/) using TopGO.

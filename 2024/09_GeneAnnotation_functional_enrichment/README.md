@@ -13,6 +13,10 @@ Annotation tool using probabilistic models:
 
 The first thing to functionally explore our data is creating a file that can be annotate. The best one is a list of protein choosen by selecting the longest sequence in each trimmed orthogroup without taking into consideration gaps. This secure the use of the longest protein that is for sure clustered in an orthogroup and implemented in our analyses. To do it we can use the script [longest_protein_OGs](./longest_protein_OG.sh).
 
+This is the path to the script. Remeber to add the realpath of your Orthogroup_Sequences folder (one of the Orthofinder output) to complete the script.
+
+`/home/PERSONALE/mirko.martini3/00_Lab_CompGeno/2024/08_GeneAnnotation/longest_protein_OG.sh`
+
 ## Databases
 
 * Nr: Non-redundant protein sequences from GenPept, Swissprot, PIR, PDF, PDB, and NCBI RefSeq
