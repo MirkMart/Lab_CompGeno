@@ -11,11 +11,11 @@ Annotation tool using probabilistic models:
 
 ## Input file
 
-The first thing to functionally explore our data is creating a file that can be annotate. The best one is a list of protein choosen by selecting the longest sequence in each trimmed orthogroup without taking into consideration gaps. This secure the use of the longest protein that is for sure clustered in an orthogroup and implemented in our analyses. To do it we can use the script [longest_protein_OGs](./longest_protein_OG.sh).
+The first thing to functionally explore our data is creating a file that can be annotate. The best one is a list of protein choosen by selecting the longest sequence in each trimmed orthogroup without taking into consideration gaps. This secure the use of the longest protein that is for sure clustered in an orthogroup and implemented in our analyses. To do it we can use the script [longest_protein_OGs](./00_script/longest_protein_OG.sh).
 
 This is the path to the script. Remeber to add the realpath of your Orthogroup_Sequences folder (one of the Orthofinder output) to complete the script.
 
-`/home/PERSONALE/mirko.martini3/00_Lab_CompGeno/2024/08_GeneAnnotation/longest_protein_OG.sh`
+`/home/PERSONALE/mirko.martini3/00_Lab_CompGeno/2024/08_GeneAnnotation/00_script/longest_protein_OG.sh`
 
 ## Databases
 
@@ -94,7 +94,7 @@ Useful links:
 
 ### Get GO terms from protein sequences
 
-GOterms annotation can be performes with a graet variety of programs. [PANNZER](http://ekhidna2.biocenter.helsinki.fi/sanspanz/) and [eggNOG mapper](http://eggnog-mapper.embl.de/) are two common online tool. They are often reduntant, so we will annotate our proteome using the command line program [InterProScan](https://interproscan-docs.readthedocs.io/en/latest/index.html).
+GOterms annotation can be performes with a graet variety of programs. [PANNZER](http://ekhidna2.biocenter.helsinki.fi/sanspanz/) and [eggNOG mapper](http://eggnog-mapper.embl.de/) are two common online tool. They are often reduntant, so we will annotate our proteome using the command line program [InterProScan](https://interproscan-docs.readthedocs.io/en/latest/index.html). unfortunately, this cannot be done on the server we are currently using, so as soon as you have your longst_sequence file ready give it to the tutor to perform the annotation.
 
 ```bash
 /home/PERSONALE/dbs/interproscan-5.65-97.0/interproscan.sh -i <LONGEST_PROTEINS_INPUT> -goterms -pa -b <OUTPUT-FILE-BASE> -cpu <N_CPUS>
@@ -120,7 +120,7 @@ We use [topGO](https://bioconductor.org/packages/release/bioc/html/topGO.html). 
     gene_ID\tGO_ID1, GO_ID2, GO_ID3, ....
     ```
 
-There are two types of test statistics we can choose: Fisher's exact test which is based on **gene counts**, and a Kolmogorov-Smirnov like test which computes enrichment based on **gene scores**, which consider p-values.
+There are two types of test statistics we can choose: Fisher's exact test which is based on **gene counts**, and a Kolmogorov-Smirnov like test which computes enrichment based on **gene scores**, which consider p-values. There are also many algorithms that can be choosen to perform a ranking of the GO terms obtained. We will use `elim` because it can decrease the redundancy of the annotation result taking into consideration GO term hierarchy.
 
 An example of how to perform an enrichment analysis is present [here](./GO_enrichment.R).
 
@@ -137,6 +137,4 @@ Useful links are:
 * [pathways db](https://www.genome.jp/kegg/)
 * [KEGG orthology](https://www.genome.jp/kegg/ko.html)
 
-## INTERPROSCAN
-  
-[interpro online search](https://www.ebi.ac.uk/interpro/search/sequence/) #Annotate mutiple features of a protein sequences based on a collection of databases
+Functional enrichments can be perfomred also on KEGG pathways and KEGG orthologues. If you are intrested I can provide you the script to it. It is not too dissimilar to GO enrichment, but change subtly in a couple of passages.
