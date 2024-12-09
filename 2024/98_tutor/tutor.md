@@ -130,3 +130,12 @@ Then follow the command line suggested by the genome you want to download
 ```bash
 for fa in *.fa; do for header in $(grep ">" "$fa"); do species=$(grep -oP ".{7}(?=${header/\>/})" ../../00_Results_Dec03/Gene_Trees/${fa/_aligned_output.fa/_tree.txt}); sed -i "s/$header/>$species${header/\>/}/" $fa; done; done
 ```
+
+## R conda install
+
+Using [this](https://medium.com/@tortuecookie/using-r-with-conda-80953395bfe6) tutorial.
+
+```bash
+sudo conda create --name R
+sudo conda install --channel conda-forge r-base=4.4.2
+```
