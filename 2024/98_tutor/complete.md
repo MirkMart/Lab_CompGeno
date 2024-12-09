@@ -314,6 +314,12 @@ Rename orthogroups using precedent headers
 for fa in *.fa; do for header in $(grep ">" "$fa"); do new=$(grep "$header" ../../../00_orthofinder/Results_Nov30/Single_Copy_Orthologue_Sequences/${fa/_trimmed/}); sed -i.old "s/${header}/${new}/" "$fa"; done; done
 ```
 
+nucleotide orthogroups (both from single copy and DISCO)
+
+```bash
+for trimmed in *.fa; do bash ../../../create_nucleo_orthogroups.sh "$trimmed" ../../../04_cds_orthogroups /home/PERSONALE/mirko.martini3/01_2024/00_Data/05_CDS/03_nucleo_cds; done
+```
+
 ## R
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
