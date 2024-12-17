@@ -6,10 +6,11 @@ library(topGO)
 
 # the following commented passages are part of the original script from where I developed the function `GOenrichment`
 
-# geneID2GO <- readMappings(file = "go2genes.txt")
-# geneUniverse <- names(geneID2GO)
+geneID2GO <- readMappings(file = "go2genes.txt")
+geneUniverse <- names(geneID2GO)
 
-# genesOfInterest <- read.table("list_expanded_genes.txt",header=FALSE)
+genesOfInterest <- read.table("list_expanded_genes.txt",header=FALSE)
+list_interest1 <- list( "name_interest" = genesOfInterest)
 # genesOfInterest <- as.character(genesOfInterest$V1)
 # geneList <- factor(as.integer(geneUniverse %in% genesOfInterest))
 # names(geneList) <- geneUniverse
