@@ -114,7 +114,7 @@ We use [topGO](https://bioconductor.org/packages/release/bioc/html/topGO.html). 
 
 1. **Gene universe** the complete list of genes
 2. **Genes of interest**
-3. **GO annotation** with the following format ([example](./go2genes.txt)):
+3. **GO annotation** with the following format ([example](./01_tutorial/lab_compgeno_GOback.txt)):
 
     ```text
     gene_ID\tGO_ID1, GO_ID2, GO_ID3, ....
