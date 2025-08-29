@@ -282,6 +282,12 @@ git rm --cached <FILENAME> #remove a file from those that are synchronised
 
 ---
 
+## Very Good resource
+
+[bash-guide](https://github.com/zhangyuqing/bash-guide)
+
+---
+
 ## Bash scripting
 
 All these commands can be combined to create small (or not) customed program that can help us resolving daily tasks in bioinformatics. More is present in [Bash scripting](./Bash_scripting.md)

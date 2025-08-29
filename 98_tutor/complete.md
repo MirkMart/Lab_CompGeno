@@ -1,5 +1,20 @@
 # Complete code of the course
 
+> words between |...| in comments defines the environments where the command was launched
+
+## Download SRA
+
+```bash
+#|sequence|
+prefetch SRR11672506
+fasterq-dump SRR11672506
+gzip SRR11672506.fastq
+prefetch SRR11672503
+fasterq-dump SRR11672503
+gzip SRR11672506_1.fastq
+gzip SRR11672506_2.fastq
+```
+
 ## Fastqc: view reads quality
 
 ```bash
