@@ -1,0 +1,30 @@
+# BUSCO version is: 6.0.0 
+# The lineage dataset is: diptera_odb12 (Creation date: 2025-07-01, number of genomes: 76, number of BUSCOs: 5067)
+# Summarized benchmarking in BUSCO notation for file /home/PERSONALE/mirko.martini3/Lab_CompGeno/00_practice/03_GenomeAssembly/Anoste2_raw.fasta
+# BUSCO was run in mode: euk_genome_min
+# Gene predictor used: miniprot
+
+	***** Results: *****
+
+	C:96.3%[S:95.6%,D:0.7%],F:0.6%,M:3.1%,n:5067,E:6.9%	   
+	4882	Complete BUSCOs (C)	(of which 337 contain internal stop codons)		   
+	4844	Complete and single-copy BUSCOs (S)	   
+	38	Complete and duplicated BUSCOs (D)	   
+	29	Fragmented BUSCOs (F)			   
+	156	Missing BUSCOs (M)			   
+	5067	Total BUSCO groups searched		   
+
+Assembly Statistics:
+	847	Number of scaffolds
+	847	Number of contigs
+	224602064	Total length
+	0.000%	Percent gaps
+	20 Mbp	Scaffold N50
+	20 Mbp	Contigs N50
+
+
+Dependencies and versions:
+	hmmsearch: 3.4
+	bbtools: None
+	miniprot_index: 0.18-r281
+	miniprot_align: 0.18-r281
