@@ -1,0 +1,39 @@
+K-mer statistics for: 
+ - Hash 1: "SRR11672503_1_paired.fastq"
+ - Hash 2: "Anoste_pol.fasta"
+
+Total K-mers in: 
+ - Hash 1: 25710621564
+ - Hash 2: 224731849
+
+Distinct K-mers in:
+ - Hash 1: 1046135408
+ - Hash 2: 206254260
+
+Total K-mers only found in:
+ - Hash 1: 1935862491
+ - Hash 2: 6590086
+
+Distinct K-mers only found in:
+ - Hash 1: 846281908
+ - Hash 2: 6400760
+
+Shared K-mers:
+ - Total shared found in hash 1: 23774759073
+ - Total shared found in hash 2: 218141763
+ - Distinct shared K-mers: 199853500
+
+Distance between spectra 1 and 2 (all k-mers):
+ - Manhattan distance: 8.39881e+08
+ - Euclidean distance: 5.28759e+08
+ - Cosine distance: 0.00343495
+ - Canberra distance: 995.759
+ - Jaccard distance: 0.802842
+
+Distance between spectra 1 and 2 (shared k-mers):
+ - Manhattan distance: 3.97209e+08
+ - Euclidean distance: 1.97705e+08
+ - Cosine distance: 0.995602
+ - Canberra distance: 984.367
+ - Jaccard distance: 0.996866
+
