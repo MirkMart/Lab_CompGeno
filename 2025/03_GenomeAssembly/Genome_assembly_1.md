@@ -199,7 +199,10 @@ export NUMEXPR_MAX_THREADS=<CPU_NUMBER>
 busco -m <MODE> -l <LINEAGE> -c <CPU_NUMBER> -o <OUTPUT_NAME> -i <INPUT>
 ```
 
-The reference database is `/home/PERSONALE/mirko.martini3/01_2024/00_Data/04_busco_dbs/diptera_odb10`
+The reference database are:
+
+- `/usr/local/share/busco_databases/diptera_odb12`
+- `/usr/local/share/busco_databases/culicidae_odb12`
 
 #### KAT (~ 17 mins with 10 threads, 10 mins with 20)
 
