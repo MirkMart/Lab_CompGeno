@@ -1,0 +1,306 @@
+#NEXUS
+begin taxa;
+	dimensions ntax=204;
+	taxlabels
+	'Anopheles_minimus_GCA_965234385.1_busco'
+	'Anopheles_pauliani_GCA_965234665.1_busco'
+	'Anopheles_pauliani_GCA_965234765.1_busco'
+	'Anopheles_pharoensis_GCA_965231785.1_busco'
+	'Anopheles_pharoensis_GCA_965231975.1_busco'
+	'Anopheles_pretoriensis_GCA_965234535.1_busco'
+	'Anopheles_pretoriensis_GCA_965234755.1_busco'
+	'Anopheles_squamosus_GCA_965234395.1_busco'
+	'Anopheles_squamosus_GCA_965234655.1_busco'
+	'Aphidoletes_aphidimyza_GCA_030463065.1_busco'
+	'Bibio_marci_GCA_910594885.2_busco'
+	'Bibio_marci_GCA_910594895.1_busco'
+	'Bolitophila_cinerea_GCA_010015015.2_busco'
+	'Bolitophila_hybrida_GCA_027564075.1_busco'
+	'Bradysia_alpicola_GCA_049901615.1_busco'
+	'Bradysia_confinis_GCA_047370885.1_busco'
+	'Bradysia_coprophila_GCA_014529535.1_busco'
+	'Bradysia_coprophila_GCA_014529535.2_busco'
+	'Bradysia_impatiens_GCA_965233325.1_busco'
+	'Bradysia_impatiens_GCA_965233365.1_busco'
+	'Bradysia_ocellaris_GCA_049901575.1_busco'
+	'Bradysia_odoriphaga_GCA_016920775.1_busco'
+	'Bradysia_pectoralis_GCA_047370905.1_busco'
+	'Catotricha_subobsoleta_GCA_011634745.2_busco'
+	'Clogmia_albipunctata_GCA_001014945.1_busco'
+	'Clogmia_albipunctata_GCA_022818195.1_busco'
+	'Coboldia_fuscipes_GCA_001014335.1_busco'
+	'Contarinia_nasturtii_GCA_009176525.2_busco'
+	'Contarinia_nasturtii_GCF_009176525.2_busco'
+	'Diadocidia_ferruginosa_GCA_027564275.1_busco'
+	'Dilophus_febrilis_GCA_958336335.1_busco'
+	'Dilophus_febrilis_GCA_958336365.1_busco'
+	'GCA_001015215.1_Holcocephala_fusca'
+	'GCA_963924325.1_Dioctria_rufipes'
+	'GCF_000001215.4_Drosophila_melanogaster'
+	'Gnoriste_bilineata_GCA_026546565.1_busco'
+	'Leia_winthemii_GCA_965152685.1_busco'
+	'Leia_winthemii_GCA_965152755.1_busco'
+	'Lestremia_cinerea_GCA_027564135.1_busco'
+	'Lutzomyia_longipalpis_GCA_024334085.1_busco'
+	'Lutzomyia_longipalpis_GCF_024334085.1_busco'
+	'Lycoriella_ingenua_GCA_047370835.1_busco'
+	'Lycoriella_ingenua_GCA_965233655.1_busco'
+	'Macrocera_vittata_GCA_024741295.1_busco'
+	'Mayetiola_destructor_GCA_000149185.1_busco'
+	'Mayetiola_destructor_GCA_001014435.1_busco'
+	'Obolodiplosis_robiniae_GCA_028476595.1_busco'
+	'Penthetria_funebris_GCA_027564355.1_busco'
+	'Phlebotomus_argentipes_GCA_947086385.1_busco'
+	'Phlebotomus_argentipes_GCF_947086385.1_busco'
+	'Phlebotomus_papatasi_GCA_024763615.2_busco'
+	'Phlebotomus_papatasi_GCF_024763615.1_busco'
+	'Phlebotomus_perniciosus_GCA_918844115.2_busco'
+	'Phytosciara_flavipes_GCA_026413405.1_busco'
+	'Platyura_marginata_GCA_026745375.1_busco'
+	'Plecia_longiforceps_GCA_041753815.1_busco'
+	'Pseudolycoriella_hygida_GCA_029228625.1_busco'
+	'Ptychoptera_albimana_GCA_961205845.1_busco'
+	'Ptychoptera_albimana_GCA_961205885.1_busco'
+	'Ptychoptera_contaminata_GCA_963942475.1_busco'
+	'Ptychoptera_contaminata_GCA_963942525.1_busco'
+	'Resseliella_maxima_GCA_029041755.1_busco'
+	'Sergentomyia_squamirostris_GCA_042850755.1_busco'
+	'Sitodiplosis_mosellana_GCA_009176505.1_busco'
+	'Sitodiplosis_mosellana_GCF_009176505.1_busco'
+	'Sylvicola_cinctus_GCA_963854165.1_busco'
+	'Sylvicola_cinctus_GCA_963854195.2_busco'
+	'Sylvicola_fuscatus_GCA_026546915.1_busco'
+	'Symmerus_nobilis_GCA_027564815.1_busco'
+	'Trichosia_splendens_GCA_026413465.1_busco'
+	'aedes_aegypti_GCA_009613055.1'
+	'aedes_aegypti_GCA_009613065.1'
+	'aedes_albopictus_GCF_001876365.2'
+	'aedes_albopictus_GCF_035046485.1'
+	aedes_albopictus__SRR10038864
+	'aedes_japonicus_GCA034211315.2'
+	'aedes_japonicus_GCA_034211315.2'
+	'aedes_koreicus_GCA_024533555.2'
+	'aedes_koreicus_GCA_034211335.2'
+	aedes_polynesiensis__SRR15033947
+	'anopheles_albimanus_GCA_000349125.2'
+	'anopheles_albimanus_GCA_015501965.1'
+	'anopheles_aquasalis_GCA_943734665.2'
+	'anopheles_aquasalis_GCF_943734665.1'
+	'anopheles_arabiensis_GCA_000349185.1'
+	'anopheles_arabiensis_GCF_016920715.1'
+	'anopheles_atroparvus_GCA_015501955.1'
+	'anopheles_atroparvus_GCA_914969975.1'
+	'anopheles_bellator_GCA_964417195.1'
+	'anopheles_bellator_GCF_943735745.2'
+	'anopheles_bwambae_GCA_007018985.1'
+	'anopheles_christyi_GCA_000349165.1'
+	'anopheles_coluzzii_GCA_016508615.1'
+	'anopheles_coluzzii_GCF_016920705.1'
+	'anopheles_coustani_GCA_943734715.1'
+	'anopheles_coustani_GCF_943734705.1'
+	'anopheles_cracens_GCA_002091845.1'
+	'anopheles_cruzii_GCA_964417045.1'
+	'anopheles_cruzii_GCF_943734635.1'
+	'anopheles_culicifacies_GCA_000473375.1'
+	anopheles_culicifacies_SRR835776
+	anopheles_daciae__SRR9682539
+	'anopheles_darlingi_GCA_038994775.1'
+	'anopheles_darlingi_GCF_943734745.1'
+	'anopheles_dirus_GCA_000349145.1'
+	anopheles_dirus_SRR0010000
+	anopheles_dthali__SRR5585848
+	'anopheles_epiroticus_GCA_000349105.1'
+	'anopheles_farauti_GCA_000473445.2'
+	'anopheles_farauti_GCA_000956215.1'
+	'anopheles_fontenillei_GCA_008817895.1'
+	'anopheles_funestus-like_GCA_016170035.1'
+	'anopheles_funestus_GCA_964033645.1'
+	'anopheles_funestus_GCF_943734845.2'
+	'anopheles_gambiae_GCF_000005575.2'
+	'anopheles_gambiae_GCF_943734735.2'
+	'anopheles_koliensis_GCA_000956275.1'
+	'anopheles_longipalpis_GCA_016170015.1'
+	'anopheles_maculatus_GCA_000473185.1'
+	'anopheles_maculatus_GCA_002091835.1'
+	'anopheles_maculipalpis_GCA_943734865.1'
+	'anopheles_maculipalpis_GCF_943734695.1'
+	'anopheles_marshallii_GCA_943734855.1'
+	'anopheles_marshallii_GCF_943734725.1'
+	anopheles_melanoon__SRR20493031
+	'anopheles_melas_GCA_000473525.2'
+	'anopheles_merus_GCA_000473845.2'
+	'anopheles_merus_GCF_017562075.2'
+	anopheles_messeae__SRR9682532
+	'anopheles_minimus_GCA_000349025.1'
+	'anopheles_moucheti_GCA_943734785.1'
+	'anopheles_moucheti_GCF_943734755.1'
+	'anopheles_nili_GCA_943737935.1'
+	'anopheles_nili_GCF_943737925.1'
+	'anopheles_oryzalimnetes_GCA_964417075.1'
+	'anopheles_oryzalimnetes_GCA_964417245.1'
+	'anopheles_parensis_GCA_016254315.1'
+	'anopheles_plumbeus_GCA_034621735.1'
+	'anopheles_punctulatus_GCA_000956255.1'
+	'anopheles_quadriannulatus_GCA_000349065.1'
+	anopheles_quadrimaculatus__SRR15646842
+	'anopheles_rivulorum_GCA_018908115.1'
+	'anopheles_sinensis_GCA_000441895.2'
+	'anopheles_sinensis_GCA_000472065.2'
+	'anopheles_sp_GCA_016171315.1'
+	'anopheles_stephensi_GCA_000349045.1'
+	'anopheles_stephensi_GCF_013141755.1'
+	'anopheles_vaneedeni_GCA_016170025.1'
+	'anopheles_ziemanni_GCA_943734805.1'
+	'anopheles_ziemanni_GCF_943734765.1'
+	'armigeres_subalbatus_GCF_024139115.2'
+	armigeres_subalbatus__SRR19174301
+	'belgica_antarctica_GCA_000775305.1'
+	chagasia_avielae__SRR12532641
+	'chironomidae_sp_GCA_023345965.1'
+	'chironomus_riparius_GCA_902825295.1'
+	'chironomus_riparius_GCA_917627325.4'
+	'chironomus_striatipennis_GCA_026123125.1'
+	'chironomus_tentans_GCA_963573255.1'
+	'chironomus_tentans_GCA_963573265.1'
+	'chironomus_tepperi_GCF_022539635.2'
+	'clunio_marinus_GCA_900005825.1'
+	'culex_laticinctus_GCA_964187835.1'
+	'culex_laticinctus_GCA_964187845.1'
+	'culex_modestus_GCA_964213185.1'
+	'culex_modestus_GCA_964213205.1'
+	'culex_perexiguus_GCA_964243045.1'
+	'culex_perexiguus_GCA_964248615.1'
+	'culex_pipiens_GCA_963924435.1'
+	'culex_pipiens_GCA_963924485.1'
+	'culex_quinquefasciatus_GCF_000209185.1'
+	'culex_quinquefasciatus_GCF_015732765.1'
+	'culex_theileri_GCA_964340515.1'
+	'culex_theileri_GCA_964340705.1'
+	culex_torrentium__SRR2029630
+	'culicoides_brevitarsis_GCF_036172545.1'
+	'culicoides_sonorensis_GCA_047716325.1'
+	'culicoides_sonorensis_GCA_900002565.1'
+	'culicoides_stellifer_GCA_040583785.1'
+	'culicoides_tainanus_GCA_020740445.1'
+	'drosophila_ananassae_GCF_017639315.1'
+	'drosophila_pseudoobscura_GCF_009870125.1'
+	'forcipomyia_taiwana_GCA_949837095.1'
+	'forcipomyia_taiwana_GCA_963930915.1'
+	'glossina_fuscipes_GCF_014805625.2'
+	leptoconops_irritans__SRR00000011
+	leptoconops_noei__SRR00000022
+	'malaya_genurostris_GCF_030247185.1'
+	'mochlonyx_cinctipes_GCA_001014845.1'
+	'ochlerotatus_camptorhynchus_GCF_037179485.1'
+	'ochlerotatus_sierrensis_GCA_044231785.1'
+	'parochlus_steinenii_GCA_038502155.1'
+	'polypedilum_pembai_GCA_014622435.1'
+	'polypedilum_vanderplanki_GCA_018290095.1'
+	'propsilocerus_akamusi_GCA_018397935.1'
+	'sabethes_cyaneus_GCF_943734655.1'
+	sabethes_cyaneus_SRR0020000
+	'smittia_aterrima_GCA_033063855.1'
+	'smittia_sp_GCA_033064975.1'
+	'tanytarsus_gracilentus_GCA_038502055.1'
+	'topomyia_yanbarensis_GCF_030247195.1'
+	'toxorhynchites_rutilus_GCF_029784135.1'
+	'uranotaenia_lowii_GCF_029784155.1'
+	'wyeomyia_smithii_GCF_029784165.1'
+;
+end;
+
+begin trees;
+	tree tree_1 = [&R] ('aedes_aegypti_GCA_009613055.1'[&!color=#d9302e]:0.001177,'aedes_aegypti_GCA_009613065.1'[&!color=#d9302e]:7.44E-4,((('aedes_albopictus_GCF_035046485.1'[&!color=#d9302e]:0.001885,'aedes_albopictus_GCF_001876365.2'[&!color=#d9302e]:0.003208)[&bootstrap=57,!color=#d9302e]:7.59E-4,(aedes_polynesiensis__SRR15033947[&!color=#d9302e]:0.026059,aedes_albopictus__SRR10038864[&!color=#d9302e]:0.008823)[&bootstrap=100,!color=#d9302e]:0.009471)[&bootstrap=100,!color=#d9302e]:0.021055,((((('aedes_japonicus_GCA_034211315.2'[&!color=#d9302e]:2.13E-4,'aedes_japonicus_GCA034211315.2'[&!color=#d9302e]:0.007871)[&bootstrap=100,!color=#d9302e]:0.008995,('aedes_koreicus_GCA_034211335.2'[&!color=#d9302e]:0.004118,'aedes_koreicus_GCA_024533555.2'[&!color=#d9302e]:0.00595)[&bootstrap=100,!color=#d9302e]:0.00423)[&bootstrap=100,!color=#d9302e]:0.02293,('ochlerotatus_camptorhynchus_GCF_037179485.1'[&!color=#d9302e]:0.017225,'ochlerotatus_sierrensis_GCA_044231785.1'[&!color=#d9302e]:0.020949)[&bootstrap=100,!color=#d9302e]:0.004382)[&bootstrap=100,!color=#d9302e]:0.023062,(((((((((('anopheles_albimanus_GCA_000349125.2'[&!color=#d9302e]:2.0E-6,'anopheles_albimanus_GCA_015501965.1'[&!color=#d9302e]:2.0E-6)[&bootstrap=100,!color=#d9302e]:0.012538,(('anopheles_aquasalis_GCA_943734665.2'[&!color=#d9302e]:2.0E-6,'anopheles_aquasalis_GCF_943734665.1'[&!color=#d9302e]:2.0E-6)[&bootstrap=100,!color=#d9302e]:0.009728,('anopheles_oryzalimnetes_GCA_964417075.1'[&!color=#d9302e]:0.001164,'anopheles_oryzalimnetes_GCA_964417245.1'[&!color=#d9302e]:0.001456)[&bootstrap=100,!color=#d9302e]:0.008666)[&bootstrap=100,!color=#d9302e]:0.002372)[&bootstrap=100,!color=#d9302e]:0.004391,('anopheles_darlingi_GCA_038994775.1'[&!color=#d9302e]:0.001375,'anopheles_darlingi_GCF_943734745.1'[&!color=#d9302e]:0.001351)[&bootstrap=100,!color=#d9302e]:0.011709)[&bootstrap=100,!color=#d9302e]:0.059546,(('anopheles_bellator_GCA_964417195.1'[&!color=#d9302e]:9.4E-4,'anopheles_bellator_GCF_943735745.2'[&!color=#d9302e]:6.84E-4)[&bootstrap=100,!color=#d9302e]:0.009934,('anopheles_cruzii_GCA_964417045.1'[&!color=#d9302e]:0.002141,'anopheles_cruzii_GCF_943734635.1'[&!color=#d9302e]:0.001651)[&bootstrap=100,!color=#d9302e]:0.010914)[&bootstrap=100,!color=#d9302e]:0.055825)[&bootstrap=100,!color=#d9302e]:0.037447,(((((((((((('anopheles_arabiensis_GCF_016920715.1'[&!color=#d9302e]:2.59E-4,'anopheles_arabiensis_GCA_000349185.1'[&!color=#d9302e]:8.4E-5)[&bootstrap=100,!color=#d9302e]:0.001772,(('anopheles_coluzzii_GCA_016508615.1'[&!color=#d9302e]:9.53E-4,'anopheles_gambiae_GCF_943734735.2'[&!color=#d9302e]:0.001096)[&bootstrap=100,!color=#d9302e]:8.37E-4,('anopheles_coluzzii_GCF_016920705.1'[&!color=#d9302e]:0.001177,'anopheles_gambiae_GCF_000005575.2'[&!color=#d9302e]:0.001509)[&bootstrap=100,!color=#d9302e]:5.54E-4)[&bootstrap=100,!color=#d9302e]:5.16E-4)[&bootstrap=100,!color=#d9302e]:3.65E-4,(('anopheles_bwambae_GCA_007018985.1'[&!color=#d9302e]:0.001617,'anopheles_fontenillei_GCA_008817895.1'[&!color=#d9302e]:0.001116)[&bootstrap=100,!color=#d9302e]:0.001086,'anopheles_quadriannulatus_GCA_000349065.1'[&!color=#d9302e]:0.00339)[&bootstrap=77,!color=#d9302e]:3.95E-4)[&bootstrap=77,!color=#d9302e]:3.81E-4,'anopheles_melas_GCA_000473525.2'[&!color=#d9302e]:0.004273)[&bootstrap=99,!color=#d9302e]:8.01E-4,('anopheles_merus_GCF_017562075.2'[&!color=#d9302e]:2.73E-4,'anopheles_merus_GCA_000473845.2'[&!color=#d9302e]:1.04E-4)[&bootstrap=100,!color=#d9302e]:0.002732)[&bootstrap=100,!color=#d9302e]:0.024375,'anopheles_christyi_GCA_000349165.1'[&!color=#d9302e]:0.023566)[&bootstrap=100,!color=#d9302e]:0.004016,(('Anopheles_pharoensis_GCA_965231785.1_busco'[&!color=#d9302e]:0.001044,'Anopheles_pharoensis_GCA_965231975.1_busco'[&!color=#d9302e]:7.59E-4)[&bootstrap=100,!color=#d9302e]:0.017197,('Anopheles_squamosus_GCA_965234655.1_busco'[&!color=#d9302e]:0.00166,'Anopheles_squamosus_GCA_965234395.1_busco'[&!color=#d9302e]:0.00149)[&bootstrap=100,!color=#d9302e]:0.012705)[&bootstrap=100,!color=#d9302e]:0.0149)[&bootstrap=100,!color=#d9302e]:0.004623,'anopheles_epiroticus_GCA_000349105.1'[&!color=#d9302e]:0.028207)[&bootstrap=100,!color=#d9302e]:0.013901,(((('anopheles_culicifacies_GCA_000473375.1'[&!color=#d9302e]:0.001558,anopheles_culicifacies_SRR835776[&!color=#d9302e]:0.004748)[&bootstrap=100,!color=#d9302e]:0.013764,('anopheles_minimus_GCA_000349025.1'[&!color=#d9302e]:4.67E-4,'Anopheles_minimus_GCA_965234385.1_busco'[&!color=#d9302e]:4.48E-4)[&bootstrap=100,!color=#d9302e]:0.015208)[&bootstrap=100,!color=#d9302e]:0.007211,((((((('anopheles_funestus_GCA_964033645.1'[&!color=#d9302e]:0.001276,'anopheles_funestus_GCF_943734845.2'[&!color=#d9302e]:0.001388)[&bootstrap=100,!color=#d9302e]:3.0E-4,'anopheles_funestus-like_GCA_016170035.1'[&!color=#d9302e]:0.002149)[&bootstrap=100,!color=#d9302e]:4.16E-4,'anopheles_vaneedeni_GCA_016170025.1'[&!color=#d9302e]:0.002126)[&bootstrap=100,!color=#d9302e]:5.4E-4,('anopheles_longipalpis_GCA_016170015.1'[&!color=#d9302e]:0.009319,'anopheles_parensis_GCA_016254315.1'[&!color=#d9302e]:0.001342)[&bootstrap=100,!color=#d9302e]:0.001299)[&bootstrap=100,!color=#d9302e]:0.007366,anopheles_dthali__SRR5585848[&!color=#d9302e]:0.019984)[&bootstrap=100,!color=#d9302e]:0.005741,'anopheles_rivulorum_GCA_018908115.1'[&!color=#d9302e]:0.015965)[&bootstrap=100,!color=#d9302e]:0.003985,((('anopheles_marshallii_GCF_943734725.1'[&!color=#d9302e]:8.92E-4,'anopheles_marshallii_GCA_943734855.1'[&!color=#d9302e]:9.9E-4)[&bootstrap=100,!color=#d9302e]:0.007935,('anopheles_moucheti_GCF_943734755.1'[&!color=#d9302e]:0.001002,'anopheles_moucheti_GCA_943734785.1'[&!color=#d9302e]:0.001071)[&bootstrap=100,!color=#d9302e]:0.008954)[&bootstrap=100,!color=#d9302e]:0.011091,'anopheles_sp_GCA_016171315.1'[&!color=#d9302e]:0.015799)[&bootstrap=99,!color=#d9302e]:0.002139)[&bootstrap=100,!color=#d9302e]:0.003408)[&bootstrap=100,!color=#d9302e]:0.009572,((('anopheles_maculatus_GCA_002091835.1'[&!color=#d9302e]:0.001574,'anopheles_maculatus_GCA_000473185.1'[&!color=#d9302e]:0.001882)[&bootstrap=100,!color=#d9302e]:0.011669,('anopheles_stephensi_GCA_000349045.1'[&!color=#d9302e]:0.001265,'anopheles_stephensi_GCF_013141755.1'[&!color=#d9302e]:8.55E-4)[&bootstrap=100,!color=#d9302e,!hilight={2,0.2001362685,#d9d64e}]:0.014575)[&bootstrap=90,!color=#d9302e]:0.001768,(('anopheles_maculipalpis_GCF_943734695.1'[&!color=#d9302e]:8.78E-4,'anopheles_maculipalpis_GCA_943734865.1'[&!color=#d9302e]:0.001269)[&bootstrap=100,!color=#d9302e]:0.014814,('Anopheles_pretoriensis_GCA_965234755.1_busco'[&!color=#d9302e]:7.3E-4,'Anopheles_pretoriensis_GCA_965234535.1_busco'[&!color=#d9302e]:0.003048)[&bootstrap=100,!color=#d9302e]:0.010822)[&bootstrap=100,!color=#d9302e]:0.004464)[&bootstrap=100,!color=#d9302e]:0.013839)[&bootstrap=100,!color=#d9302e]:0.012307)[&bootstrap=100,!color=#d9302e]:0.013525,(('anopheles_cracens_GCA_002091845.1'[&!color=#d9302e]:0.013681,('anopheles_dirus_GCA_000349145.1'[&!color=#d9302e]:8.78E-4,anopheles_dirus_SRR0010000[&!color=#d9302e]:0.010388)[&bootstrap=100,!color=#d9302e]:0.002773)[&bootstrap=100,!color=#d9302e]:0.018382,(('anopheles_farauti_GCA_000473445.2'[&!color=#d9302e]:0.004962,'anopheles_koliensis_GCA_000956275.1'[&!color=#d9302e]:0.005304)[&bootstrap=100,!color=#d9302e]:0.002333,('anopheles_farauti_GCA_000956215.1'[&!color=#d9302e]:0.00884,'anopheles_punctulatus_GCA_000956255.1'[&!color=#d9302e]:0.010362)[&bootstrap=100,!color=#d9302e]:8.91E-4)[&bootstrap=100,!color=#d9302e]:0.018528)[&bootstrap=100,!color=#d9302e]:0.026344)[&bootstrap=100,!color=#d9302e]:0.010684,(('anopheles_nili_GCF_943737925.1'[&!color=#d9302e]:7.4E-4,'anopheles_nili_GCA_943737935.1'[&!color=#d9302e]:0.001542)[&bootstrap=100,!color=#d9302e]:0.057712,('Anopheles_pauliani_GCA_965234765.1_busco'[&!color=#d9302e]:6.71E-4,'Anopheles_pauliani_GCA_965234665.1_busco'[&!color=#d9302e]:0.007331)[&bootstrap=100,!color=#d9302e]:0.053817)[&bootstrap=100,!color=#d9302e]:0.007779)[&bootstrap=100,!color=#d9302e]:0.025788,((((('anopheles_atroparvus_GCA_015501955.1'[&!color=#d9302e]:0.001516,'anopheles_atroparvus_GCA_914969975.1'[&!color=#d9302e]:0.001259)[&bootstrap=100,!color=#d9302e]:0.00364,((anopheles_daciae__SRR9682539[&!color=#d9302e]:0.003397,anopheles_messeae__SRR9682532[&!color=#d9302e]:0.002978)[&bootstrap=100,!color=#d9302e]:0.003242,anopheles_melanoon__SRR20493031[&!color=#d9302e]:0.005376)[&bootstrap=100,!color=#d9302e]:0.00444)[&bootstrap=100,!color=#d9302e]:0.011504,anopheles_quadrimaculatus__SRR15646842[&!color=#d9302e]:0.021493)[&bootstrap=100,!color=#d9302e]:0.019196,(((('anopheles_coustani_GCF_943734705.1'[&!color=#d9302e]:2.0E-6,'anopheles_ziemanni_GCF_943734765.1'[&!color=#d9302e]:2.0E-6)[&bootstrap=100,!color=#d9302e]:9.63E-4,'anopheles_coustani_GCA_943734715.1'[&!color=#d9302e]:0.001248)[&bootstrap=100,!color=#d9302e]:7.71E-4,'anopheles_ziemanni_GCA_943734805.1'[&!color=#d9302e]:0.001243)[&bootstrap=100,!color=#d9302e]:0.010439,('anopheles_sinensis_GCA_000441895.2'[&!color=#d9302e]:0.001924,'anopheles_sinensis_GCA_000472065.2'[&!color=#d9302e]:0.002069)[&bootstrap=100,!color=#d9302e]:0.009116)[&bootstrap=100,!color=#d9302e]:0.026501)[&bootstrap=100,!color=#d9302e]:0.016296,'anopheles_plumbeus_GCA_034621735.1'[&!color=#d9302e]:0.052561)[&bootstrap=100,!color=#d9302e]:0.024152)[&bootstrap=100,!color=#d9302e]:0.016881)[&bootstrap=100,!color=#d9302e]:0.078452,chagasia_avielae__SRR12532641[&!color=#d9302e]:0.149232)[&bootstrap=100,!color=#d9302e]:0.05712,((((((((((((('Aphidoletes_aphidimyza_GCA_030463065.1_busco':0.075296,((('Contarinia_nasturtii_GCA_009176525.2_busco':2.0E-6,'Contarinia_nasturtii_GCF_009176525.2_busco':2.0E-6)[&bootstrap=100]:0.073723,'Resseliella_maxima_GCA_029041755.1_busco':0.078839)[&bootstrap=100]:0.01308,('Sitodiplosis_mosellana_GCA_009176505.1_busco':2.0E-6,'Sitodiplosis_mosellana_GCF_009176505.1_busco':2.0E-6)[&bootstrap=100]:0.061394)[&bootstrap=100]:0.020146)[&bootstrap=100]:0.013599,'Obolodiplosis_robiniae_GCA_028476595.1_busco':0.089106)[&bootstrap=100]:0.061543,('Mayetiola_destructor_GCA_000149185.1_busco':0.001667,'Mayetiola_destructor_GCA_001014435.1_busco':0.002912)[&bootstrap=100]:0.173012)[&bootstrap=100]:0.186746,('Catotricha_subobsoleta_GCA_011634745.2_busco':0.08399,'Lestremia_cinerea_GCA_027564135.1_busco':0.162682)[&bootstrap=100]:0.035987)[&bootstrap=100]:0.126062,((('Bolitophila_cinerea_GCA_010015015.2_busco':0.063593,'Bolitophila_hybrida_GCA_027564075.1_busco':0.055913)[&bootstrap=100]:0.150423,(((((((('Bradysia_alpicola_GCA_049901615.1_busco':0.036232,('Bradysia_pectoralis_GCA_047370905.1_busco':0.018474,'Phytosciara_flavipes_GCA_026413405.1_busco':0.045232)[&bootstrap=100]:0.00649)[&bootstrap=100]:0.010878,((('Bradysia_coprophila_GCA_014529535.1_busco':2.0E-6,'Bradysia_coprophila_GCA_014529535.2_busco':2.0E-6)[&bootstrap=100]:0.008136,'Bradysia_odoriphaga_GCA_016920775.1_busco':0.019655)[&bootstrap=100]:0.012307,(('Bradysia_impatiens_GCA_965233325.1_busco':9.51E-4,'Bradysia_impatiens_GCA_965233365.1_busco':0.02493)[&bootstrap=100]:0.023402,'Bradysia_ocellaris_GCA_049901575.1_busco':0.026865)[&bootstrap=100]:0.008645)[&bootstrap=100]:0.004581)[&bootstrap=100]:0.014301,'Bradysia_confinis_GCA_047370885.1_busco':0.036655)[&bootstrap=100]:0.024409,('Lycoriella_ingenua_GCA_047370835.1_busco':0.007929,'Lycoriella_ingenua_GCA_965233655.1_busco':0.001829)[&bootstrap=100]:0.039029)[&bootstrap=100]:0.010968,'Pseudolycoriella_hygida_GCA_029228625.1_busco':0.081937)[&bootstrap=100]:0.037352,'Trichosia_splendens_GCA_026413465.1_busco':0.067457)[&bootstrap=100]:0.129387,'Diadocidia_ferruginosa_GCA_027564275.1_busco':0.187573)[&bootstrap=100]:0.021855,('Gnoriste_bilineata_GCA_026546565.1_busco':0.146691,('Leia_winthemii_GCA_965152755.1_busco':0.001055,'Leia_winthemii_GCA_965152685.1_busco':0.001244)[&bootstrap=100]:0.226318)[&bootstrap=100]:0.075464)[&bootstrap=86]:0.01179)[&bootstrap=78]:0.01344,('Macrocera_vittata_GCA_024741295.1_busco':0.164641,'Platyura_marginata_GCA_026745375.1_busco':0.115526)[&bootstrap=100]:0.063116)[&bootstrap=100]:0.039904)[&bootstrap=86]:0.015265,((('Bibio_marci_GCA_910594885.2_busco':0.001362,'Bibio_marci_GCA_910594895.1_busco':0.001358)[&bootstrap=100]:0.124781,('Dilophus_febrilis_GCA_958336335.1_busco':0.001542,'Dilophus_febrilis_GCA_958336365.1_busco':0.001547)[&bootstrap=100]:0.198645)[&bootstrap=100]:0.107742,('Penthetria_funebris_GCA_027564355.1_busco':0.118388,'Plecia_longiforceps_GCA_041753815.1_busco':0.197507)[&bootstrap=100]:0.078869)[&bootstrap=100]:0.05758)[&bootstrap=90]:0.017321,'Symmerus_nobilis_GCA_027564815.1_busco':0.321912)[&bootstrap=100]:0.052636,('Coboldia_fuscipes_GCA_001014335.1_busco':0.44368,(('Sylvicola_cinctus_GCA_963854195.2_busco':6.39E-4,'Sylvicola_cinctus_GCA_963854165.1_busco':8.0E-4)[&bootstrap=100]:0.080433,'Sylvicola_fuscatus_GCA_026546915.1_busco':0.069635)[&bootstrap=100]:0.268844)[&bootstrap=99]:0.028774)[&bootstrap=100]:0.028507,(((('drosophila_ananassae_GCF_017639315.1':0.054096,'GCF_000001215.4_Drosophila_melanogaster':0.061384)[&bootstrap=100]:0.027946,'drosophila_pseudoobscura_GCF_009870125.1':0.07228)[&bootstrap=100]:0.197084,'glossina_fuscipes_GCF_014805625.2':0.20723)[&bootstrap=100]:0.215678,('GCA_001015215.1_Holcocephala_fusca':0.147972,'GCA_963924325.1_Dioctria_rufipes':0.109617)[&bootstrap=100]:0.099932)[&bootstrap=100,!rotate=true]:0.14307)[&bootstrap=100,!rotate=true]:0.031745,(('Ptychoptera_albimana_GCA_961205885.1_busco':2.94E-4,'Ptychoptera_albimana_GCA_961205845.1_busco':7.51E-4)[&bootstrap=100]:0.039252,('Ptychoptera_contaminata_GCA_963942525.1_busco':5.48E-4,'Ptychoptera_contaminata_GCA_963942475.1_busco':6.98E-4)[&bootstrap=100]:0.034743)[&bootstrap=100]:0.273205)[&bootstrap=74,!rotate=true]:0.018311,(('Clogmia_albipunctata_GCA_022818195.1_busco':8.54E-4,'Clogmia_albipunctata_GCA_001014945.1_busco':0.001649)[&bootstrap=100]:0.341793,((('Lutzomyia_longipalpis_GCA_024334085.1_busco':2.0E-6,'Lutzomyia_longipalpis_GCF_024334085.1_busco':2.0E-6)[&bootstrap=100]:0.07422,((('Phlebotomus_argentipes_GCA_947086385.1_busco':3.0E-6,'Phlebotomus_argentipes_GCF_947086385.1_busco':3.0E-6)[&bootstrap=100]:0.059337,'Phlebotomus_perniciosus_GCA_918844115.2_busco':0.052152)[&bootstrap=100]:0.018193,('Phlebotomus_papatasi_GCA_024763615.2_busco':2.0E-6,'Phlebotomus_papatasi_GCF_024763615.1_busco':2.0E-6)[&bootstrap=100]:0.052978)[&bootstrap=100]:0.012601)[&bootstrap=100]:0.027274,'Sergentomyia_squamirostris_GCA_042850755.1_busco':0.090176)[&bootstrap=100]:0.193567)[&bootstrap=100]:0.109722)[&bootstrap=100,!rotate=true]:0.080245,((((((('belgica_antarctica_GCA_000775305.1':0.088944,'chironomidae_sp_GCA_023345965.1':0.08539)[&bootstrap=100]:0.039678,('smittia_aterrima_GCA_033063855.1':0.053655,'smittia_sp_GCA_033064975.1':0.058719)[&bootstrap=100]:0.055709)[&bootstrap=100]:0.023199,'clunio_marinus_GCA_900005825.1':0.128186)[&bootstrap=100]:0.044223,(((((('chironomus_riparius_GCA_917627325.4':0.001112,'chironomus_riparius_GCA_902825295.1':0.003258)[&bootstrap=100]:0.029721,'chironomus_tepperi_GCF_022539635.2':0.024581)[&bootstrap=60]:0.005307,('chironomus_tentans_GCA_963573255.1':0.001562,'chironomus_tentans_GCA_963573265.1':0.001166)[&bootstrap=100]:0.028356)[&bootstrap=100]:0.008986,'chironomus_striatipennis_GCA_026123125.1':0.022512)[&bootstrap=100]:0.103371,('polypedilum_pembai_GCA_014622435.1':0.032754,'polypedilum_vanderplanki_GCA_018290095.1':0.02988)[&bootstrap=100]:0.113954)[&bootstrap=100]:0.041795,'tanytarsus_gracilentus_GCA_038502055.1':0.192576)[&bootstrap=100]:0.091078)[&bootstrap=100]:0.029904,'propsilocerus_akamusi_GCA_018397935.1':0.141642)[&bootstrap=100]:0.167976,'parochlus_steinenii_GCA_038502155.1':0.240852)[&bootstrap=100]:0.142967,((((('culicoides_brevitarsis_GCF_036172545.1':0.054621,'culicoides_tainanus_GCA_020740445.1':0.067881)[&bootstrap=100]:0.04939,'culicoides_stellifer_GCA_040583785.1':0.062806)[&bootstrap=100]:0.023761,('culicoides_sonorensis_GCA_047716325.1':0.003475,'culicoides_sonorensis_GCA_900002565.1':0.002021)[&bootstrap=100]:0.071421)[&bootstrap=100]:0.157744,('forcipomyia_taiwana_GCA_963930915.1':0.001322,'forcipomyia_taiwana_GCA_949837095.1':0.001991)[&bootstrap=100]:0.282357)[&bootstrap=100]:0.102967,(leptoconops_noei__SRR00000022:0.033542,leptoconops_irritans__SRR00000011:0.030466)[&bootstrap=100]:0.256342)[&bootstrap=100]:0.122523)[&bootstrap=97]:0.026371)[&bootstrap=100,!rotate=true]:0.097775,'mochlonyx_cinctipes_GCA_001014845.1':0.165734)[&bootstrap=100,!color=#d9302e]:0.106759)[&bootstrap=100,!color=#d9302e]:0.04896,'uranotaenia_lowii_GCF_029784155.1'[&!color=#d9302e]:0.110398)[&bootstrap=85,!color=#d9302e]:0.012568,((((('culex_laticinctus_GCA_964187845.1'[&!color=#d9302e]:7.2E-4,'culex_laticinctus_GCA_964187835.1'[&!color=#d9302e]:7.66E-4)[&bootstrap=100,!color=#d9302e]:0.007671,('culex_theileri_GCA_964340515.1'[&!color=#d9302e]:0.00125,'culex_theileri_GCA_964340705.1'[&!color=#d9302e]:0.001022)[&bootstrap=100,!color=#d9302e]:0.003851)[&bootstrap=100,!color=#d9302e]:0.010309,('culex_perexiguus_GCA_964243045.1'[&!color=#d9302e]:0.0016,'culex_perexiguus_GCA_964248615.1'[&!color=#d9302e]:0.001964)[&bootstrap=100,!color=#d9302e]:0.013665)[&bootstrap=69,!color=#d9302e]:0.003101,((('culex_pipiens_GCA_963924435.1'[&!color=#d9302e]:0.002376,'culex_pipiens_GCA_963924485.1'[&!color=#d9302e]:0.002197)[&bootstrap=100,!color=#d9302e]:0.002005,('culex_quinquefasciatus_GCF_015732765.1'[&!color=#d9302e]:0.001599,'culex_quinquefasciatus_GCF_000209185.1'[&!color=#d9302e]:0.004922)[&bootstrap=100,!color=#d9302e]:0.002117)[&bootstrap=100,!color=#d9302e]:0.003352,culex_torrentium__SRR2029630[&!color=#d9302e]:0.019151)[&bootstrap=100,!color=#d9302e]:0.014775)[&bootstrap=100,!color=#d9302e]:0.004045,('culex_modestus_GCA_964213205.1'[&!color=#d9302e]:0.002023,'culex_modestus_GCA_964213185.1'[&!color=#d9302e]:0.005121)[&bootstrap=100,!color=#d9302e]:0.014218)[&bootstrap=100,!color=#d9302e]:0.073084)[&bootstrap=68,!color=#d9302e]:0.00794,((('malaya_genurostris_GCF_030247185.1'[&!color=#d9302e]:0.050281,'topomyia_yanbarensis_GCF_030247195.1'[&!color=#d9302e]:0.036252)[&bootstrap=100,!color=#d9302e]:0.031117,(('sabethes_cyaneus_GCF_943734655.1'[&!color=#d9302e]:5.35E-4,sabethes_cyaneus_SRR0020000[&!color=#d9302e]:0.009327)[&bootstrap=100,!color=#d9302e]:0.037963,'wyeomyia_smithii_GCF_029784165.1'[&!color=#d9302e]:0.039153)[&bootstrap=100,!color=#d9302e]:0.043452)[&bootstrap=100,!color=#d9302e]:0.027466,'toxorhynchites_rutilus_GCF_029784135.1'[&!color=#d9302e]:0.097542)[&bootstrap=86,!color=#d9302e]:0.008799)[&bootstrap=100,!color=#d9302e]:0.04102)[&bootstrap=100,!color=#d9302e]:0.018444,('armigeres_subalbatus_GCF_024139115.2'[&!color=#d9302e]:5.33E-4,armigeres_subalbatus__SRR19174301[&!color=#d9302e]:0.010406)[&bootstrap=100,!color=#d9302e]:0.045293)[&bootstrap=100,!color=#d9302e]:0.010082)[&bootstrap=100,!color=#d9302e]:0.021058);
+end;
+
+begin figtree;
+	set appearance.backgroundColorAttribute="Default";
+	set appearance.backgroundColour=#ffffff;
+	set appearance.branchColorAttribute="User selection";
+	set appearance.branchColorGradient=false;
+	set appearance.branchLineWidth=1.0;
+	set appearance.branchMinLineWidth=0.0;
+	set appearance.branchWidthAttribute="Fixed";
+	set appearance.foregroundColour=#000000;
+	set appearance.hilightingGradient=false;
+	set appearance.selectionColour=#2d3680;
+	set branchLabels.colorAttribute="User selection";
+	set branchLabels.displayAttribute="Branch times";
+	set branchLabels.fontName="sansserif";
+	set branchLabels.fontSize=8;
+	set branchLabels.fontStyle=0;
+	set branchLabels.isShown=false;
+	set branchLabels.significantDigits=4;
+	set layout.expansion=257;
+	set layout.layoutType="RECTILINEAR";
+	set layout.zoom=0;
+	set legend.attribute="bootstrap";
+	set legend.fontSize=10.0;
+	set legend.isShown=false;
+	set legend.significantDigits=4;
+	set nodeBars.barWidth=4.0;
+	set nodeBars.displayAttribute=null;
+	set nodeBars.isShown=false;
+	set nodeLabels.colorAttribute="User selection";
+	set nodeLabels.displayAttribute="Node ages";
+	set nodeLabels.fontName="sansserif";
+	set nodeLabels.fontSize=8;
+	set nodeLabels.fontStyle=0;
+	set nodeLabels.isShown=false;
+	set nodeLabels.significantDigits=4;
+	set nodeShapeExternal.colourAttribute="User selection";
+	set nodeShapeExternal.isShown=false;
+	set nodeShapeExternal.minSize=10.0;
+	set nodeShapeExternal.scaleType=Width;
+	set nodeShapeExternal.shapeType=Circle;
+	set nodeShapeExternal.size=4.0;
+	set nodeShapeExternal.sizeAttribute="Fixed";
+	set nodeShapeInternal.colourAttribute="User selection";
+	set nodeShapeInternal.isShown=false;
+	set nodeShapeInternal.minSize=10.0;
+	set nodeShapeInternal.scaleType=Width;
+	set nodeShapeInternal.shapeType=Circle;
+	set nodeShapeInternal.size=4.0;
+	set nodeShapeInternal.sizeAttribute="Fixed";
+	set polarLayout.alignTipLabels=false;
+	set polarLayout.angularRange=0;
+	set polarLayout.rootAngle=0;
+	set polarLayout.rootLength=100;
+	set polarLayout.showRoot=true;
+	set radialLayout.spread=0.0;
+	set rectilinearLayout.alignTipLabels=false;
+	set rectilinearLayout.curvature=0;
+	set rectilinearLayout.rootLength=100;
+	set scale.offsetAge=0.0;
+	set scale.rootAge=1.0;
+	set scale.scaleFactor=1.0;
+	set scale.scaleRoot=false;
+	set scaleAxis.automaticScale=true;
+	set scaleAxis.fontSize=8.0;
+	set scaleAxis.isShown=false;
+	set scaleAxis.lineWidth=1.0;
+	set scaleAxis.majorTicks=1.0;
+	set scaleAxis.minorTicks=0.5;
+	set scaleAxis.origin=0.0;
+	set scaleAxis.reverseAxis=false;
+	set scaleAxis.showGrid=true;
+	set scaleBar.automaticScale=true;
+	set scaleBar.fontSize=10.0;
+	set scaleBar.isShown=true;
+	set scaleBar.lineWidth=1.0;
+	set scaleBar.scaleRange=0.0;
+	set tipLabels.colorAttribute="User selection";
+	set tipLabels.displayAttribute="Names";
+	set tipLabels.fontName="sansserif";
+	set tipLabels.fontSize=8;
+	set tipLabels.fontStyle=0;
+	set tipLabels.isShown=true;
+	set tipLabels.significantDigits=4;
+	set trees.order=false;
+	set trees.orderType="increasing";
+	set trees.rooting=true;
+	set trees.rootingType="User Selection";
+	set trees.transform=false;
+	set trees.transformType="cladogram";
+end;
+

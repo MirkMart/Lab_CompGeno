@@ -18,13 +18,13 @@ git status #display the current state of the git repository
 
 ## SSH keys
 
-We need to give permission to our local repository to contact the online one and exchange information. To so so, we can follow this [tutorial](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) creating a pair of ssh-keys that can allow the correct autentication between local and origin repositories. When you will be asked to choose a password, take into consideration the possibility to not choose one. It seems counterintuitive, but it lets you have more room for automatisation. For example, in this way you can write a script that automatically can update and synchronise your entire repository every day, even if you forget to do it. This is possible using the tool `crontab`, which is designed to launch periodical background commands. To do so, follow instruction present [here](./time_scheduled_commands.md).
+We need to give permission to our local repository to contact the online one and exchange information. To so so, we can follow this [tutorial](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) creating a pair of ssh-keys that can allow the correct autentication between local and origin repositories. When you will be asked to choose a password, take into consideration the possibility to not choose one. It seems counterintuitive, but it lets you have more room for automatisation. For example, in this way you can write a script that automatically can update and synchronise your entire repository every day, even if you forget to do it. This is possible using the tool `crontab`, which is designed to launch periodical background commands. To do so, follow instruction present [time_scheduled_commands](./time_scheduled_commands.md).
 
 ## Gitignore
 
 A very useful file is [.gitignore](https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files). This file allows to list all files that we do not want to synchronise with out online repository, because to big or not useful. As always, it is only a common text file which containes extensions and file to ignore. a good starting point is to ignore all fasta and logs file. If in any way they become important, it is only possible to force those we want.
 
-An [example](./gitignore_example.txt) is here provided.
+An [example](../../.gitignore) is here provided.
 
 ## How Git works
 
@@ -102,5 +102,6 @@ git diff HEAD..origin/main #see actual differences and changes
 ## Cheatsheet
 
 Usefull resources:
+
   - [cheatsheet](https://education.github.com/git-cheat-sheet-education.pdf)
   - [git references](https://git-scm.com/docs)

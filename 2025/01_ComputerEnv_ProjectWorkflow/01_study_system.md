@@ -1,20 +1,23 @@
 # Study system
 
-## *Anopheles stephensi*
+## Anopheles stephensi
 
-Arthropoda; Insecta; Pterygota; Diptera
+cellular organisms; Eukaryota; Opisthokonta; Metazoa; Eumetazoa; Bilateria; Protostomia; Ecdysozoa; Panarthropoda; Arthropoda; Mandibulata; Pancrustacea; Hexapoda; Insecta; Dicondylia; Pterygota; Neoptera; Endopterygota; Diptera; Nematocera; Culicomorpha; Culicoidea; Culicidae; Anophelinae; Anopheles; Cellia; Neocellia
 
-![Anopheles stephensii](../99_Figures/Aste.png)
+|                 Anophenes stephensi          |                      Phylogenesis of mosquitos                 |
+|----------------------------------------------|----------------------------------------------------------------|
+|![Anopheles stephensi](../99_Figures/Aste.png)|![phylogenesis](../99_Figures/mosquitos_phylogenesis_mattia.pdf)|
 
 **NCBI genome sequencing related [bioproject](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA629843/)**
 
-[Sequence read Archive](https://trace.ncbi.nlm.nih.gov/Traces/?view=run_browser&page_size=10&acc=SRR11672503&display=metadata)
+- [short reads SRA](https://trace.ncbi.nlm.nih.gov/Traces/?view=run_browser&page_size=10&acc=SRR11672503&display=metadata)
+- [long reads SRA]([text](https://trace.ncbi.nlm.nih.gov/Traces/?view=run_browser&acc=SRR11672506&display=metadata))
 
 ---
 
 ## Task list
 
-![task list](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/Figures/Tasks.png)
+![task list](../99_Figures/Tasks.png)
 
 ### Disclaimer
 

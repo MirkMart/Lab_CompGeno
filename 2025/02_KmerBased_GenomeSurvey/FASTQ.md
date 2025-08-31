@@ -13,13 +13,13 @@ FASTQ file: four lines per sequence.
 
 ![Phred score](../99_Figures/Screenshot_2022-03-04%20Phred%20quality%20score%20-%20Wikipedia.png)
 
-![header](https://raw.githubusercontent.com/MariangelaIannello/didattica/main/images/illumina_seq_id.png)
+![header](../99_Figures/illumina_seq_id.png)
 
 ![ascii](../99_Figures/ascii_2.png)
 
-![ascii_2](https://raw.githubusercontent.com/MariangelaIannello/didattica/main/images/ascii.png)
+![ascii_2](../99_Figures/ascii.png)
 
-![ascii_3](https://raw.githubusercontent.com/MariangelaIannello/didattica/main/images/ascii33.gif)
+![ascii_3](../99_Figures/ascii33.gif)
 
 ---
 
@@ -58,7 +58,7 @@ Fields must be tab-separated. Also, all but the final field in each feature line
 * frame - One of '0', '1' or '2'. '0' indicates that the first base of the feature is the first base of a codon, '1' that the second base is the first base of a codon, and so on..  
 * attribute - A semicolon-separated list of tag-value pairs, providing additional information about each feature.  
 
-For more informations see [here](https://www.ensembl.org/info/website/upload/gff.html).  
+For more informations see here [GFF/GTF File Format - Definition and supported options](https://www.ensembl.org/info/website/upload/gff.html).  
 
 ### BED
 
@@ -74,7 +74,7 @@ The 9 additional optional BED fields are:
 * score - A score between 0 and 1000.  
 * strand - Defines the strand. Either "." (=no strand) or "+" or "-".  
 
-For more informations see [here](http://genome.ucsc.edu/FAQ/FAQformat#format1).  
+For more informations see here [BED format](http://genome.ucsc.edu/FAQ/FAQformat#format1).  
 
 [Example](./Data/GCF_902806645.1_cgigas_uk_roslin_v1_genomic.gff) of GFF3 file. [Example](./Data/Cgig_Genes.bed) of BED file.
 

@@ -1,9 +1,3 @@
-# Title:27-mer spectra for: SRR11672503_1_paired.fastq SRR11672503_2_paired.fastq
-# XLabel:27-mer frequency
-# YLabel:# distinct 27-mers
-# Kmer value:27
-# Input 1:SRR11672503_1_paired.fastq SRR11672503_2_paired.fastq
-###
 1 727192679
 2 59590384
 3 15646244

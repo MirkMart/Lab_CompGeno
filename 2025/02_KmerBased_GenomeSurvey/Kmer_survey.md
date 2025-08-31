@@ -50,7 +50,7 @@ fastqc seqfile1 seqfile2 .. seqfileN
 ### Trim reads in a sliding window approach: **TRIMMOMATIC** (20 mins)
 
 ```bash
-trimmomatic PE -threads 20 -phred33 SRR11672503_1.fastq.gz SRR11672503_2.fastq.gz SRR11672503_1_paired.fastq SRR11672503_1_unpaired.fastq SRR11672503_2_paired.fastq SRR11672503_2_unpaired.fastq ILLUMINACLIP:/usr/local/anaconda3/share/trimmomatic-0.39-2/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36 2> stats_trimmomatic
+trimmomatic PE -threads 20 -phred33 SRR11672503_1.fastq.gz SRR11672503_2.fastq.gz SRR11672503_1_paired.fastq SRR11672503_1_unpaired.fastq SRR11672503_2_paired.fastq SRR11672503_2_unpaired.fastq ILLUMINACLIP:/opt/miniforge3/envs/assembly/share/trimmomatic-0.39-2/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36 2> stats_trimmomatic.log
 ```
 
 where :
@@ -89,9 +89,9 @@ Other possibilities :
 
 ## Compute *k-mer* frequency (~ 7 mins for 20 threads)
 
-Analysing k-mers can be done with many different tools ([KAT](https://kat.readthedocs.io/en/latest/index.html), [Jellyfish](https://github.com/gmarcais/Jellyfish), or [BBmap](https://sourceforge.net/projects/bbmap/)). We will use KAT. 
+Analysing k-mers can be done with many different tools ([KAT](https://kat.readthedocs.io/en/latest/index.html), [Jellyfish](https://github.com/gmarcais/Jellyfish), or [BBmap](https://sourceforge.net/projects/bbmap/)). We will use KAT.
 
-KAT ( K-mer Analysis Toolkit) is a bioinformatics toolset used to perform various analyses on k-mer distributions from sequence data, primarily in genome assembly and evaluation. K-mers are used to analyze the structure, quality, and completeness of genome assemblies, and to compare datasets such as sequencing reads and assembled genomes.
+KAT (K-mer Analysis Toolkit) is a bioinformatics toolset used to perform various analyses on k-mer distributions from sequence data, primarily in genome assembly and evaluation. K-mers are used to analyze the structure, quality, and completeness of genome assemblies, and to compare datasets such as sequencing reads and assembled genomes.
 
 ```bash
 kat hist -t <THREADS> -m <MER LENGTH> -o <OUTPUT PREFIX> <paired_1> <paired_2>
@@ -106,13 +106,11 @@ In particular:
 
 ## Genome size, heterozigosity and repetitive content estimation
 
-The file we will use is the one without any extension. we can rename it '<name>.hist'. After its download, we have to delete all the comments at its head before uploading it to genomescope.
+The file we will use is the one without any extension. We can rename it using the suffix '.hist'. To use it, we have to delete all the comments in  its beginning, then we can upload it into [genomescope](http://genomescope.org/genomescope2.0/).
 
-[Genomescope2](http://genomescope.org/genomescope2.0/)
+A useful description of how [interpret a genomescope graph](https://bioinformaticsworkbook.org/dataAnalysis/GenomeAssembly/genomescope.html#gsc.tab=0)
 
-A useful description of how interpret a genomescope graph is [here](https://bioinformaticsworkbook.org/dataAnalysis/GenomeAssembly/genomescope.html#gsc.tab=0)
-
-[This](http://genomescope.org/genomescope2.0/analysis.php?code=io1omtb13sTy7izIPz8F) is how our result should like.
+[This](http://genomescope.org/genomescope2.0/analysis.php?code=vWJpnAj5PQRPhLKl3lTZ) is how our result should like.
 
 **Watch out for lower and upper count boundaries**.
 
@@ -120,5 +118,5 @@ A useful description of how interpret a genomescope graph is [here](https://bioi
 
 ### Some other example
 
-[*Ruditapes philippinarum*](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/3_KmerBased_GenomeSurvey/Data/Rphil_kmer27.png)
-[*Reticulitermes lucifugus*](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/3_KmerBased_GenomeSurvey/Data/Rluc.kmc_30_Genomescope.png)
+[*Ruditapes philippinarum*](./Data/Rphil_kmer27.png)
+[*Reticulitermes lucifugus*](./Data/Rluc.kmc_30_Genomescope.png)

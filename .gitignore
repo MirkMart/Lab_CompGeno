@@ -39,10 +39,3 @@ src/
 
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
-
-
-.Rproj.user
-02_analysis/00_R/.RData
-*TRACCER.notes.txt
-/02_analysis/04_Trees/03_time_tree/02_mcmctree/out_mcmctree
-02_analysis/00_R/.Rhistory
