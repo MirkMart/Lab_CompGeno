@@ -2,49 +2,54 @@
 
 > words between |...| in comments defines the environments where the command was launched
 
-## Download SRA
-
 ```bash
+## Download SRA anda data
 #|sequence|
 prefetch SRR11672506
 fasterq-dump SRR11672506
 gzip SRR11672506.fastq
 prefetch SRR11672503
 fasterq-dump SRR11672503
-gzip SRR11672506_1.fastq
-gzip SRR11672506_2.fastq
-```
+gzip SRR11672503_1.fastq
+gzip SRR11672503_2.fastq
+
+datasets download genome accession GCF_013141755.1 --include gff3,rna,cds,protein,genome,seq-report
+unzip ncbi.zip
 
 ## Fastqc: view reads quality
-
-```bash
+#|assembly|
 fastqc SRR11672503_1.fastq.gz SRR11672503_2.fastq.gz
-```
 
 ## Trimmomatic: remove reads or parts of reads based on the quality score
+#|assembly|
+trimmomatic PE -threads 20 -phred33 SRR11672503_1.fastq.gz SRR11672503_2.fastq.gz SRR11672503_1_paired.fastq SRR11672503_1_unpaired.fastq SRR11672503_2_paired.fastq SRR11672503_2_unpaired.fastq ILLUMINACLIP:/opt/miniforge3/envs/assembly/share/trimmomatic-0.39-2/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36 2> stats_trimmomatic.log
 
-```bash
-trimmomatic PE -threads 20 -phred33 SRR11672503_1.fastq.gz SRR11672503_2.fastq.gz SRR11672503_1_paired.fastq SRR11672503_1_unpaired.fastq SRR11672503_2_paired.fastq SRR11672503_2_unpaired.fastq ILLUMINACLIP:/usr/local/anaconda3/share/trimmomatic-0.39-2/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36 2> stats_trimmomatic
-```
+#Check after trimming
+fastqc SRR11672503_1_paired.fastq SRR11672503_2_paired.fastq
+
 
 ## KAT hist: compute k-mer frequency
-kat hist -o Anoste_kmer27 -t 4 -m 27 Trimmomatic/SRR11672503_1_paired.fastq Trimmomatic/SRR11672503_2_paired.fastq
-# Remove comments from Anoste_kmer27 and upload to GenomeScope2 to take the lenght parameter (len) for the following assembly
-    #http://qb.cshl.edu/genomescope/genomescope2.0/analysis.php?code=0HnIKI37lVX1nZliWksR
+#|kat|
+kat hist -o Anoste_kmer27 -t 4 -m 27 SRR11672503_1_paired.fastq SRR11672503_2_paired.fastq
+#Remove comments from Anoste_kmer27 and upload to GenomeScope2 to take the lenght parameter (len) for the following assembly
 
 ## Assemble reads, construction of contig layout and edge sequences
-wtdbg2 -x rs -g GenomeScope_lenght -t 6 -i SRR11672506.fastq.gz -o Anoste #Contig Assembly
-wtpoa-cns -t 6 -i .ctg.lay.gz -o Anoste #Consensus Sequences
+#|assembly|
+wtdbg2 -x rs -g 227054799 -t 6 -i SRR11672506.fastq.gz -o Anoste #Contig Assembly
+wtpoa-cns -t 6 -i Anoste.ctg.lay.gz -o Anoste_raw.fasta #Consensus Sequences
 
 ## BUSCO
-conda activate Assembly_tools
-busco -i Anoste.raw.fa -m geno -l ../../../../../../PERSONALE/jacopo.martelossi2/dbs/diptera_odb10 --cpu 6 -o Anoste_busco
+#|sequence|
+export NUMEXPR_MAX_THREADS=80
+busco -i ../../03_GenomeAssembly/Anoste_raw.fasta -m geno -l /usr/local/share/busco_databases/diptera_odb12 --cpu 20 -o ./Anoste_raw
+busco -i ../../03_GenomeAssembly/Anoste_raw.fasta -m geno -l /usr/local/share/busco_databases/culicidae_odb12 --cpu 20 -o ./Anoste_raw
 
 ## Genome polishing
+#map reads on assembly
 #short-reads(sr)
-minimap2 -ax sr --MD -t 6 ../Consensus/Anoste.raw.fa ../../../Fastqc/SRR11672503_1.fastq.gz ../../../Fastqc/SRR11672503_2.fastq.gz > Anoste.raw-sr.sam
+minimap2 -ax sr --MD -t 40 Anoste_raw.fasta SRR11672503_1_paired.fastq SRR11672503_2_paired.fastq > Anoste.raw-sr.sam
 #long-reads PacBio (pb)
-minimap2 -ax map-pb --MD -t 6 ../Consensus/Anoste.raw.fa ../SRR11672506.fastq.gz > Anoste.raw-pb.sam
+minimap2 -ax map-pb --MD -t 40 Anoste_raw.fasta SRR11672506.fastq.gz > Anoste.raw-pb.sam
 
 ##KAT
 kat comp -o Anoste.kat -t 6 '../../../Fastqc/SRR11672503_1_paired.fastq.gz ../../../Fastqc/SRR11672503_2_paired.fastq.gz' ../Consensus/Anoste.raw.fa
