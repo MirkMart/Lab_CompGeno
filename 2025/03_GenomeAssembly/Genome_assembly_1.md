@@ -4,8 +4,7 @@
 
 ### What is a genome assembly ?
 
-[Ensembl
-definition](https://www.ensembl.org/info/genome/genebuild/assembly.html)
+[Ensembl definition](https://www.ensembl.org/info/genome/genebuild/assembly.html)
 >A genome assembly is a computational representation of a genome sequence. Because we are not able to sequence along the complete length of a chromosome, each chromosome assembly is made up of short stretches of sequenced DNA pasted together.
 
 Basically, assemblers needs to solve giant jigsaw puzzles with millions of pieces and in which some pecies are missing altogether and some pieces contain errors. **They perform some of the most complex computations in all biology**
@@ -18,7 +17,7 @@ Basically, assemblers needs to solve giant jigsaw puzzles with millions of piece
 2. Scaffolding
 3. Gap filling
 
-![assembly](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/4_GenomeAssembly/Figures/Genome_assembly.png)
+![assembly](../99_Figures/Genome_assembly.png)
 
 ### Some defitinitions
 
@@ -102,7 +101,7 @@ Some, but not all, metrics :
 
 We will use **[Wtdbg2](https://github.com/ruanjue/wtdbg2)** a very fast assemblers that use long reads, but keep in mind that many others exist and each one of them could perform better with different kind of data(*e.g* [CANU](https://github.com/marbl/canu); [Falcon](https://github.com/falconry/falcon);[HiFiasm](https://github.com/chhylp123/hifiasm))
 
-#### Assemble reads, costruction of contig layout and edge sequences (14 mins - 30 threads)
+#### Assemble reads, costruction of contig layout and edge sequences (14 mins - 30 threads, 20 mins with 20 threads)
 
 ```bash
 wtdbg2 -x rs -g <EXPECTED_GENOMESIZE> -t <NUMBERS_OF_CORES> -i <FASTQ> -fo <OUT_PREFIX> #Default parameters
@@ -119,7 +118,7 @@ wtdbg2 -x rs -g <EXPECTED_GENOMESIZE> -t <NUMBERS_OF_CORES> -i <FASTQ> -fo <OUT_
 wtpoa-cns is needed to polish or generate a consensus sequence from long-read data. It operates after the initial assembly of the genome has been constructed to improve the accuracy of the assembled contigs.
 
 ```bash
-wtpoa-cns -t <NUMBER_OF_CORES> -i <LAYOUT_FILE> -fo <OUT_PREFIX>
+wtpoa-cns -t <NUMBER_OF_CORES> -i <LAYOUT_FILE-.ctg.lay.gz> -fo <OUT_PREFIX>
 ```
 
 See the GitHub page for usefull tips (Remeber to check also the “issue” page).
@@ -139,7 +138,10 @@ The first `export` is needed to set the `NUMEXPR_MAX_THREADS` equals to the numb
 - '-o' #name of the output **folder**
 - '-i' #the input. In out case the raw assembly
 
-The reference database is `/home/PERSONALE/mirko.martini3/2024/Data/busco_dbs/diptera_odb10`
+The reference databases are:
+
+- `/usr/local/share/busco_databases/diptera_odb12`
+- `/usr/local/share/busco_databases/culicidae_odb12`
 
 ### Genome polishing with short and long reads
 
@@ -169,7 +171,7 @@ With:
 
 - samtools index #index alignment
 
-> INDIVIDUAL WORK Calculate mean coverage of short and long reads with [Mosdepth](https://github.com/brentp/mosdepth). Solutions are [here](./mosdepth_solution.md). The command will start with
+> INDIVIDUAL WORK Calculate mean coverage of short and long reads with [Mosdepth](https://github.com/brentp/mosdepth). [Solutions](./mosdepth_solution.md). The command will start with
 
 ```bash
 mosdepth -n --fast-mode --by 500 <...>
@@ -197,7 +199,10 @@ export NUMEXPR_MAX_THREADS=<CPU_NUMBER>
 busco -m <MODE> -l <LINEAGE> -c <CPU_NUMBER> -o <OUTPUT_NAME> -i <INPUT>
 ```
 
-The reference database is `/home/PERSONALE/mirko.martini3/01_2024/00_Data/04_busco_dbs/diptera_odb10`
+The reference database are:
+
+- `/usr/local/share/busco_databases/diptera_odb12`
+- `/usr/local/share/busco_databases/culicidae_odb12`
 
 #### KAT (~ 17 mins with 10 threads, 10 mins with 20)
 
