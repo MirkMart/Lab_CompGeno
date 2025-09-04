@@ -4,7 +4,7 @@
 
 Programms can take a while and, in the meantime, we do not have access to the command line until they have finished or we kill the program (Ctrl+c). To avoid that we work in backgroung. We can you different tool, but the two most common are `screen` and `tmux`. Personally, I prefer the second beacuse it manages with more agility mutiple terminal sessions, allowing to switch between them easily.
 
-with **tmux**. There are many shortcuts for tmux and an helpful cheat sheet is [here](https://tmuxcheatsheet.com/):
+with **tmux**. There are many shortcuts for tmux and an helpful [cheat sheet](https://tmuxcheatsheet.com/):
 
 ```bash
 tmux new -s <session_name> #open a new session names
@@ -84,13 +84,25 @@ echo '$var1' #print var1
 
 ---
 
-## Command substitution
+## Command and process substitution
 
-Command substitution runs a Unix command inline and returns the output as a string that can be used in another command.
+**Command substitution** runs a Unix command inline and returns the output as a string that can be used in another command. It is used when we need a **text** as the input of the following command.
 
 ```bash
 echo "$(cat file.fasta)"
 echo "There are $(grep -c '^>' input.fasta) entries in my FASTA file." # show the string "There are 416 entries in my FASTA file."
+```
+
+**Process substitution** runs a Unix command and return a FIFO pipeline, a file that does not store data permanently. It is used when we need a **file** as the input of the following command.
+
+```bash
+join <(sort -k1,1 input1.txt) <(sort -k1,1 input2.txt) > output.txt
+```
+
+Process substitution can be used also in **output** while we want to sort in different way something produced by a command.
+
+```bash
+bash script.sh >(grep "warning" > warninigs.log) >(grep "error" > errors.log) > script.log
 ```
 
 ---
@@ -113,7 +125,7 @@ for i in */ ; do cd $i; cp *.fasta ../; cd ..; done
 
 Bash scripts are indicated with the '.sh' extention (python scripts with '.py', perl scripts with '.pl').
 
-Create bash script with vi:
+Create bash script with nano:
 
 ```bash
 #!/bin/bash
@@ -124,7 +136,7 @@ for i in *fasta; do program1 $i > $i"_output"; done
 for i in *output; do grep ">" $i; done > list_of_sequences
 ```
 
-We need now to make the .sh file executable
+We need now to make the .sh file executable. Normally it is already executable. This could be needed if some program uses this script and encounters some problems while trying to run it.
 
 ```bash
 chmod 777 namescript.sh
@@ -138,7 +150,9 @@ bash namescript.sh
 
 ## Bash script with variables
 
-fake_script.sh
+```bash
+nano fake_script.sh
+```
 
 ```bash
 #!/bin/bash
@@ -153,20 +167,19 @@ To execute it
 bash fake_script.sh file1.fasta
 ```
 
-This is the script get_sequences_from_list_of_loci.sh
+We can also name our variable so they will be more clear when called.
 
 ```bash
 #!/bin/bash
-#retrieve sequences from a list of loci 
-#$1=list of loci to grep in a fasta file
-#$2=fasta file
 
+list_OG=$1
+aln_dir=$2
+nucleo_dir=$3
 
-file="$1" ; name=$(cat $file) ; for locus in $name ; do grep -w -A1 $locus "$2" ; done > "$1".fasta
-```
+mkdir -p "$aln_dir"/old
 
-Execute the script
-
-```bash
-bash get_sequences_from_list_of_loci.sh list_file M_musculus.fasta
+for OG in $(cat "$list_OG"); do
+    cp "$aln_dir"/"$OG"_aligned.faa "$aln_dir"/old/"$OG"_aligned_old.faa
+    sed -i -f <(awk '{print "/" $0 "/{N;d;}" }' <(grep -v -w -Ff <(grep ">" "$nucleo_dir"/"$OG".fna) <(grep ">" "$aln_dir"/"$OG"_aligned.faa))) "$aln_dir"/"$OG"_aligned.faa
+done
 ```

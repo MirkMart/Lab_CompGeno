@@ -52,7 +52,7 @@ python 3.13.5
 - samtools      1.21
 - trimmomatic   0.36
 
-## kat
+## kat (last update 29/08/2025)
 
 - kat           2.4.2
 

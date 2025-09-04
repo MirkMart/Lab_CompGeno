@@ -9,6 +9,7 @@ Remeber to `conda init` before starting the course, maybe parallele to GitHub. A
 When blastn for Bloobtool use Sidius.
 
 ```bash
+export BLASTDB=/DATABIG/dbs/NCBI/nt
 blastn -query Anoste_polass.fa -db nt -outfmt '6 qseqid staxids bitscore std sscinames sskingdoms title' -max_target_seqs 25 -max_hsps 1 -num_threads 8 -evalue 1e-25 -out Anoste_blast.tsv
 ```
 
