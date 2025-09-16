@@ -43,44 +43,46 @@ wtpoa-cns -t 6 -i Anoste.ctg.lay.gz -o Anoste_raw.fasta #Consensus Sequences
 export NUMEXPR_MAX_THREADS=80
 busco -i ../../03_GenomeAssembly/Anoste_raw.fasta -m geno -l /usr/local/share/busco_databases/diptera_odb12 --cpu 20 -o ./Anoste_raw
 busco -i ../../03_GenomeAssembly/Anoste_raw.fasta -m geno -l /usr/local/share/busco_databases/culicidae_odb12 --cpu 20 -o ./Anoste_raw
+#|assembly|
+assembly-stats Anoste_raw.fasta > Anoste_raw.stats
+
+## KAT
+#|kat|
+kat comp -o Anoste_raw -t 40 'SRR11672503_1_paired.fastq SRR11672503_2_paired.fastq' Anoste_raw.fasta
+
 
 ## Genome polishing
+#|assembly|
 #map reads on assembly
-#short-reads(sr)
-minimap2 -ax sr --MD -t 40 Anoste_raw.fasta SRR11672503_1_paired.fastq SRR11672503_2_paired.fastq > Anoste.raw-sr.sam
-#long-reads PacBio (pb)
-minimap2 -ax map-pb --MD -t 40 Anoste_raw.fasta SRR11672506.fastq.gz > Anoste.raw-pb.sam
-
-##KAT
-kat comp -o Anoste.kat -t 6 '../../../Fastqc/SRR11672503_1_paired.fastq.gz ../../../Fastqc/SRR11672503_2_paired.fastq.gz' ../Consensus/Anoste.raw.fa
-
-## Samtools script
-SAM=$1
-BAM=$2
-samtools view -Sb "$SAM" > "$BAM"
-rm "$SAM"
-samtools sort -@6 -o "${BAM/.bam/.sorted.bam}" $BAM
-rm "$BAM"
-samtools index "${BAM/.bam/.sorted.bam}"
+#mapping launched using the script mapping.sh
+bash ../../../03_scripts/mapping.sh Anoste_raw.fasta SRR11672503_1_paired.fastq SRR11672503_2_paired.fastq SRR11672506.fastq.gz 80
 
 ## Hypo
+#|assembly|
+mosdepth -n --fast-mode -t 80 --by 500 Anoste_raw_sr Anoste_raw_sr_sorted.bam
+mosdepth -n --fast-mode -t 80 --by 500 Anoste_raw_pb Anoste_raw_pb_sorted.bam
+zcat Anoste_raw_sr.regions.bed.gz | awk '{sum += $4;count++} END {print sum / count}' > coverge_sr.txt
+
 realpath ../../../Fastqc/SRR11672503_1_paired.fastq.gz > Sr.path
 realpath ../../../Fastqc/SRR11672503_2_paired.fastq.gz >> Sr.path
 
-conda activate Mosdepth
-mosdepth -n --fast-mode --by 500 Anoste.raw-sr.sorted.wgs Anoste.raw-sr.sorted.bam
-zcat Anoste.raw-sr.sorted.wgs.regions.bed.gz | awk '{sum += $4;count++} END {print sum / count}'
+R1 = $(realpath ../../../Fastqc/SRR11672503_1_paired.fastq.gz)
+R2 = $(realpath ../../../Fastqc/SRR11672503_2_paired.fastq.gz)
+echo -e "$R1\n$R2" > Sr.path
 
-conda activate Hypo
-hypo -d ../Consensus/Anoste.raw.fa -r @Sr.path -s 224m -c 136 -B ../Polishing/Anoste.raw-pb.sorted.bam -b ../Polishing/Anoste.raw-sr.sorted.bam
+hypo -d Anoste_raw.fasta -r @Sr.path -s 227m -c 136 -B Anoste_raw_pb_sorted.bam -b Anoste_raw_sr_sorted.bam -t 80
 
-# Final Genome statistics
-conda activate Assembly_tools
-busco -i Hypo.fa -m geno -l ../../../../../../PERSONALE/jacopo.martelossi2/dbs/diptera_odb10 --cpu 6 -o Anoste_busco
-kat comp -o Anoste.kat -t 6 '../../../Fastqc/SRR11672503_1_paired.fastq.gz ../../../Fastqc/SRR11672503_2_paired.fastq.gz' Hypo.fa
+## Polished Genome statistics
+#|sequence|
+#genome must be folded because one line fasta interfere with bbtools, blocking BUSCO
+fold -w 100 Anoste_pol.fasta > Anoste_fold.fasta #then changed name from fold to pol removing the original one
+busco -i ../../03_GenomeAssembly/01_polishing/Anoste_pol.fasta -m geno -l /usr/local/share/busco_databases/culicidae_odb12 --cpu 40 -o ./Anoste_pol
+#|kat|
+kat comp -o Anoste_pol -t 40 'SRR11672503_1_paired.fastq SRR11672503_2_paired.fastq' Anoste_pol.fasta
+#|assembly|
+assembly-stats Anoste_raw.fasta > Anoste_raw.stats
 
-
-## Secondary mapping
+## Second mapping
 minimap2 --secondary=no --MD -ax sr -t 6 ../Primary_assembly/Hypo/hypo_Anoste.raw.fasta ../../Fastqc/SRR11672503_1_paired.fastq.gz ../../Fastqc/SRR11672503_2_paired.fastq.gz | samtools view -Sb - > Anoste.corrected.renamed-sr.bam
 samtools sort -@10 -o Anoste.corrected.renamed-sr.sorted.bam Anoste.corrected.renamed-sr.bam
 rm Anoste.corrected.renamed-sr.bam
@@ -95,7 +97,7 @@ blastn -query <ASSEMBLY> -db <PATH/TO/nt/> -outfmt '6 qseqid staxids bitscore st
 ## Contaminats detection - BlobTools Workflow A
 conda activate blobtools
 
-../../blobtools/blobtools create -i ../Assembly/Primary_assembly/Hypo/hypo_Anoste.raw.fasta -b ../Assembly/Primary_assembly/Polishing/Anoste.raw-sr.sorted.bam -t hypo_Anoste.raw.blastn -o Anoste.corrected1
+../../blobtools/blobtools create -i ../Assembly/Primary_assembly/Hypo/hypo_Anoste.raw.fasta -b ../Assembly/Primary_assembly/Polishing/Anoste_raw_sr.sorted.bam -t hypo_Anoste.raw.blastn -o Anoste.corrected1
 ../../blobtools/blobtools view -i Anoste.corrected1.blobDB.json -o Anoste-phylum #view the contaminants contigs to remove
 ../../blobtools/blobtools plot -i Anoste.corrected1.blobDB.json -o Anoste-phylum #view contigs in the plot and search for contaminants
 
@@ -221,7 +223,6 @@ for geno in *.fna; do sed -i -E "s/>(.[^-]+)-(.+) (.+$)/>${geno/_cds.fna/}\|\2/"
 
 #Re-format the Anoste_proteom by keeping gene id and adding Anoste
 awk '/^>/ {printf ">protein%d\n", ++count; next} {print}' Anoste_anno2.all.maker.proteins.fasta > Anoste.faa
-
 
 ## Orthology inference
 conda activate test_env

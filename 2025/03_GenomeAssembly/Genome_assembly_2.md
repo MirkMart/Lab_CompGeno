@@ -14,9 +14,9 @@ Bloobtools is a bioinformatics tool designed to assess and analyse the quality a
 
     ```bash
     minimap2 --secondary=no --MD -ax sr -t <NUMBER_CORE> <ASSEMBLY> <FASTQ_R1> <FASTQ_R2> | samtools view -Sb - > <OUT_BAMFILE>.bam
-    samtools sort -@10 -o <OUT_SORTED_BAMFILE>.sorted.bam Aste.corrected.renamed-sr.bam
-    rm Aste.corrected.renamed-sr.bam
-    samtools index Aste.corrected.renamed-sr.sorted.bam
+    samtools sort -@<n_cores> -o <OUT_SORTED_BAMFILE>_sorted.bam Anoste_pol.bam
+    rm Anoste_pol.bam
+    samtools index Anoste_pol_sorted.bam
     ```
 
 2. Taxonomic annotation of the contigs
@@ -27,7 +27,7 @@ Bloobtools is a bioinformatics tool designed to assess and analyse the quality a
 
 ### Construction a BlobDB data structure and assembly visualitation (~6 minutes)
 
-Installation perfomed following [GitHub instructions](https://github.com/DRL/blobtools). **REMEMBER** yo create nodes.db. At the end, the folder was added to the `$PATH` to call the program from wherever. The output will be created appending `.blobDB.json`.
+Installation perfomed following [GitHub instructions](https://github.com/DRL/blobtools). **REMEMBER** to create nodes.db. At the end, the folder was added to the `$PATH` to call the program from wherever. The output will be created appending `.blobDB.json`.
 
 ```bash
 blobtools create -i <ASSEMBLY> -b <MAPPING_FILE> -t <BLASTN_FILE> -o <OUTPUT_PREFIX>

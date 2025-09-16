@@ -2,11 +2,11 @@
 
 ## Conda init
 
-Remeber to `conda init` before starting the course, maybe parallele to GitHub. After `init` you need to restart the shell. You need to delete every screen that was created before, because it will be without conda.
+Remeber to `conda init` before starting the course, maybe parallel to GitHub. After `init` you need to restart the shell. You need to delete every screen that was created before, because it will be without conda.
 
 ## blastn for bloobtool
 
-When blastn for Bloobtool use Sidius.
+When blastn for Bloobtool use Sidius (137.204.142.152).
 
 ```bash
 export BLASTDB=/DATABIG/dbs/NCBI/nt
