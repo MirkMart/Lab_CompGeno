@@ -6,6 +6,58 @@ Most of the software that you are going to use are already installed in differen
 
 Environments and related softwares:
 
+## base
+
+- R             4.5.1
+
+## tree
+
+- gotree        0.4.5
+- iqtree        2.3.6
+- raxml-ng      1.2.2
+- paml          4.10.7
+- ete3          3.1.3
+- treeswift     1.1.45
+- HYPHY         2.5.71
+- orthofinder   2.5.5
+- mafft         7.526
+
+## sequence
+
+Python too high for orthofinder
+
+- agat          1.4.1
+- bmge          1.12 (outside all conda environment exist also bmge 2.0)
+- BUSCO         6.0.0
+- edirect       24.0
+- mafft         7.526
+- ncbi-datasets 18.3.1
+- SRA-tools     3.2.1
+
+[busco datasets on server](/usr/local/share/busco_database):
+
+- arthropoda: /usr/local/share/busco_databases/arthropoda_odb12\
+- culicidae: /usr/local/share/busco_databases/culicidae_odb12
+
+## assembly
+
+python 3.13.5
+
+- assembly-stats 1.0.1
+- augustus       3.1
+- blast          2.16.0
+- diamond        2.1.10
+- fastqc         0.12.1
+- hypo           1.0.3
+- minimap2       2.28
+- mosdepth       0.3.10
+- r-base         4.3.3
+- samtools       1.21
+- trimmomatic    0.36
+
+## kat
+
+- kat           2.4.2
 
 ---
 

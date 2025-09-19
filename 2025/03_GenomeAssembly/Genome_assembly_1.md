@@ -181,7 +181,7 @@ mosdepth -n --fast-mode --by 500 <...>
 
 ```bash
 echo -e "$R1\n$R2" > <READS_PATH>
-hypo -d <DRAFT_Contigs> -r @<READS_PATH> -s <APPROXIMATE_GENOMESIZE> -c <SHORT_READSCOVERAGE> -b <SORTED_BAM_SR> -B <SORTED_BAM_PB> -t <NUMBER_THREADS>
+hypo -d <DRAFT_Contigs> -r @<READS_PATH> -s <APPROXIMATE_GENOMESIZE> -c <SHORT_READSCOVERAGE> -b <SORTED_BAM_SR> -B <SORTED_BAM_PB> -t <NUMBER_THREADS> -t <cores_n>
 ```
 
 ### Genome evaluation
@@ -192,10 +192,15 @@ hypo -d <DRAFT_Contigs> -r @<READS_PATH> -s <APPROXIMATE_GENOMESIZE> -c <SHORT_R
 assembly-stats <ASSEMBLY> > <stats_log>
 ```
 
+> In the latest version of BUSCO, similar statistics are already computed usign bbtols. Assembly stats is an alternative that is more descriptive
+
 #### Busco (~ 8 mins with 30 cores, 10 with 20)
+
+> !! bbtools inside BUSCO does not appreciate oneline fasta !!
 
 ```bash
 export NUMEXPR_MAX_THREADS=<CPU_NUMBER>
+fold -w <n_characters> <input.fasta> > <output.fasta>
 busco -m <MODE> -l <LINEAGE> -c <CPU_NUMBER> -o <OUTPUT_NAME> -i <INPUT>
 ```
 
@@ -209,6 +214,8 @@ The reference database are:
 ```bash
 kat comp -t <NUM_THREADS> -o <OUTPUT_PREFIX> '<FASTQ>...' <ASSEMBLY>
 ```
+
+> Even if the stats show that hash1 is only the SR1, do not worry. Both SR files have been counted.
 
 Compare your results with :  
 

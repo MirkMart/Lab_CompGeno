@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#This script downlads genomes and relative gff from NCBI datasets creating ready to use folders
+#This script downloads genomes and relative gff from NCBI datasets creating ready to use folders
 
 AN2name=$1
 
