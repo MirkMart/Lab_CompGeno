@@ -13,13 +13,25 @@
 *.dir
 *.pag
 *.out
-subfiles/
-busco_downloads/
+**/busco_downloads/**
+
+#Sequences#
+###########
 *.faa
+*.fna
+*.fasta
 *.fa
 *.gff
 *.fna
-*.gz
+*.fastq
+
+#Archives#
+##########
+*.gz*
+*.tar
+
+#Tree#
+######
 RAxML_bestTree.*
 
 pkg/
@@ -39,3 +51,12 @@ src/
 
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
+
+#Mapping#
+#########
+*.bam
+*.bai
+
+#Folders#
+#########
+**/00_assembly_raw/**
