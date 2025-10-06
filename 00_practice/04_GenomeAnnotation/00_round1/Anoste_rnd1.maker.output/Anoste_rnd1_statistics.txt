@@ -1,0 +1,106 @@
+--------------------------------------------------------------------------------
+
+------------------------------------ contig ------------------------------------
+Number of contig                                            3
+Number contig overlapping                                   0
+Total contig length (bp)                                    202147033
+mean contig length (bp)                                     67382344
+median contig length (bp)                                   88252832
+90 percentile contig length (bp)                            na
+Longest contig (bp)                                         91839414
+Shortest contig (bp)                                        22054787
+
+---------------------------------- match_part ----------------------------------
+Number of match                                             1091883
+Number of protein_match                                     232280
+Number of intron                                            969119
+Number of match_part                                        2293282
+Number protein_match..match overlapping                     0
+Number of single exon match                                 1091883
+Number of single exon protein_match                         232280
+mean introns per match                                      0.9
+mean introns per protein_match                              4.2
+mean match_parts per match                                  2.1
+mean match_parts per protein_match                          9.9
+Total match length (bp)                                     58823369
+Total protein_match length (bp)                             1097831120
+Total intron length (bp)                                    485492306
+Total match_part length (bp)                                669257078
+mean match length (bp)                                      54
+mean protein_match length (bp)                              4726
+mean intron length (bp)                                     501
+mean match_part length (bp)                                 292
+median match length (bp)                                    32
+median protein_match length (bp)                            1969
+median intron length (bp)                                   78
+median match_part length (bp)                               107
+90 percentile match length (bp)                             64
+90 percentile protein_match length (bp)                     12103
+90 percentile intron length (bp)                            2234
+90 percentile match_part length (bp)                        726
+Longest match (bp)                                          28503
+Longest protein_match (bp)                                  76251
+Longest intron (bp)                                         35448
+Longest match_part (bp)                                     28503
+Shortest match (bp)                                         1
+Shortest protein_match (bp)                                 69
+Shortest intron (bp)                                        -12222
+Shortest match_part (bp)                                    1
+
+------------------------------------- mrna -------------------------------------
+Number of gene                                              11453
+Number of mrna                                              11453
+Number of cds                                               11453
+Number of exon                                              49356
+Number of exon in cds                                       49356
+Number of intron in cds                                     37903
+Number of intron in exon                                    37903
+Number gene overlapping                                     2
+Number of single exon gene                                  1359
+Number of single exon mrna                                  1359
+mean mrnas per gene                                         1.0
+mean cdss per mrna                                          1.0
+mean exons per mrna                                         4.3
+mean exons per cds                                          4.3
+mean introns in cdss per mrna                               3.3
+mean introns in exons per mrna                              3.3
+Total gene length (bp)                                      40638727
+Total mrna length (bp)                                      40638727
+Total cds length (bp)                                       20012028
+Total exon length (bp)                                      20012028
+Total intron length per cds (bp)                            20626699
+Total intron length per exon (bp)                           20626699
+mean gene length (bp)                                       3548
+mean mrna length (bp)                                       3548
+mean cds length (bp)                                        1747
+mean exon length (bp)                                       405
+mean cds piece length (bp)                                  405
+mean intron in cds length (bp)                              544
+mean intron in exon length (bp)                             544
+median gene length (bp)                                     1787
+median mrna length (bp)                                     1787
+median cds length (bp)                                      214
+median exon length (bp)                                     214
+median cds piece length (bp)                                214
+median intron in cds length (bp)                            80
+median intron in exon length (bp)                           80
+90 percentile gene length (bp)                              8708
+90 percentile mrna length (bp)                              8708
+90 percentile cds length (bp)                               926
+90 percentile exon length (bp)                              926
+90 percentile cds piece length (bp)                         926
+90 percentile intron in cds length (bp)                     1512
+90 percentile intron in exon length (bp)                    1512
+Longest gene (bp)                                           72179
+Longest mrna (bp)                                           72179
+Longest cds (bp)                                            36108
+Longest exon (bp)                                           13254
+Longest cds piece (bp)                                      13254
+Longest intron into cds part (bp)                           9982
+Longest intron into exon part (bp)                          9982
+Shortest gene (bp)                                          156
+Shortest mrna (bp)                                          156
+Shortest cds piece (bp)                                     2
+Shortest intron into cds part (bp)                          21
+Shortest intron into exon part (bp)                         21
+
