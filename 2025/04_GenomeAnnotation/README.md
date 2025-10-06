@@ -22,9 +22,9 @@ Eukariotic genomes are very complex (results of evolution by molecular tinkering
 6. Collection of all gene models and creation of a consensus set based on support given by external evidences (usually gene models low or not supported by external evidences are discared).
 7. Evaluation of our final gene set.
 
-Luckly, multiple genome annotation pipeline exist to facilitate this process. One of the most used is **[MAKER](http://weatherby.genetics.utah.edu/MAKER/wiki/index.php/MAKER_Tutorial_for_WGS_Assembly_and_Annotation_Winter_School_2018)**
+Luckly, multiple genome annotation pipeline exist to facilitate this process. One of the most used is **[MAKER](http://weatherby.genetics.utah.edu/MAKER/wiki/index.php/MAKER_Tutorial_for_WGS_Assembly_and_Annotation_Winter_School_2018)**. Another [great step-wise tutorial](./maker_pipeline.pdf) is loaded in this folder.
 
-![MAKER](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/Figures/MAKER_Apollo_view.jpeg)
+![MAKER](../99_Figures/MAKER_Apollo_view.jpeg)
 
 -----
 
@@ -48,7 +48,7 @@ maker -CTL
 
 Three files are generated:
 
-- maker_bopts: parameters for the softwares used by MAKER, we mantain default parameters
+- maker_bopts: parameters for the softwares used by MAKER, we mantain default parameters. Here, a great source to understand each [input parameter](https://weatherby.genetics.utah.edu/MAKER/wiki/index.php/The_MAKER_control_files_explained) in MAKER.
 - maker_exe: paths to all softwares
 - maker_opts: MAKER run parameters, here we need to modify
 
@@ -139,11 +139,13 @@ Changes to do:
 - provide RepeatModeler library.
 - protein2genome= from 0 to 1 #This change enable maker to use protein homology to infer prediction (needed since we are feeding the program with a known proteome)
 - decide number of CPUs to use
-- pred_stats from 0 to 1 #This enables the program to calculate phred score for each annotation.
+- phred_stats from 0 to 1 #This enables the program to calculate phred score for each annotation.
 - add minimum length of protein allowed to be added to the annotation (min_protein=50)
+- alternative_splice from 0 to 1
+- split_hit empty
 
 External evidence (proteomes):
-`/home/PERSONALE/mirko.martini3/01_2024/00_Data/02_annotation/Proteomes`
+`/home/PERSONALE/mirko.martini3/Lab_CompGeno/00_practice/00_data/02_Annotation`
 
 **To be known**: AED is a measure of annotation quality, indicating how well the predicted gene matches external evidence. It ranges from 0 (perfect match) to 1 (no match).
 
@@ -165,7 +167,7 @@ Finally we must extract all evidences from the gff file using bash (awk on "prot
 We can also summarize results of Evidence-based gene annotation and RepeatMasker using the [AGAT](https://github.com/NBISweden/AGAT) package, a very usefull set of perl scripts to manage gff3 files, print the help and run the script :
 
 ```bash
-agat_sp_statistics.pl --gff file.gff -o <output_file> #Summary statistics of gene models
+agat_sp_statistics.pl --gff file.gff -o <output_file>        #Summary statistics of gene models
 agat_sq_repeats_analyzer.pl -i <input_file> -o <output_file> #Summary statistics of repeats
 ```
 
@@ -215,20 +217,21 @@ Then you will usually separate your gene models in a training and a testing set.
 However, in this course we will use a more straigthforward way, training Augustus inside Busco.
 
 ```bash
-busco -i Aste.ragtag_scaffolds.chr.fa -c 36 -l ../../../dbs/arthropoda_odb10 --augustus --long -m genome --out Aste_BuscoTraining --augustus_parameters='--progress=true'
+busco -i ../../03_GenomeAssembly/03_scaffolding/Anoste_chr.fasta -c 30 -l /usr/local/share/busco_databases/culicidae_odb12 --augustus --long -m genome --out Anoste_cu --augustus_parameters='--progress=true'
 ```
 
 Since also this process is quite computanionally intensive and the trained models must be present in a specific path were Augustus will search for them, I have already trained for you augusutus. The name of the models is **Aste** (just use Aste when it will be required).
 
 ## 2.3 MAKER rnd 2 (~12h with 40 CPUs)
 
-Now you must change the maker config file specifing :
+Now you must change the maker config file specifing (copy of the old one):
 
-1. The path of repeats and proteins alignment files (protein_gff and rm_gff).
-2. The path of the SNAP models.
-3. The name of the Augusutus models.
-4. Deactive `protein2genome` and `est2genome` (only if you are changing the previous control file).
-5. In the case you want to perform a third round, remember to change also pred_stats from 0 to 1.
+1. Add the path of repeats and proteins alignment files (protein_gff and rm_gff).
+2. Remove the external protein inputs.
+3. Add the path of the SNAP models.
+4. The name of the Augustus models -> **Anoste_cu**.
+5. Deactive `protein2genome` and `est2genome`.
+6. In the case you want to perform a third round, remember to maintain pred_stats from 0 to 1.
 
 Finally, run again MAKER and collect the gff and protein/transcript files.
 

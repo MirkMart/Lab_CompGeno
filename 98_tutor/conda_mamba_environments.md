@@ -22,7 +22,7 @@ This file containes all conda/mamba envirments installed:
 
 Python too high for orthofinder
 
-- agat          1.4.1
+- blobtools     1.1.1
 - bmge          1.12 (outside all conda environment exist also bmge 2.0)
 - BUSCO         6.0.0
 - edirect       24.0
@@ -34,21 +34,23 @@ Python too high for orthofinder
 
 [busco datasets on server](/usr/local/share/busco_database):
 
-- arthropoda: /usr/local/share/busco_databases/arthropoda_odb12\
+- arthropoda: /usr/local/share/busco_databases/arthropoda_odb12
 - culicidae: /usr/local/share/busco_databases/culicidae_odb12
 
 ## assembly (last update 01/09/2025)
 
 python 3.13.5
 
-- augustus      3.1
-- blast         2.16.0
+- augustus      3.5.0
+- blast         2.14.1
 - diamond       2.1.10
 - fastqc        0.12.1
 - hypo          1.0.3
+- maker         3.01.04
 - minimap2      2.28
 - mosdepth      0.3.10
 - r-base        4.3.3
+- ragtag        2.1.0
 - samtools      1.21
 - trimmomatic   0.36
 
@@ -59,3 +61,8 @@ python 3.13.5
 ```bash
 tar -xvzf *.tar.gz
 ```
+
+## GAAS (last update 25/09/2025)
+
+- agat          1.4.1
+- GAAS          1.2.0

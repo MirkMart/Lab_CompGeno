@@ -6,7 +6,7 @@ cellular organisms; Eukaryota; Opisthokonta; Metazoa; Eumetazoa; Bilateria; Prot
 
 |                 Anophenes stephensi          |                      Phylogenesis of mosquitos                 |
 |----------------------------------------------|----------------------------------------------------------------|
-|![Anopheles stephensi](../99_Figures/Aste.png)|![phylogenesis](../99_Figures/mosquitos_phylogenesis_mattia.pdf)|
+|![Anopheles stephensi](../99_Figures/Aste.png)|![phylogenesis](../99_Figures/mosquitos_phylogenesis_mattia.png)|
 
 **NCBI genome sequencing related [bioproject](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA629843/)**
 

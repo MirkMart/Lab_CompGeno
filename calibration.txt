@@ -1,3 +1,0 @@
-Dromel,Culqui,Aedaeg,Anoste,Anogam -240.8
-Culqui,Aedaeg,Anoste,Anogam -149
-Culqui,Aedaeg -140

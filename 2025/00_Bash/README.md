@@ -217,7 +217,7 @@ grep –A10 "word" file # print rows containing pattern "word" and the 10 rows a
 grep –B10 "word" file # print rows containing pattern "word" and the 10 rows before
 grep –C10 "word" file # print rows containing pattern "word" and the 10 rows after and before
 grep "Locus10[12]" file #print Locus101 and Locus102 
-greo -E "(Locus101|Locus102)" file #print Locus101 and Locus102 
+grep -E "(Locus101|Locus102)" file #print Locus101 and Locus102 
 ```
 
 special characters:
@@ -238,7 +238,7 @@ awk '{print $4"\t"$1}' file #change orders of column and use tab as field separa
 awk -F";" '{print $3,$4}' file #fiels separator is ";"
 awk '$1==$2 {print}' file #if first column = second column, print all columns
 awk '$1 ~ /chr2|chr3/ { print $0 "\t" $3 - $2 }' file #if first column contain "chr2" or "chr3", print all columns, and a column with the difference between $3 and $2
-awk '$1 ~ /chr1/ && $3 - $2 > 10 '{print}' file #if both the first column  contain "chr1" AND $3-$2>0 , print all columns
+awk '$1 ~ /chr1/ && $3 - $2 > 10 {print}' file #if both the first column  contain "chr1" AND $3-$2>0 , print all columns
 awk '{if ($1~">") print $0; else print length}' "fasta_file #print length instead of sequence in fasta file
 ```
 

@@ -80,40 +80,52 @@ busco -i ../../03_GenomeAssembly/01_polishing/Anoste_pol.fasta -m geno -l /usr/l
 #|kat|
 kat comp -o Anoste_pol -t 40 'SRR11672503_1_paired.fastq SRR11672503_2_paired.fastq' Anoste_pol.fasta
 #|assembly|
-assembly-stats Anoste_raw.fasta > Anoste_raw.stats
+assembly-stats Anoste_pol.fasta > Anoste_pol.stats
 
 ## Second mapping
-minimap2 --secondary=no --MD -ax sr -t 6 ../Primary_assembly/Hypo/hypo_Anoste.raw.fasta ../../Fastqc/SRR11672503_1_paired.fastq.gz ../../Fastqc/SRR11672503_2_paired.fastq.gz | samtools view -Sb - > Anoste.corrected.renamed-sr.bam
-samtools sort -@10 -o Anoste.corrected.renamed-sr.sorted.bam Anoste.corrected.renamed-sr.bam
-rm Anoste.corrected.renamed-sr.bam
-samtools index Anoste.corrected.renamed-sr.sorted.bam
+minimap2 --secondary=no --MD -ax sr -t 6 Anoste_pol.fasta SRR11672503_1_paired.fastq SRR11672503_2_paired.fastq | samtools view -Sb - > Anoste_pol.bam
+samtools sort -@10 -o Anoste_pol_sorted.bam Anoste_pol.bam
+rm Anoste_pol.bam
+samtools index Anoste_pol_sorted.bam
 
 ## BLAST
-blastn -query <ASSEMBLY> -db <PATH/TO/nt/> -outfmt '6 qseqid staxids bitscore std sscinames sskingdoms stitle' -max_target_seqs 25 -max_hsps 1 -num_threads 25 -evalue 1e-25 -out <OUTFILE>
+#|run in Sidius|
+blastn -query Anoste_pol.fasta -db nt -outfmt '6 qseqid staxids bitscore std sscinames sskingdoms title' -max_target_seqs 25 -max_hsps 1 -num_threads 10 -evalue 1e-25 -out Anoste_blast.tsv
 #outfmt: blastn tabular output format 6
 #max_target_seqs: 25 target sequences but only 1 hsps so we force the one hsps with minimum e-value
 
 
 ## Contaminats detection - BlobTools Workflow A
-conda activate blobtools
 
-../../blobtools/blobtools create -i ../Assembly/Primary_assembly/Hypo/hypo_Anoste.raw.fasta -b ../Assembly/Primary_assembly/Polishing/Anoste_raw_sr.sorted.bam -t hypo_Anoste.raw.blastn -o Anoste.corrected1
-../../blobtools/blobtools view -i Anoste.corrected1.blobDB.json -o Anoste-phylum #view the contaminants contigs to remove
-../../blobtools/blobtools plot -i Anoste.corrected1.blobDB.json -o Anoste-phylum #view contigs in the plot and search for contaminants
+#|sequence|
+# Follow [passages](https://github.com/DRL/blobtools) to create node and names dbs
+blobtools create -i Anoste_pol.fasta -b Anoste_pol_sorted.bam -t Anoste_blast.tsv -o Anoste
+blobtools view -i Anoste.blobDB.json -r phylum -o Anoste_phylum #view the contaminants contigs to remove
+# Also family and genus
+blobtools plot -i Anoste.blobDB.json -r phylum -o Anoste_phylum #view contigs in the plot and search for contaminants
 
 ## Removing contaminants filtering by GC content
-grep -v "#" Anoste-phylum.Anoste.corrected.blobDB.table.txt | awk '$3 > 0.53' | grep -v "Arthropoda" | cut -f1 > contaminants_contigs.txt
-awk '{ if ((NR>1)&&($0~/^>/)) { printf("\n%s", $0); } else if (NR==1) { printf("%s", $0); } else { printf("\t%s", $0); } }' ../Assembly/Primary_assembly/Hypo/hypo_Anoste.raw.fasta | grep -w -v -Ff contaminants_contigs.txt - | tr "\t" "\n" > Anoste.corrected-noCont.fa
+grep -v "#" Anoste_phylum.Anoste.blobDB.table.txt | awk '$3 > 0.53' | grep -v "Arthropoda" | cut -f1 > contaminants_contigs.txt
+awk '{ if ((NR>1)&&($0~/^>/)) { printf("\n%s", $0); } else if (NR==1) { printf("%s", $0); } else { printf("\t%s", $0); } }' Anoste_pol.fasta | grep -w -v -Ff contaminants_contigs.txt - | tr "\t" "\n" > Anoste_noContaminants.fasta
+
+#|assembly|
+assembly-stats Anoste_noContaminants.fasta > Anoste_noContaminants.stats
 
 ## Error correction and scaffolding
-conda activate Assembly_tools
-ragtag.py correct -t 20 <REFERENCE_GENOME> Anoste.corrected-noCont.fa
-ragtag.py scaffold -C -t 20 -o ragtag_output/ <REFERENCE_GENOME> ragtag_output/Anoste.correct.fa
-    # -C creates a 0-chromosome that comprises all contigs that did not map on the reference assembly, this 0-chromosome will have to be removed
-# Reference Genome: /home/PERSONALE/jacopo.martelossi2/Data/Anopheles_stephensi/NCBI_GCF/GCF_013141755.1_UCI_ANSTEP_V1.0_chromosomes.fasta
+#|assembly|
+ragtag.py correct -t 50 GCF_013141755.1_UCI_ANSTEP_V1.0_genomic.fna Anoste_noContaminants.fasta
+ragtag.py scaffold -C -t 50 -o ragtag_output/ GCF_013141755.1_UCI_ANSTEP_V1.0_genomic.fna ragtag_output/ragtag.correct.fasta
+# -C creates a 0-chromosome that comprises all contigs that did not map on the reference assembly, this 0-chromosome will have to be removed
+# Reference Genome: /home/PERSONALE/mirko.martini3/Lab_CompGeno/00_practice/00_data/01_Anoste_reference/GCF_013141755.1_UCI_ANSTEP_V1.0_genomic.fna
+
+# Create genome with only main chromosomes
+grep -A1 "NC_050201.1_RagTag" ragtag.scaffold.fasta >> ../Anoste_chr.fasta
+grep -A1 "NC_050202.1_RagTag" ragtag.scaffold.fasta >> ../Anoste_chr.fasta
+grep -A1 "NC_050203.1_RagTag" ragtag.scaffold.fasta >> ../Anoste_chr.fasta
+fold -w 80 Anoste_chr.fasta > Anoste_chr_fold.fasta #then renamed
 
 ## Genome Annotation
-conda activate MAKER
+#|assembly|
 maker -CTL
 #creates three control files (.ctl) 
     # maker_bopts: parameters for the softwares used by MAKER, we mantain default parameters
@@ -130,66 +142,46 @@ maker -CTL
         #min_protein=50
             #alt_splice=1 on,y with RNA-Seq (don't use it)
             #split_hit: if the same protein produces two alignments with a distance greater then split_hit parameter, the two alignments are considered separated hits
-maker -base Anoste_rnd1
+maker -base Anoste_rnd1 Anoste_rnd1.ctl
 
-fasta_merge -d Anoste_rnd1_mAnoster_datastore_index.log
-gff3_merge -d Anoste_rnd1_mAnoster_datastore_index.log
+fasta_merge -d Anoste_rnd1_master_datastore_index.log 
+gff3_merge -d Anoste_rnd1_master_datastore_index.log
 
 awk '$2 == "protein2genome"' Anoste_rnd1.all.gff > protein2genome.gff
 awk '$2 == "repeatmasker"' Anoste_rnd1.all.gff > RepeatMasker.gff
 
-conda activate GAAS
-agat_sp_statistics.pl --gff Anoste_rnd1.all.gff -o Anoste_rnd1.statistics #Summary statistics of gene models
-agat_sq_repeats_analyzer.pl -i -o Anoste_rnd1.repeats.analyzer #Summary statistics of repeats                    ?????
+#|GAAS|
+agat_sp_statistics.pl --gff Anoste_rnd1.all.gff -o Anoste_rnd1.statistics.txt
+#Summary statistics of gene models
+agat_sq_repeats_analyzer.pl --gff Anoste_rnd1.all.gff -o Anoste_rnd1_repeats.txt
+#Summary statistics of repeats
 
 #Launch BUSCO on protein-mode on the predicted proteome
-conda activate Assembly_tools
 busco -i Anoste_rnd1.all.maker.protein.fasta -m prot -l ../../../../../PERSONALE/jacopo.martelossi2/dbs/diptera_odb10 --cpu 6 -o Anoste.proteins.busco
 
-conda activate MAKER
-maker2zff -c 0 -e 0  -l 80 -x 0.1 -d Anoste_rn1.maker.output/Anoste_rnd1_mAnoster_datastore_index.log    #To extract gene models based on mutiple filter criterion
-    #genome.dna = sequence
-    #genome.ann = gene models
-cut -d" " -f5 genome.ann | sort -u | grep -v ">" | wc -l    #count the number of genes, if too much we can put more filters in maker2zff flags(-l, -x, -o)
-
-fathom genome.ann genome.dna -gene-stats > gene.stats   #Print some summary statistics of the selected gene models
-fathom genome.ann genome.dna -validate > gene.validate  #Validate gene models and print summary statistics
-fathom genome.ann genome.dna -categorize 1000           #Extract gene modeles together with 1000 bp at both ends (flanking sequences) for training
-fathom uni.ann uni.dna -export 1000 -plus               #Export and convert uni genes to strand plus
-
-mkdir Params
-forge ../export.ann ../export.dna                       #Call the parameter estimation program, better in another directory
-cd ..
-hmm-assembler.pl Anoste_snap Params/ > Anoste_snap.hmm
-
-mkdir rnd2
-ln -s Anoste_rnd1.maker.output/protein2genome.gff
-ln -s Anoste_rnd1.maker.output/RepeatMasker.gff
-ln -s Anoste_rnd1.maker.output/Anoste.ragtag_scaffolds.chr.fa
+#|assembly|
+bash ~/Lab_CompGeno/03_scripts/SNAP.sh Anoste_rnd1_master_datastore_index.log
 
 maker -CTL
 # maker_opts
-    #change genome in maker_opts
     #change protein_gff as realpath to protein2gff
     #change rm_gff as realpath to RepeatMask
     #change snaphmm as realpath to Anoste_snap-hmm
-    #augustus_species=Anoste
-    #model_org=*leave blank
-    #change augustus_species=Anoste
+    #augustus_species=Anoste_cu
     #est2genome=0
     #protein2genome=0
-    #min_protein=50
-    #AED_threshold=0.5
-maker -base Anoste_rnd2
+    #AED_threshold=0.5 #if you want to filter models. You can also do it later
+maker -base Anoste_rnd2 Anoste_rnd2.ctl
 
 fasta_merge -d Anoste_rnd2_mAnoster_datastore_index.log  # In this case there will be multiple fasta files
 gff3_merge -d Anoste_rnd2_mAnoster_datastore_index.log
 # At the end of this process we will use the maker.protein and maker.transcript files of proteins predicted by maker
 
 ## Final statistics
-conda activate GAAS
-agat_sp_statistics.pl --gff Anoste_rnd2.all.gff -o Anoste_rnd2.statistics #Summary statistics of gene models
-agat_sq_repeats_analyzer.pl  #Summary statistics of repeats
+#|GAAS|
+agat_sp_statistics.pl --gff Anoste_rnd2.all.gff -o Anoste_rnd2.statistics.txt #Summary statistics of gene models
+agat_sq_repeats_analyzer.pl --gff Anoste_rnd2.all.gff -o Anoste_rnd2_repeats.txt
+#Summary statistics of repeats
 
 ## Launch BUSCO on protein-mode on the predicted proteome
 conda activate Assembly_tools
@@ -312,7 +304,7 @@ sort -k4,4n Aaeg_Significant.txt.diff | grep -v "-" | awk '{print $1}' > Anoste_
 while read line; do grep "Anoste" Orthofinder/orthogroup_Sequences/"$line"*.fa; done < Anoste_Significant.GO > Anoste_Significant_Genes.txt
 
 #GO annotation with interproscan. Performed on 134.142.204.241
-/home/PERSONALE/dbs/interproscan-5.65-97.0/interproscan.sh -i longest_protein_OGs.fa -goterms -pa -b longest_compgeno/ -cpu 40
+interproscan.sh -i longest_protein_OGs.fa -goterms -pa -cpu 40 -appl PANTHER
 
 #Panzer2: reasearch by homology of GO-Terms (http://ekhidna2.biocenter.helsinki.fi/sanspanz/)
     #upload all Anoste proteins

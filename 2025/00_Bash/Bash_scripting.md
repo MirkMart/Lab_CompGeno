@@ -12,12 +12,12 @@ tmux a -t <session_name> #attach to a screen named
 tmux ls #list all existing sessions
 Ctrl+a+d #close screen
 Ctrl+d #kill screen
-Ctrl+c #create a new window in the current session
-Ctrl+n #move to the window on the right (next) in the current session
-Ctrl+p #move to the window on the left (previous) in the current session
-Ctrl+| #split vertically the current window
-Ctrl+_ #split horizontally the current window
-Ctrl+[ #enter in read mode
+Ctrl+a+c #create a new window in the current session
+Ctrl+a+n #move to the window on the right (next) in the current session
+Ctrl+a+p #move to the window on the left (previous) in the current session
+Ctrl+a+| #split vertically the current window
+Ctrl+a+_ #split horizontally the current window
+Ctrl+a+[ #enter in read mode
 ```
 
 with **screen**:

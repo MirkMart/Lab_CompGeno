@@ -66,9 +66,6 @@ python 3.13.5
 ```bash
 /home/PERSONALE/mirko.martini3/Lab_CompGeno/00_practice/00_data/00_reads #Reads for genome assembly
 /home/PERSONALE/mirko.martini3/Lab_CompGeno/00_practice/00_data/01_Anoste_reference #Reference file of Anopheles stephensi from NCBI
-/var/local/ # Pfam, taxonkitn and uniprot databases
-/home/PERSONALE/mirko.martini3/2024/Data/Anopheles_reference #Anopheles reference FTP folder. Important for annotation
-/home/PERSONALE/mirko.martini3/2024/Example_reads #File for fasta/fastq exercises
 ```
 
 ---

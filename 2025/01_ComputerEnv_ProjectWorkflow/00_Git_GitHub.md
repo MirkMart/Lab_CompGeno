@@ -22,7 +22,7 @@ We need to give permission to our local repository to contact the online one and
 
 ## How Git works
 
-![git staging area working](./99_figures/git_staging_area.jpeg)
+![git staging area working](../99_Figures/git_staging_area.jpeg)
 
 ## Gitignore
 
@@ -52,7 +52,7 @@ git reset <filename> #like git restore --staged
 
 ## Git tree and branches
 
-![git tree](./99_figures/git_tree.png)
+![git tree](../99_Figures/git_tree.png)
 
 ```bash
 git branch #list braches
@@ -101,5 +101,5 @@ git diff HEAD..origin/main #see actual differences and changes
 
 Usefull resources:
 
-  - [cheatsheet](https://education.github.com/git-cheat-sheet-education.pdf)
-  - [git references](https://git-scm.com/docs)
+- [cheatsheet](https://education.github.com/git-cheat-sheet-education.pdf)
+- [git references](https://git-scm.com/docs)

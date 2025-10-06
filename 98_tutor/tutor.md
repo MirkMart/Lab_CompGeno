@@ -35,9 +35,17 @@ export BLASTDB=/home/PERSONALE/dbs/blastdb
 
 ## Maker RepeatMasker
 
-During MAKER run it seems to preceed even though there is an import error for the module `h5py` when running `/usr/local/anaconda3/envs/MAKER/share/RepeatMasker/famdb.py`. Indeed even if the conda environment is python2.7, the shebang recalls python3. For this reason I sudo changed it from `#!/usr/bin/env python3` to `#!/usr/local/anaconda3/envs/MAKER/bin/python` (path obtained with `which python` inside MAKER environment).
+True in the precedent server:
 
-This did not resolve the problem. There was a new one about syntax. For this reason shebang returned to be the original one, but I deactivated conda and install h5py for python3 of the entire system.
+> During MAKER run it seems to preceed even though there is an import error for the module `h5py` when running `/usr/local/anaconda3/envs/MAKER/share/RepeatMasker/famdb.py`. Indeed even if the conda environment is python2.7, the shebang recalls python3. For this reason I sudo changed it from `#!/usr/bin/env python3` to `#!/usr/local/anaconda3/envs/MAKER/bin/python` (path obtained with `which python` inside MAKER environment).
+> This did not resolve the problem. There was a new one about syntax. For this reason shebang returned to be the original one, but I deactivated conda and install h5py for python3 of the entire system.
+
+In any case, installed h5py in the system even this time (without any conda and in the sequence conda). This has been done before any error was printed in the stdout.
+
+```bash
+sudo apt install python3-h5py
+mamba install h5py #h5py already present in the environment
+```
 
 ## Install NCBI-Datasets
 
@@ -47,4 +55,26 @@ Then follow the command line suggested by the genome you want to download
 
 ```bash
 for fa in *.fa; do for header in $(grep ">" "$fa"); do species=$(grep -oP ".{7}(?=${header/\>/})" ../../00_Results_Dec03/Gene_Trees/${fa/_aligned_output.fa/_tree.txt}); sed -i "s/$header/>$species${header/\>/}/" $fa; done; done
+```
+
+## Augustus
+
+Command runs with sudo permision because it needs to write here `/opt/miniforge3/envs/sequence/config/species`. Probably this folder must be moved inside the environment with maker (NOT SEQUENCE)
+
+```bash
+busco -i ../../03_GenomeAssembly/03_scaffolding/Anoste_chr.fasta -c 30 -l /usr/local/share/busco_databases/culicidae_odb12 --augustus --long -m genome --out Anoste_BuscoTraining_cu --augustus_parameters='--progress=true'
+```
+
+Options:
+
+- `--long`: helps Augustus improving its performance even if adds time to the computation. Useful for non-model species.
+- `--augustus`: activates Augustus annotation.
+- `--progress=true`: show a progress meter.
+
+Once BUSCO has finished, inside the folders of outputs there will be a folder named 'retraining_parameters' (Anoste_BuscoTraining_cu/run_culicidae_odb12/augustus_output/retraining_parameters). Inside this forder there is 'BUSCO_Anoste_BuscoTraining_cu' with are all the files neeed to create a new reference species in augustus config folder. Thus I copied them in '/opt/miniforge3/envs/assembly/config/species/Anoste_cu' creating this new model species.
+
+Lastly, change the name of the old files in the configuration file.
+
+```bash
+sed -i 's/BUSCO_Anoste_BuscoTraining_cu/Anoste_cu/' Anoste_cu_parameters.cfg
 ```
