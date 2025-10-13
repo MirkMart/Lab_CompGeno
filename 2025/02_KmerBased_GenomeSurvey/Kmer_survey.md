@@ -47,6 +47,20 @@ It is a quality control tool for high throughput sequence data.
 fastqc seqfile1 seqfile2 .. seqfileN
 ```
 
+#### Read quality results
+
+[Analysis modules](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/)
+
+- Per base sequence quality: overview of the range of quality values across all bases at each position in the FastQ file.
+- Per Sequence Quality Scores: allows you to see if a subset of your sequences have universally low quality values. It is often the case that a subset of sequences will have universally poor quality, often because they are poorly imaged (on the edge of the field of view etc), however these should represent only a small percentage of the total sequences.
+- Per Base Sequence Content: proportion of each base position in a file for which each of the four normal DNA bases has been called
+- Per Sequence GC Content: measures the GC content across the whole length of each sequence in a file and compares it to a modelled normal distribution of GC content
+- Per Base N Content: percentage of base calls at each position for which an N was called
+- Sequence Length Distribution: graph showing the distribution of fragment sizes in the file which was analysed (warning if all sequences are not the same length).
+- Sequence Duplication Levels: counts the degree of duplication for every sequence in a library and creates a plot showing the relative number of sequences with different degrees of duplication
+- Overrepresented Sequences: lists all of the sequence which make up more than 0.1% of the total
+- Adapter Content: generic analysis of all of the Kmers in your library to find those which do not have even coverage through the length of your reads. This can find a number of different sources of bias in the library which can include the presence of read-through adapter sequences building up on the end of your sequences.
+
 ### Trim reads in a sliding window approach: **TRIMMOMATIC** (20 mins)
 
 ```bash
