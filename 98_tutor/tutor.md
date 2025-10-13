@@ -78,3 +78,13 @@ Lastly, change the name of the old files in the configuration file.
 ```bash
 sed -i 's/BUSCO_Anoste_BuscoTraining_cu/Anoste_cu/' Anoste_cu_parameters.cfg
 ```
+
+## Transcriptome
+
+SRR_accession_list is obtained from [SRA run selector](https://trace.ncbi.nlm.nih.gov/Traces/study/?acc=SRP585377&o=acc_s%3Aa&s=SRR33576268,SRR33576267,SRR33576266,SRR33576264,SRR33576263,SRR33576265).
+
+```bash
+while read SRR; do prefetch "$SRR"; fastq-dump --split-3 "$SRR"; done < SRR_accession_list.txt #split is not default differently than as said
+# Quality control reads
+for i in *.fastq; do fastqc $i & done
+```

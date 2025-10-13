@@ -52,6 +52,7 @@ python 3.13.5
 - r-base        4.3.3
 - ragtag        2.1.0
 - samtools      1.21
+- spades        4.0.0
 - trimmomatic   0.36
 
 ## kat (last update 29/08/2025)
