@@ -2,7 +2,7 @@
 
 ## Fastq
 
-FASTQ format is a text-based format for storing both a biological sequence (usually nucleotide sequence) and its corresponding quality scores. Both the sequence letter and quality score are each encoded with a single ASCII character for brevity.
+[FASTQ](./fastq.pptx) format is a text-based format for storing both a biological sequence (usually nucleotide sequence) and its corresponding quality scores. Both the sequence letter and quality score are each encoded with a single ASCII character for brevity.
 
 FASTQ file: four lines per sequence.
 
@@ -32,13 +32,16 @@ FASTA file: usually two lines per sequence.
 * Line 1 begins with a '>' character and is followed by a sequence identifier and an optional description
 * Line 2 is the sequence.
 
-**NB** Fasta files are usually multi - line (*i.e.* after sequence name there are more line with a fixed length for each sequence), however in bash is more straightforward to work with oneliners. A usefull command to conver a fasta file from multi - line to oneliner :
+**NB** Fasta files are usually multi - line (*i.e.* after sequence name there are more line with a fixed length for each sequence), however in bash is more straightforward to work with oneliners. In other situations, some program could ask for multifasta files. Two usefull commands to convert fasta files between these two formats are:
 
 ```bash
+# from multi to oneline
 awk '/^>/ { if(NR>1) print "";  printf("%s\n",$0); next; } { printf("%s",$0);}  END {printf("\n");}' < infile.fa > outfile.fa
+# from oneline to multi
+fold -w80 <infile> > <outfile>
 ```
 
-This command checks if the line starts with ">" (the header identifier in FASTA format). When it starts with it, if the line is not the first one of the file, it interspaces new headers (`printf("%s\n",$0)`) with empty lines (`print ""`). Next ensures that all headers are processes before starting with the real sequences. Then sequences are appended sequentially without new lines in empty species between headers (`{ printf("%s",$0)`). The END command conclued the file with a trailing new line.
+The first command checks if the line starts with ">" (the header identifier in FASTA format). When it starts with it, if the line is not the first one of the file, it interspaces new headers (`printf("%s\n",$0)`) with empty lines (`print ""`). Next ensures that all headers are processes before starting with the real sequences. Then sequences are appended sequentially without new lines in empty species between headers (`{ printf("%s",$0)`). The END command finishes the file with a trailing new line.
 
 ---
 
