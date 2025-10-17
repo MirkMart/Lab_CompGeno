@@ -12,15 +12,16 @@ Environments and related softwares:
 
 ## tree
 
-- gotree        0.4.5
-- iqtree        2.3.6
-- raxml-ng      1.2.2
-- paml          4.10.7
+- disco         1.4.1
 - ete3          3.1.3
-- treeswift     1.1.45
+- gotree        0.4.5
 - HYPHY         2.5.71
-- orthofinder   2.5.5
+- iqtree        2.3.6
 - mafft         7.526
+- paml          4.10.7
+- orthofinder   2.5.5
+- raxml-ng      1.2.2
+- treeswift     1.1.45
 
 ## sequence
 
@@ -36,8 +37,10 @@ Python too high for orthofinder
 
 [busco datasets on server](/usr/local/share/busco_database):
 
-- arthropoda: /usr/local/share/busco_databases/arthropoda_odb12\
+- arthropoda: /usr/local/share/busco_databases/arthropoda_odb12
 - culicidae: /usr/local/share/busco_databases/culicidae_odb12
+
+Use `$BUSCO/name_db` to use a specific db.
 
 ## assembly
 
@@ -51,9 +54,10 @@ python 3.13.5
 - hypo           1.0.3
 - minimap2       2.28
 - mosdepth       0.3.10
+- multiqc        1.31
 - r-base         4.3.3
 - samtools       1.21
-- trimmomatic    0.36
+- trimmomatic    0.40
 
 ## kat
 

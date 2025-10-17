@@ -88,7 +88,7 @@ Tipically, more moneys you have, more high-quality data you get and more likely 
 Some, but not all, metrics :
 
 1. **N50 :** the length of the shortest contig for which longer and equal length contigs cover at least 50 % of the assembly. It gives an evaluation of the **contiguity** of an assembly.
-2. **[Busco](https://busco.ezlab.org/) :** a set of Benchmarked Universal Single-Copy Orthologs (BUSCO) that sould be present along a certain taxonomic level. Busco genes are marked as C:complete \[D:duplicated\], F:fragmented, M:missing. It gives an evaluation about the completness and the redundancy of our assembly. Precomputed single copy OG can be found [here](https://busco-data.ezlab.org/v5/data/lineages/)
+2. **[Busco](https://busco.ezlab.org/) :** a set of Benchmarked Universal Single-Copy Orthologs (BUSCO) that sould be present along a certain taxonomic level. Busco genes are marked as C:complete \[D:duplicated\], F:fragmented, M:missing. It gives an evaluation about the completness and the redundancy of our assembly. Precomputed single copy OG can be found [in the official release page](https://busco-data.ezlab.org/v5/data/lineages/)
 3. **spectra-cn ([KAT](https://kat.readthedocs.io/en/latest/walkthrough.html)) :** “the assembly spectra copy number plot checks assembly coherence against the content within reads that were used to produce the assembly. Basically we represent how many elements of each frequency on the read’s spectrum ended up not included in the assembly, included once, included twice etc.”
 
 ![KAT](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/4_GenomeAssembly/Figures/KAT.png)
@@ -140,8 +140,8 @@ The first `export` is needed to set the `NUMEXPR_MAX_THREADS` equals to the numb
 
 The reference databases are:
 
-- `/usr/local/share/busco_databases/diptera_odb12`
-- `/usr/local/share/busco_databases/culicidae_odb12`
+- `$BUSCO/diptera_odb12`
+- `$BUSCO/culicidae_odb12`
 
 ### Genome polishing with short and long reads
 
@@ -206,8 +206,8 @@ busco -m <MODE> -l <LINEAGE> -c <CPU_NUMBER> -o <OUTPUT_NAME> -i <INPUT>
 
 The reference database are:
 
-- `/usr/local/share/busco_databases/diptera_odb12`
-- `/usr/local/share/busco_databases/culicidae_odb12`
+- `$BUSCO/diptera_odb12`
+- `$BUSCO/culicidae_odb12`
 
 #### KAT (~ 17 mins with 10 threads, 10 mins with 20)
 

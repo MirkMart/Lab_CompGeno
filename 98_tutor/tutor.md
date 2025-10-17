@@ -81,10 +81,16 @@ sed -i 's/BUSCO_Anoste_BuscoTraining_cu/Anoste_cu/' Anoste_cu_parameters.cfg
 
 ## Transcriptome
 
+Good [resource](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004393).
+
 SRR_accession_list is obtained from [SRA run selector](https://trace.ncbi.nlm.nih.gov/Traces/study/?acc=SRP585377&o=acc_s%3Aa&s=SRR33576268,SRR33576267,SRR33576266,SRR33576264,SRR33576263,SRR33576265).
 
 ```bash
 while read SRR; do prefetch "$SRR"; fastq-dump --split-3 "$SRR"; done < SRR_accession_list.txt #split is not default differently than as said
 # Quality control reads
 for i in *.fastq; do fastqc $i & done
+# Sum into a single report
+multiqc .
+# Trim
+for i in *_1.fastq; do name=$(sed 's/_1.fastq//' <<< "$i"); trimmomatic PE -threads 80 -phred33 "$name"_1.fastq "$name"_2.fastq "$name"_1_paired.fastq "$name"_1_unpaired.fastq "$name"_2_paired.fastq "$name"_2_unpaired.fastq ILLUMINACLIP:/opt/miniforge3/envs/assembly/share/trimmomatic-0.40-0/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36 HEADCROP:9 2> "$name"_trimmomatic.stats; done
 ```

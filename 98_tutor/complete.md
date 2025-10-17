@@ -1,6 +1,6 @@
 # Complete code of the course
 
-> words between |...| in comments defines the environments where the command was launched
+> word between |...| in comments defineS the environment where the command was launched
 
 ```bash
 ## Download SRA anda data
@@ -19,14 +19,16 @@ unzip ncbi.zip
 ## Fastqc: view reads quality
 #|assembly|
 fastqc SRR11672503_1.fastq.gz SRR11672503_2.fastq.gz
+multiqc .
 
 ## Trimmomatic: remove reads or parts of reads based on the quality score
 #|assembly|
-trimmomatic PE -threads 20 -phred33 SRR11672503_1.fastq.gz SRR11672503_2.fastq.gz SRR11672503_1_paired.fastq SRR11672503_1_unpaired.fastq SRR11672503_2_paired.fastq SRR11672503_2_unpaired.fastq ILLUMINACLIP:/opt/miniforge3/envs/assembly/share/trimmomatic-0.39-2/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36 2> stats_trimmomatic.log
+trimmomatic PE -threads 20 -phred33 SRR11672503_1.fastq.gz SRR11672503_2.fastq.gz SRR11672503_1_paired.fastq SRR11672503_1_unpaired.fastq SRR11672503_2_paired.fastq SRR11672503_2_unpaired.fastq ILLUMINACLIP:/opt/miniforge3/envs/assembly/share/trimmomatic-0.40-0/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36 2> stats_trimmomatic.log
+
+#which adapter? [adapters illumina](https://github.com/usadellab/Trimmomatic/issues/71)
 
 #Check after trimming
 fastqc SRR11672503_1_paired.fastq SRR11672503_2_paired.fastq
-
 
 ## KAT hist: compute k-mer frequency
 #|kat|
@@ -133,9 +135,9 @@ maker -CTL
     # maker_opts: MAKER run parameters, here we need to modify:
         # genome=path/to/genome (create with realpath)
             # est=path/to/assembled/RNASeq (don't use it)
-        # protein=/home/PERSONALE/jacopo.martelossi2/Data/Anopheles_stephensi/Proteomes/GCF_000001215.4_Release_6_plus_ISO1_MT_protein.faa
+        # protein=/home/PERSONALE/mirko.martini3/Lab_CompGeno/00_practice/00_data/02_Annotation/*
         # model_org=*leave blank
-        # rmlib=/home/PERSONALE/jacopo.martelossi2/Old_Analyses/Anopheles_stephensi/Genome_annotation/Anoste-families.fa
+        # rmlib=/home/PERSONALE/mirko.martini3/Lab_CompGeno/00_practice/00_data/02_Annotation/Anoste_RepeatModeler_library.fa
         # protein2genome=1
             # unmask=1 is used to annotate and compare the unmasked genome to masked genome in order to search for genes that were included in the TE library (don't use it)
         #phred_stats=1 (AED - Annotation Edit Distance: general measure of how well the predicted gene is supported by external evidence (uses Jakkard distance: calculated by overlapping level)
@@ -151,13 +153,11 @@ awk '$2 == "protein2genome"' Anoste_rnd1.all.gff > protein2genome.gff
 awk '$2 == "repeatmasker"' Anoste_rnd1.all.gff > RepeatMasker.gff
 
 #|GAAS|
-agat_sp_statistics.pl --gff Anoste_rnd1.all.gff -o Anoste_rnd1.statistics.txt
-#Summary statistics of gene models
-agat_sq_repeats_analyzer.pl --gff Anoste_rnd1.all.gff -o Anoste_rnd1_repeats.txt
-#Summary statistics of repeats
+agat_sp_statistics.pl --gff Anoste_rnd1.all.gff -o Anoste_rnd1.statistics.txt #Summary statistics of gene models
+agat_sq_repeats_analyzer.pl --gff Anoste_rnd1.all.gff -o Anoste_rnd1_repeats.txt #Summary statistics of repeats
 
 #Launch BUSCO on protein-mode on the predicted proteome
-busco -i Anoste_rnd1.all.maker.protein.fasta -m prot -l ../../../../../PERSONALE/jacopo.martelossi2/dbs/diptera_odb10 --cpu 6 -o Anoste.proteins.busco
+busco -i Anoste_rnd1.all.maker.proteins.fasta -m prot -l $BUSCO/culicidae_odb12 --cpu 6 -o Anoste_rnd1
 
 #|assembly|
 bash ~/Lab_CompGeno/03_scripts/SNAP.sh Anoste_rnd1_master_datastore_index.log
@@ -173,60 +173,54 @@ maker -CTL
     #AED_threshold=0.5 #if you want to filter models. You can also do it later
 maker -base Anoste_rnd2 Anoste_rnd2.ctl
 
-fasta_merge -d Anoste_rnd2_mAnoster_datastore_index.log  # In this case there will be multiple fasta files
-gff3_merge -d Anoste_rnd2_mAnoster_datastore_index.log
+#|GAAS|
+gaas_maker_merge_outputs_from_datastore.pl Anoste_rnd2.maker.output/
+# In this case there will be multiple fasta files
 # At the end of this process we will use the maker.protein and maker.transcript files of proteins predicted by maker
 
 ## Final statistics
 #|GAAS|
-agat_sp_statistics.pl --gff Anoste_rnd2.all.gff -o Anoste_rnd2.statistics.txt #Summary statistics of gene models
-agat_sq_repeats_analyzer.pl --gff Anoste_rnd2.all.gff -o Anoste_rnd2_repeats.txt
-#Summary statistics of repeats
-
-## Launch BUSCO on protein-mode on the predicted proteome
-conda activate Assembly_tools
-busco -i Anoste_rnd2.all.maker.protein.fasta -m prot -l ../../../../../PERSONALE/jacopo.martelossi2/dbs/diptera_odb10 --cpu 6 -o Anoste.proteins.busco
-
-conda activate MAKER
-/home/PERSONALE/jacopo.martelossi2/scripts/AED_cdf_generator.pl -b 0.025 Anoste_rnd2.all.maker.gff > AED.stats #plot in R with ggplot2
-    # -b :intervals every 0.025
+agat_sq_repeats_analyzer.pl --gff maker_mix.gff -o Anoste_rnd2_repeats.txt #Summary statistics of repeats
+AED_cdf_generator.pl -b 0.025 maker_mix.gff > AED_maker_mix.stats #plot in R with ggplot2
 # Cumulative distribution of AED: what percentage of our dataset has a value equal or lower then an x value (AED)
 # AED is better when lower (indicates the quality of annotation)
 
+## Launch BUSCO on protein-mode on the predicted proteome
+#|sequence|
+busco -i maker_annotation.proteins.fasta -m prot -l $BUSCO/culicidae_odb12 --cpu 6 -o Anoste_rnd2/
+
 ## Expanding our Protein Dataset from NCBI
-wget link_to_NCBI file.protein.faa.gz
-wget link_to_NCBI feature_table.txt.gz
-gunzip file.protein.faa.gz
-gunzip feature_table.txt.gz
+# Create dataset "AN    sname   ID"
+#|sequence|
+bash ../99_scripts/download_dataset.sh dataset.txt 
+#|GAAS|
+# extract and translate longest isoform
+bash ../../99_scripts/AGAT_longest_extract.sh
+# remove speudogenes if present
+bash ../../99_scripts/pseudogene_find_eliminate.sh
+# extract nt CDS if ω will be computed
+for i in *; do agat_sp_extract_sequences.pl -g $i -f ../../00_genome/${i/_longest.gff/.fna} -t cds --cfs -roo --output ../../02_proteome/01_nt/${i/_longest.gff/.fna} & done
 
-## Isoforms will be considered as gene copies, so they have to be removed
+#Re-format the downloaded proteoms headers keeping the id and the species id_name (es. Anoste|XP_007). For our annotation proteine with an incremental numeration will do it.
+for prote in *.faa; do sed -i -E "s/(>.[^ ]+) gene\=gene-(.[^ ]+) (.+$)/>"${prote/.faa/}"\|\2/" "$prote"; done
+for geno in *.fna; do sed -i -E "s/(>.[^ ]+) gene\=gene-(.[^ ]+) (.+$)/>"${geno/.fna/}"\|\2/" "$geno"; done
 
-```bash
-bash /home/PERSONALE/jacopo.martelossi2/scripts/Longest_Isoform.bash feature_table.txt file.protein.faa
-#Check feature_count on coding_genes, should be equal to grep -c ">" of protein.NoIsoform.faa
-```
-
-Re-format the downloaded proteoms headers keeping the id and the species id_name (es. Anoste|XP_007). For our annotation proteine with an incremental numeration will do it.
-
-```bash
-for prote in *.faa; do sed -i -E "s/>(.[^-]+)-(.+) (.+$)/>${prote/.faa/}\|\2/" "$geno"
-for geno in *.fna; do sed -i -E "s/>(.[^-]+)-(.+) (.+$)/>${geno/_cds.fna/}\|\2/" "$geno"
-```
-
-#Re-format the Anoste_proteom by keeping gene id and adding Anoste
-awk '/^>/ {printf ">protein%d\n", ++count; next} {print}' Anoste_anno2.all.maker.proteins.fasta > Anoste.faa
+#Re-format the Anoste_proteome by keeping gene id and adding Anoste
+awk '/^>/ {printf ">Anoste|protein%d\n", ++count; next} {print}' Anoste.faa > Anoste_changed
+mv Anoste_changed Anoste.faa
+awk '/^>/ {printf ">Anoste|protein%d\n", ++count; next} {print}' ../../../../04_GenomeAnnotation/01_round2/maker_output_processed_Anoste_rnd2/maker_annotation.transcripts.fasta > Anoste.fna
 
 ## Orthology inference
-conda activate test_env
-orthofinder -f proteomes_folder/
-#dir1 must be a directory containing all proteoms with an extension of either .fasta or .prot
+#|orthofinder|
+orthofinder -t 60 -a 60 -f ../00_data/03_dataset/02_proteome/
+#dir must be a directory containing all proteoms with an extension of either .fasta, .fa, .faa. etc (see orthofinder [github](https://github.com/davidemms/OrthoFinder))
 
 cd Orthogroups/
 #Orthogroups.tsv : For every orthogroup there are proteins associated
 #Orthogroups.GeneCount.tsv : Percentage or number of proteins per species
 
 #incrementing single copy orthogroups pruning those multicopy. Then delete those that did not pass our filter and are empty
-for tree in *; do echo "$tree"; python3 01_DISCO/disco.py -i "$tree" -o 01_DISCO/${tree/_tree.txt/_disco.nwk} -d "|" -m 3 --remove_in_paralogs --single_tree --keep-labels --verbose 2>/dev/null; done > 01_DISCO/disco.log
+while IFS=' ' read -r OG tree; do python3 /home/PERSONALE/mirko.martini3/Lab_CompGeno/00_practice/99_scripts/disco.py -i <(echo "$tree") -o ../../../01_DISCO/${OG/:/}.nwk -d "|" -m 4 --remove_in_paralogs --keep-labels --verbose > disco.log; done < <(sed -E 's/[A-Z][a-z]{5}_//g; s/n[0-9]*+//g' Resolved_Gene_Trees.txt)
 find . -type f -empty -delete
 #delete those that are already known to be single copy complete
 for fa in 00_orthofinder/Results_Nov30/Single_Copy_Orthologue_Sequences/*.fa; do name=$(basename $fa); rm ${name/.fa/_disco.nwk}; done

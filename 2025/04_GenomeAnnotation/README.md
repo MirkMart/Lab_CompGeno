@@ -217,7 +217,7 @@ Then you will usually separate your gene models in a training and a testing set.
 However, in this course we will use a more straigthforward way, training Augustus inside Busco.
 
 ```bash
-busco -i ../../03_GenomeAssembly/03_scaffolding/Anoste_chr.fasta -c 30 -l /usr/local/share/busco_databases/culicidae_odb12 --augustus --long -m genome --out Anoste_cu --augustus_parameters='--progress=true'
+busco -i ../../03_GenomeAssembly/03_scaffolding/Anoste_chr.fasta -c 30 -l $BUSCO/culicidae_odb12 --augustus --long -m genome --out Anoste_cu --augustus_parameters='--progress=true'
 ```
 
 Since also this process is quite computanionally intensive and the trained models must be present in a specific path were Augustus will search for them, I have already trained for you augusutus. The name of the models is **Aste** (just use Aste when it will be required).
@@ -249,14 +249,14 @@ To evaluate our genome annotation we have mutiple options :
 To print sumamry statistics:
 
 ```bash
-agat_sp_statistics.pl #script for summary statistic, it will take some minutes to run
+gaas_maker_merge_outputs_from_datastore.pl Anoste_rnd2.maker.output/ #script for summary statistic, merge fastas and gffs
+agat_sq_repeats_analyzer.pl --gff maker_mix.gff -o Anoste_rnd2_repeats.txt #use maker_mix, which is the complete one
 ```
 
-For Busco you should already know how to run it.
+More scripts that can be run to increase our understading of the run:
 
-`/home/PERSONALE/mirko.martini3/01_2024/03_scripts/AED_cdf_generator.pl` : script for summarize cumulative distribution of AED values.
-
-`/home/PERSONALE/mirko.martini3/01_2024/03_scripts/quality_filter.perl` : script for filter gene models based on AED values.
+`AED_cdf_generator.pl` : script for summarize cumulative distribution of AED values.
+`quality_filter.perl` : script for filter gene models based on AED values.
 
 -----
 

@@ -15,8 +15,6 @@ This file containes all conda/mamba envirments installed:
 - ete3          3.1.3
 - treeswift     1.1.45
 - HYPHY         2.5.71
-- orthofinder   2.5.5
-- mafft         7.526
 
 ## sequence (last update 02/07/2025)
 
@@ -30,12 +28,18 @@ Python too high for orthofinder
 - ncbi-datasets 18.3.1
 - SRA-tools     3.2.1
 
-[where download busco datasets](https://busco-data.ezlab.org/v5/data/lineages/)
-
-[busco datasets on server](/usr/local/share/busco_database):
+> [where download busco datasets](https://busco-data.ezlab.org/v5/data/lineages/)
+> [busco datasets on server](/usr/local/share/busco_database):
 
 - arthropoda: /usr/local/share/busco_databases/arthropoda_odb12
 - culicidae: /usr/local/share/busco_databases/culicidae_odb12
+
+```bash
+echo 'export BUSCO="/usr/local/share/busco_databases"' | sudo tee /etc/profile.d/busco_dbs.sh
+sudo chmod +x /etc/profile.d/busco_dbs.sh
+```
+
+Use `$BUSCO/name_dbs` to use a BUSCO dbs.
 
 ## assembly (last update 01/09/2025)
 
@@ -67,3 +71,7 @@ tar -xvzf *.tar.gz
 
 - agat          1.4.1
 - GAAS          1.2.0
+
+## Orthofinder (last update 16/10/2025)
+
+- Orthofinder   3.1.0
