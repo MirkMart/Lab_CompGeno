@@ -17,5 +17,5 @@ for gff in 01_gff/00_longest/*_longest.gff; do
 done
 
 mkdir 00_genome/log
-mv 00_genome/*.pag 00_genome/log
+mv 00_genome/*.index 00_genome/log
 mv00_genome/*dir 00_genome/log
