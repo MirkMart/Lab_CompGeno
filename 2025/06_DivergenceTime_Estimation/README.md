@@ -26,10 +26,9 @@ The only file that we have to prepare is a date file in which we have to specify
 ```text
 taxon1,taxon2 -50
 taxon3,taxon4,taxon5 -100
-taxon6 -10
 ```
 
-which, for example, mean that the most recent common ancestor (MRCA) of taxon1 and taxon2 was 50 mya (million year ago) and the MRCA of taxon3, taxon4, taxon5 was 100 mya. Note that **no empty space** should be added to the comma-separated list of taxa, as empty space is used as a separator between taxon list and dates. Scale is not consistent if we are consistent.
+which, for example, mean that the most recent common ancestor (MRCA) of taxon1 and taxon2 was 50 mya (million year ago) and the MRCA of taxon3, taxon4, taxon5 was 100 mya. Note that **no empty space** should be added to the comma-separated list of taxa, as empty space is used as a separator between taxon list and dates.
 
 Now we arer ready to perform our divergence time estimation
 
@@ -43,4 +42,4 @@ with:
 - --date #enable fossil calibration dating
 - --date-options "-u 1 -k" # `-u 1` restrain the minimum branch length to 1. `-k` confirm to use fossils calibration
 
-**NB:** Whis command will re-estimate a species tree with an unpartioned model, you should add the flags ```-te <SPECIES TREE``` and ```-spp BEST-FITTING PARTITIONING SCHEME>``` if you want to re-use a previoulsy estimated species tree and best-fit partitioning scheme.
+**NB:** This command will re-estimate a species tree with an unpartioned model, you should add the flags ```-te <SPECIES TREE``` and ```-spp BEST-FITTING PARTITIONING SCHEME>``` if you want to re-use a previoulsy estimated species tree and best-fit partitioning scheme.

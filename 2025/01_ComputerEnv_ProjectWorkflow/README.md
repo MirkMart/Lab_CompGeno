@@ -16,7 +16,7 @@ Environments and related softwares:
 - ete3          3.1.3
 - gotree        0.4.5
 - HYPHY         2.5.71
-- iqtree        2.3.6
+- iqtree        3.0.1
 - mafft         7.526
 - paml          4.10.7
 - orthofinder   2.5.5
