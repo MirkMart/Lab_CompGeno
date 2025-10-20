@@ -220,17 +220,18 @@ cd Orthogroups/
 #Orthogroups.GeneCount.tsv : Percentage or number of proteins per species
 
 #incrementing single copy orthogroups pruning those multicopy. Then delete those that did not pass our filter and are empty
-while IFS=' ' read -r OG tree; do python3 /home/PERSONALE/mirko.martini3/Lab_CompGeno/00_practice/99_scripts/disco.py -i <(echo "$tree") -o ../../../01_DISCO/${OG/:/}.nwk -d "|" -m 4 --remove_in_paralogs --keep-labels --verbose > disco.log; done < <(sed -E 's/[A-Z][a-z]{5}_//g; s/n[0-9]*+//g' Resolved_Gene_Trees.txt)
-find . -type f -empty -delete
-#delete those that are already known to be single copy complete
-for fa in 00_orthofinder/Results_Nov30/Single_Copy_Orthologue_Sequences/*.fa; do name=$(basename $fa); rm ${name/.fa/_disco.nwk}; done
-#recreate new orthogroups
-bash /home/PERSONALE/mirko.martini3/00_Lab_CompGeno/2024/05_OG.Inference_Phylogenomic/recreate_disco_ortho.sh ../../00_orthofinder/Results_Nov30/Orthogroup_Sequences
+#|tree|
+while IFS=' ' read -r OG tree; do python3 /home/PERSONALE/mirko.martini3/Lab_CompGeno/00_practice/99_scripts/disco.py -i <(echo "$tree") -o ../../../01_DISCO/${OG/:/}.nwk -d "|" -m 4 --remove_in_paralogs --keep-labels --verbose >> ../../../01_DISCO/disco.log; done < <(sed -E 's/[A-Z][a-z]{5}_//g; s/\)n[0-9]*+/\)/g' Resolved_Gene_Trees.txt)
+find . -size 0 -print -delete > empty_disco.txt
+#split DISCO results and recreate new orthogroups
+bash ../../99_scripts/split_disco_output.sh ../00_Orthofinder/Results_Oct16/Orthogroup_Sequences
 
 #Align single copy orthogroups
-for fa in *; do mafft --auto --anysymbol "$fa" > 02_aligned/00_single_complete/${fa/.fa/_aligned.fa}
+#|sequence|
+for OG in $(cat species_tree_OG.txt); do mafft --auto --anysymbol "$OG" > ../../../03_aligned/00_single_complete/${OG/.fa/_aligned.fa}; done
 
-for fa in *; do bmge -i "$fa" -t AA -m BLOSUM30 -e 0.5 -g 0.4 -of 03_trimmed/00_fasta/00_single_complete/${fa/_aligned.fa/_trimmed.fa} -oh 03_trimmed/01_html/${fa/_aligned.fa/_trimmed.html}; done
+#|outside everything. BMGE 2.0|
+for fa in *; do bmge -i "$fa" -t AA -m BLOSUM62 -e 0.5 -g 0.4 -of ../../04_trimmed/00_fasta/00_single_complete/${fa/_aligned.fa/_trimmed.fa} -oh ../../04_trimmed/01_html/${fa/_aligned.fa/_trimmed.html}; done
 #Trimming reduces alignment dimension, reducing computational time
 
 # NCBI alignment viewer: used to see alignment coverage (view variable regions and core regions)
@@ -238,13 +239,13 @@ for fa in *; do bmge -i "$fa" -t AA -m BLOSUM30 -e 0.5 -g 0.4 -of 03_trimmed/00_
 
 # Concatenating protein fasta
 for fa in *; do sed -i -E 's/\|.+$//g' "$fa"; done
-python3 AMAS.py concat -y nexus -i *.fa -f fasta -d aa -c 10 -t cosncatenated.nexus
+/home/PERSONALE/mirko.martini3/Lab_CompGeno/00_practice/99_scripts/AMAS.py concat -y nexus -i * -f fasta -d aa -t species_tree.fasta
 #Creates a concatenated file and a partitioning file in nexus format(.txt)
 
 ## Phylogenetic inference (~40 hours with 25 CPUs)
-iqtree -m TESTNEW -bb 1000 -s concatenated.nexus --prefix species_tree -nt AUTO    
+iqtree -m TESTNEW -b 100 -s species_tree.faa --prefix species_tree -nt AUTO  
     # -p: optional if you want to infere based on partition (one per each gene)
-    # -bb 1000: one thousand of bootstrap, although this is ultrafast bootstrap so you need at least 1000 replicates (100 with std bootstrap)
+    # -b 100: 100 with std bootstrap, 1000 with ultrafast (-bb)
 
 # species_tree.treefile (newick format)
     # itol online (https://itol.embl.de/upload.cgi) to view treefile file
@@ -254,14 +255,12 @@ iqtree -m TESTNEW -bb 1000 -s concatenated.nexus --prefix species_tree -nt AUTO
 #Create time estimation file
 vi calibration.txt
 
-iqtree -s ../../02_Orthogroups/03_trimmed/00_fasta/concatenated.nexus --date calibration.txt --date-tip 0 -o Dromel -m TESTNEW -nt 6 --prefix time_tree --date-options "-u 1"
+#|time|
+iqtree -s species_tree.faa --date calibration.txt --date-tip 0 -o Drosim -m Q.INSECT+F+I+R3 -nt auto --prefix time_tree --date-options "-u 1" 
     #-u : branches shorter than 1 collapse in a politomy
 
 ## CAFE
-mkdir CAFE
-cp Orthofinder/Orthogroups/Orthogroups.GeneCount.tsv
-sed 's/^/NONE\t/g' Orthogroups.GeneCount.tsv | cut -f1,2,3,4,5,6,7,8 > GeneCount.CAFE.tsv
-#remove 'protein suffix' in nano text editor
+sed 's/^/NONE\t/g' ../../05_OG.Inference_Phylogenomic/00_Orthofinder/Results_Oct16/Orthogroups/Orthogroups.GeneCount.tsv | cut -f1,2,3,4,5,6,7,8 > GeneCount.CAFE.tsv
 
 #Export nexus time-tree in newick format from ITOL
 cp TimeTree.nwk

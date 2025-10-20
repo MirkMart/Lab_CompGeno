@@ -82,16 +82,16 @@ We are going to use these latest files for a simple phylogenetic inference.
 
 After orthology inference, paralogs can get into the way. There are many programs that deal with this problem. Two are [DISCO](https://github.com/JSdoubleL/DISCO/) and [PhyloPyPruner](https://pypi.org/project/phylopypruner/). Differently than Orthofinder, these two program compute phylogenetic tree-based orthology inference. To make everything easier we will use DISCO.
 
-DISCO script requires a specific header syntax to properly work. Luckily, the supported syntax is the one we alrady implemented and used so far (SPECIES|SEQUENCE_ID). The script wants as inputs simple gene tree, **not** resolved ones (they represent a more direct Orthofinder output without any further elaboration). Before running it install treeswift if it is not in `text_env`.
+DISCO script requires a specific header syntax to properly work. Luckily, the supported syntax is the one we already implemented and used so far (SPECIES|SEQUENCE_ID). The script wants as inputs gene trees. Before running it install treeswift if it is not in `text_env`.
 
-Before performing any filter, change the name of the sequences used by Orthofinder to create these tree. You can see that they are not the one you provided in your proteomes (`speciesname|proteinID`) but there is a new head and each one is now `speciesname_speciesname|proteinID`. You have to bring back the old name, the one you chose. Try to do it (for example, you can use sed and substitute avery occurance of species names followed by an underscore with nothing).
+Before performing any filter, take a look at the header used to identify tips in the tree. You can see that they are not the one you provided in your proteomes (`speciesname|proteinID`) but there is an extra ID, and now it is `speciesname_speciesname|proteinID`. You have to bring back the old name, the one you chose. Try to do it (for example, you can use sed and substitute avery occurance of species names followed by an underscore with nothing). Moreover, since you already deleting useless part of the tree, remove also the name of the nodes!
 
 ```bash
 pip install treeswift #it is a common command to install python modules
-python3 disco.py -i <TREE> -o <OUTPUT> -d "|" -m <N_SPECIES_TO_MAINTAIN> --remove_in_paralogs --single_tree --keep-labels --verbose 2>/dev/null
+python3 disco.py -i <TREE> -o <OUTPUT> -d "|" -m <N_SPECIES_TO_MAINTAIN> --remove_in_paralogs --keep-labels --verbose > disco.log
 ```
 
-You can find the disco script here `/home/PERSONALE/mirko.martini3/00_Lab_CompGeno/2024/05_OG.Inference_Phylogenomic/disco.py`
+You can find the disco script here `/home/PERSONALE/mirko.martini3/Lab_CompGeno/00_practice/99_scripts/disco.py`
 
 with:
 
@@ -100,12 +100,11 @@ with:
 * -d #delimiter between species name and sequence name
 * -m #number of species that the polished tree, after paralogs pruning, should contain at least
 * --remore_in_paralogs #Remove in-paralogs before rooting/scoring tree.
-* --single_tree #only output single large tree
 * --keep-labels #Keep original leaf labels instead of relabeling them with their species labels
 
-This last option is particular important since we are using DISCO a bit improperly. Maintaing labels is indispensable since we are working on trees and not orthogroups, so we have to rebuild these last ones after the pruning. To do it, we will use the script [recreate_disco_ortho.sh](./recreate_disco_ortho.sh). The only thing to do specify in place of ORIGINAL_FOLDER the folder containing original orthogroups inferred by Orthofinder. Before that remember to delete those files that did not pass our filter and had not been populated (N.B. try to do it by yourself)
+This last option is particular important since we are using DISCO a bit improperly. Maintaining labels is indispensable since we are working on trees and not orthogroups, so we have to rebuild these last ones after the pruning. To do it, fist we have to split our disco outputs because a single gene tree can yield more than one subtrees is it was big enough and informative. Then, you can recreate these orthogroups. Luckily, there is already a script that does both works [split_disco_output](/home/PERSONALE/mirko.martini3/Lab_CompGeno/00_practice/99_scripts/split_disco_output.sh). The only thing to do is to specify as the first positional variable the folder that contains all the OGs inferred by orthofinder. Before everything, that remember to delete those files that did not pass our filter and had not been populated (N.B. try to do it by yourself)
 
-You can find the script `recreate_disco_ortho.sh` in `/home/PERSONALE/mirko.martini3/00_Lab_CompGeno/2024/05_OG.Inference_Phylogenomic/recreate_disco_ortho.sh`
+You can find the script `split_disco_output.sh` in `/home/PERSONALE/mirko.martini3/Lab_CompGeno/00_practice/99_scripts/split_disco_output.sh`
 
 ## Alignments and trimming
 
@@ -124,7 +123,7 @@ Usually when working with alignments is a good idea to remove gappy position and
 BMGE is a sequence trimmer developed to improve the quality of multiple sequence alignments by identifying and removing poorly aligned regions using an entropy-based approach. Another important parameter is `-g`, which specifies how to treat gap positions (vertically, positions with more than <row_rate>% absence are eliminated).
 
 ```bash
-bmge -i <input_alignment> -t AA -m BLOSUM30 -e 0.5 -g <gap> -of <OUTPUT_FILE> -oh <OUTPUT_HTML>
+bmge -i <input_alignment> -t AA -m BLOSUM62 -e 0.5 -g <gap> -of <OUTPUT_FILE> -oh <OUTPUT_HTML>
 ```
 
 With:
@@ -158,12 +157,12 @@ Where:
 * -f #format of the input files
 * -d #type of sequence (amino acid)
 
-You can find AMAS here `/home/PERSONALE/mirko.martini3/00_Lab_CompGeno/2024/05_OG.Inference_Phylogenomic/AMAS.py`.
+You can find AMAS here `/home/PERSONALE/mirko.martini3/Lab_CompGeno/00_practice/99_scripts/AMAS.py`.
 
-Once we have concatenated the alignments we can directly run a phylogenetic analyses using the so called "super-matrix" and the partition file if we want to perfom a partition-based analyses (usually recomanded; see [here](http://www.iqtree.org/doc/Advanced-Tutorial) for a tutorial). For an unpartitioned analyses we only need the command:
+Once we have concatenated the alignments we can directly run a phylogenetic analyses using the so called "super-matrix" and the partition file if we want to perfom a partition-based analyses (usually recomanded; see [advanced iqtree tutorial](http://www.iqtree.org/doc/Advanced-Tutorial) for a tutorial). For an unpartitioned analyses we only need the command:
 
 ```bash
-iqtree -m TESTNEW -bb 1000 -s <TRIMMED ALN> --prefix <PREFIX> -nt AUTO
+iqtree -m TESTNEW -b 100 -s <TRIMMED ALN> --prefix <PREFIX> -nt AUTO
 ```
 
 Congrats you have a species tree on which perform gene families evolutionary analyses! Take in mind that you can try to perform more sophisticated analyses using partition models!
