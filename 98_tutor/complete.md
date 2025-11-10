@@ -23,6 +23,7 @@ multiqc .
 
 ## Trimmomatic: remove reads or parts of reads based on the quality score
 #|assembly|
+export _JAVA_OPTIONS="-Xmx128G" #needed in order to complete the process. Otherwise erro thrown and trimming done inncompletely
 trimmomatic PE -threads 20 -phred33 SRR11672503_1.fastq.gz SRR11672503_2.fastq.gz SRR11672503_1_paired.fastq SRR11672503_1_unpaired.fastq SRR11672503_2_paired.fastq SRR11672503_2_unpaired.fastq ILLUMINACLIP:/opt/miniforge3/envs/assembly/share/trimmomatic-0.40-0/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36 2> stats_trimmomatic.log
 
 #which adapter? [adapters illumina](https://github.com/usadellab/Trimmomatic/issues/71)
@@ -127,6 +128,7 @@ grep -A1 "NC_050203.1_RagTag" ragtag.scaffold.fasta >> ../Anoste_chr.fasta
 fold -w 80 Anoste_chr.fasta > Anoste_chr_fold.fasta #then renamed
 
 ## Genome Annotation
+## !!! if you are using GAAS script to summarise results, PAY ATTENTION TO THE PARSING OF THE PROTEIN2GENOME AND REPEATMASKER FILES. They are separated by spaces and not tabulations and maker cannot parse them correctly. !!!
 #|assembly|
 maker -CTL
 #creates three control files (.ctl) 
@@ -189,6 +191,9 @@ AED_cdf_generator.pl -b 0.025 maker_mix.gff > AED_maker_mix.stats #plot in R wit
 #|sequence|
 busco -i maker_annotation.proteins.fasta -m prot -l $BUSCO/culicidae_odb12 --cpu 6 -o Anoste_rnd2/
 
+## Third maker with transcriptome
+maker -base Anoste_rnd3 Anoste_rnd3.ctl
+
 ## Expanding our Protein Dataset from NCBI
 # Create dataset "AN    sname   ID"
 #|sequence|
@@ -222,7 +227,8 @@ cd Orthogroups/
 #incrementing single copy orthogroups pruning those multicopy. Then delete those that did not pass our filter and are empty
 #|tree|
 while IFS=' ' read -r OG tree; do python3 /home/PERSONALE/mirko.martini3/Lab_CompGeno/00_practice/99_scripts/disco.py -i <(echo "$tree") -o ../../../01_DISCO/${OG/:/}.nwk -d "|" -m 4 --remove_in_paralogs --keep-labels --verbose >> ../../../01_DISCO/disco.log; done < <(sed -E 's/[A-Z][a-z]{5}_//g; s/\)n[0-9]*+/\)/g' Resolved_Gene_Trees.txt)
-find . -size 0 -print -delete > empty_disco.txt
+find . -size 0 -print > empty_disco.txt
+find . -size 0 -delete
 #split DISCO results and recreate new orthogroups
 bash ../../99_scripts/split_disco_output.sh ../00_Orthofinder/Results_Oct16/Orthogroup_Sequences
 
@@ -260,19 +266,30 @@ iqtree -s species_tree.faa --date calibration.txt --date-tip 0 -o Drosim -m Q.IN
     #-u : branches shorter than 1 collapse in a politomy
 
 ## CAFE
-sed 's/^/NONE\t/g' ../../05_OG.Inference_Phylogenomic/00_Orthofinder/Results_Oct16/Orthogroups/Orthogroups.GeneCount.tsv | cut -f1,2,3,4,5,6,7,8 > GeneCount.CAFE.tsv
+sed 's/^/NONE\t/g' ../../05_OG.Inference_Phylogenomic/00_Orthofinder/Results_Oct16/Orthogroups/Orthogroups.GeneCount.tsv | cut -f1,2,3,4,5,6,7,8 > GeneCount_CAFE.tsv
 
 #Export nexus time-tree in newick format from ITOL
-cp TimeTree.nwk
+ln -s ../06_DivergenceTime_Estimation/time_tree.timetree.nwk time_tree.nwk
 
-conda activate CAFE
-/home/PERSONALE/jacopo.martelossi2/Software/CAFE5/bin/cafe5 --infile GeneCounts.CAFE.tsv --tree TimeTree.nwk -e -o CAFE_Error
-#CAFE_Error/Base_error_model.txt: 3rd line, value on the right is a percentage number (0.01) that represents the error model stimated
-/home/PERSONALE/jacopo.martelossi2/Software/CAFE5/bin/cafe5 --infile GeneCounts.CAFE.tsv --tree TimeTree.nwk -eCAFE_Error/Base_error_model.txt -o CAFE_Error_Corrected
-#for summarise all results for multiple CAFE analysis in order to confirm convergence
-for folder in */; do lnL=$(grep "lnL" ${folder}/Base_results.txt | grep -oE "[0-9]*\.[0-9]*"); L=$(grep "Lambda" ${folder}/Base_results.txt | grep -oE "[0-9]*\.[0-9]*"); E=$(grep "Epsilon" ${folder}/Base_results.txt | grep -oE "[0-9]*\.[0-9]*"); echo -e "$lnL\t$L\t$E" >> 1L0G_results.tsv; done
+#|tree|
+cafe5 --infile GeneCount_CAFE.tsv --tree time_tree.nwk -e -o CAFE_Error
+# CAFE base
+for i in {1..3}; do mkdir -p 00_Base; cafe5 --infile GeneCount_CAFE.tsv --tree time_tree.nwk -eBase_error_model.txt -o 00_Base/CAFE_base"$i"; done
+for k in {2..5}; do mkdir -p 00_Base/1L"$k"G; for run in {1..3}; do cafe5 --infile GeneCount_CAFE.tsv --tree time_tree.nwk -eBase_error_model.txt -o 00_Base/1L"$k"G/CAFE_base"$run" -k "$k"; done; done
 #Base_clade_results: for each node, how many gene famlies increase and how many decrease
 #Base_asr.tre -> ITOL -> Advanced: Node IDs: Display: to see which number corresponds to which node
+# CAFE lambda
+
+#for summarise all results for multiple CAFE analysis in order to confirm convergence
+for folder in */; do lnL=$(grep "lnL" ${folder}/Base_results.txt | grep -oE "[0-9]*\.[0-9]*"); L=$(grep "Lambda" ${folder}/Base_results.txt | grep -oE "[0-9]*\.[0-9]*"); E=$(grep "Epsilon" ${folder}/Base_results.txt | grep -oE "[0-9]*\.[0-9]*"); echo -e "$lnL\t$L\t$E" >> sum_results.tsv; done
+# gamma summ
+for i in */; do cd $i; for folder in */; do lnL=$(grep "lnL" ${folder}/Gamma_results.txt | grep -oE "[0-9]+(\.[0-9]+)?"); L=$(grep "Lambda" ${folder}/Gamma_results.txt | grep -oE "[0-9]*\.[0-9]*"); E=$(grep "Epsilon" ${folder}/Gamma_results.txt | grep -oE "[0-9]*\.[0-9]*"); A=$(grep "Alpha" ${folder}/Gamma_results.txt | grep -oE "[0-9]*\.[0-9]*"); echo -e "$lnL\t$L\t$E\t$A" >> sum_results.tsv; done; cd ..; done
+
+# Summarise results
+for f in */; do cut -f1 "$f"/sum_results.tsv | sort -n | head -n1; done > all_L.txt
+## add k manually
+paste --delimiters=$"\t" all_L.txt <(while IFS=$'\t' read -r L k; do echo "2*$k + 2*$L" | bc; done < all_L.txt) <(while IFS=$'\t' read -r L k; do echo "$k*9.03 + 2*$L" | bc; done < all_L.txt) | sort -k4,4n > AIC_BIC.tsv
+
 #to extract only tree with significant changes. This file can be visualised in FigTree
 echo $'#nexus\nbegin trees;' > Significant_trees.tre
 grep "*" Gamma_asr.tre >> Significant_trees.tre
@@ -290,13 +307,14 @@ varWsmi=$(grep "<3>\*" Base_asr.tre | cut -d ":" -f4 | cut -d"_" -f2)
 var8=$(grep "<5>\*" Base_asr.tre | cut -d":" -f9 | cut -d"_" -f2) #previous node (8) value for significant families
 varOG=$(grep "<5>\*" Base_asr.tre | cut -d" " -f4)
 
-pAnoste <(printf %s "$varOG") <(printf %s "$varAnoste") <(printf %s "$var8") > Anoste_Significant.txt
+Anoste <(printf %s "$varOG") <(printf %s "$varAnoste") <(printf %s "$var8") > Anoste_Significant.txt
 #upload to R and create another column that subtracts the first and the second column: based on if it's negative or positive it is a contraction or expansion
 awk '{print $0, $2 - $3}' Anoste_Significant.txt > Anoste_Significant.txt.diff
 sort -k4,4n Aaeg_Significant.txt.diff | grep -v "-" | awk '{print $1}' > Anoste_Significant.GO
 while read line; do grep "Anoste" Orthofinder/orthogroup_Sequences/"$line"*.fa; done < Anoste_Significant.GO > Anoste_Significant_Genes.txt
 
 #GO annotation with interproscan. Performed on 134.142.204.241
+bash ../../99_scripts/longest_protein_OG.sh
 interproscan.sh -i longest_protein_OGs.fa -goterms -pa -cpu 40 -appl PANTHER
 
 #Panzer2: reasearch by homology of GO-Terms (http://ekhidna2.biocenter.helsinki.fi/sanspanz/)

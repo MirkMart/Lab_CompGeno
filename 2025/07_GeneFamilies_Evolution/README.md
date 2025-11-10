@@ -75,4 +75,13 @@ cafe5 -i Orthogroups.GeneCount_CAFE.tsv -t TimeTree_CAFE.nwk -o 2L -y TimeTree_C
 
 For a detailed description of CAFE outputs, see the [manual](https://github.com/hahnlab/CAFE5). `*` is used to identify significant changes. Try to use grep to find significantly changed trees or gene family (orthogroups). These one would be great candidates to further functional studies.
 
+> N.B. It is important also to run multiple analysis with the same parameters to check for convergence of the inferred model. In fact, sometimes it can happen that CAFE runs hit a local minimum for the -lnL instead of the possible maximum, thus not showing the best birth-death modelisation. For this reason, multiple runs are quite mandatory and they can be compared using the lnL, when within results using the same parameters, or using BIC and AIC when comparing results that used different parameters.
+
 Once you have your set of gene of intereset you can perform [enrichment analyses](../09_GeneAnnotation_functional_enrichment/) using TopGO.
+
+## Interpretation
+
+- lambda: maximum-likelihood estimation of a global or local gene family evolutionary rates. Since the tree used is a time tree, branch lengths are in million of years, the value describe the turnover per gene per million years. With a reasonable evolution hypothesis, different species can be grouped into different lambdas.
+- gamma: even if all species could be described by the same λ, this does not mean that all gene families evolve at the same rate. Γ divides gene families into rate categories that share the same mean λ (based on how this parameter has been distributed). Reasonable values for gamma are between two and five.
+- alpha (present ony if gamma >= 2): defines the shape of the gamma distribution build around λ. Small α means that some gene families evolve very fast and others very slow, while big α the opposite.
+- epsilon (present ony if gamma >= 2): it represents the nunber of static families that do not show any turnover.

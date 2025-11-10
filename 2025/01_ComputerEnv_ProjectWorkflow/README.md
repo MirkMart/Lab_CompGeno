@@ -12,6 +12,7 @@ Environments and related softwares:
 
 ## tree
 
+- cafe          5.1.0
 - disco         1.4.1
 - ete3          3.1.3
 - gotree        0.4.5
@@ -52,11 +53,13 @@ python 3.13.5
 - diamond        2.1.10
 - fastqc         0.12.1
 - hypo           1.0.3
+- maker          3.01.04
 - minimap2       2.28
 - mosdepth       0.3.10
 - multiqc        1.31
 - r-base         4.3.3
 - samtools       1.21
+- spades         4.2.0
 - trimmomatic    0.40
 
 ## kat

@@ -92,5 +92,14 @@ for i in *.fastq; do fastqc $i & done
 # Sum into a single report
 multiqc .
 # Trim
+export _JAVA_OPTIONS="-Xmx128G" #needed in order to complete the process. Otherwise error thrown and trimming done inncompletely because java allocates too small memory to the process.
 for i in *_1.fastq; do name=$(sed 's/_1.fastq//' <<< "$i"); trimmomatic PE -threads 80 -phred33 "$name"_1.fastq "$name"_2.fastq "$name"_1_paired.fastq "$name"_1_unpaired.fastq "$name"_2_paired.fastq "$name"_2_unpaired.fastq ILLUMINACLIP:/opt/miniforge3/envs/assembly/share/trimmomatic-0.40-0/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36 HEADCROP:9 2> "$name"_trimmomatic.stats; done
+# quality control after trimming
+source ~/.bashrc #if you want to reset the memory usage. Clearly since it is a for cycle, we do not have enough memory for all processes
+for i in *_paired*.fastq; do fastqc $i & done
+# Transcriptome assembly using rnaSPADES
+rnaspades.py --pe1-1 SRR33576263_1_paired.fastq --pe1-2 SRR33576263_2_paired.fastq --pe2-1 SRR33576264_1_paired.fastq --pe2-2 SRR33576264_2_p
+aired.fastq --pe3-1 SRR33576265_1_paired.fastq --pe3-2 SRR33576265_2_paired.fastq --pe4-1 SRR33576266_1_paired.fastq --pe4-2 SRR33576266_2_paired.fastq --pe5-1 SRR33576267_1_paired.fastq --pe5-2 SRR33576267_2_paired.fastq --pe6-1 SRR33576268_1_paired.fastq --pe6-2 SRR33576268_2_paired.fastq -t 24 -k 27,33,55 -o transcriptome -m 600 #despite the suggestion, the use of a dataset.yaml does not work. 
 ```
+
+We had some trouble starting the program. The error explained the impossibility to open a specific file, then a second one mentioned the something related to memory. Due to the quantity of memory allocated per each default, it was probably an error memory masquered by something different. Indeed, when decrease the t and put an hard limit over the memory usage, it ran perfectly.

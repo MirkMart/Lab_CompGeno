@@ -181,7 +181,7 @@ mosdepth -n --fast-mode --by 500 <...>
 
 ```bash
 echo -e "$R1\n$R2" > <READS_PATH>
-hypo -d <DRAFT_Contigs> -r @<READS_PATH> -s <APPROXIMATE_GENOMESIZE> -c <SHORT_READSCOVERAGE> -b <SORTED_BAM_SR> -B <SORTED_BAM_PB> -t <NUMBER_THREADS> -t <cores_n>
+hypo -d <DRAFT_Contigs> -r @<READS_PATH> -s <APPROXIMATE_GENOMESIZE> -c <SHORT_READSCOVERAGE> -b <SORTED_BAM_SR> -B <SORTED_BAM_PB> -t <NUMBER_THREADS>
 ```
 
 ### Genome evaluation
