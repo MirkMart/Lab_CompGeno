@@ -29,6 +29,7 @@ Environments and related softwares:
 Python too high for orthofinder
 
 - agat          1.4.1
+- blobtools     1.1.1
 - bmge          1.12 (outside all conda environment exist also bmge 2.0)
 - BUSCO         6.0.0
 - edirect       24.0
