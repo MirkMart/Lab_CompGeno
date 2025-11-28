@@ -67,6 +67,10 @@ orthofinder -f <proteoms_folder>
 > Remember to remove isoforms from a proteom before performing OG inference
 > Remember that it is always a good practice to rename (using e.g. `sed`) proteome headers just be sure to keep a unique identifier. *e.g* `<SPECIE_NAME>|<PROTEIN/GENE_NAME>` or `<PROTEIN/GENE_NAME>|<SPECIE_NAME>`. In our pipeline it is not demanding since Orthofinder run will paste the name of the proteome to the sequence header, doing it for us.
 
+```bash
+for prot in *.faa; do ID=$(basename -s .faa "$prot"); sed -i.old -E "s/>(rna-XM_[0-9]+\.[0-9]) (gene=gene-.[^ ]+) name=(.[^ ]+) .+$/>${ID}\|\3/" "$prot"; done
+```
+
 NB: In our case having the species name clearly separated from the gene/protein name is **foundamental**!
 
 Orthofinder will print a lot of usefull ouputs. Some of the most important (IMO) are: `Comparative_Genomics_Statistics/Statistics_Overall.tsv` and `Comparative_Genomics_Statistics/Statistics_PerSpecies.tsv`

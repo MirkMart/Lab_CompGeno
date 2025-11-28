@@ -26,6 +26,7 @@ Python too high for orthofinder
 - edirect       24.0
 - mafft         7.526
 - ncbi-datasets 18.3.1
+- repeatMasker  4.2.1
 - SRA-tools     3.2.1
 
 > [where download busco datasets](https://busco-data.ezlab.org/v5/data/lineages/)
