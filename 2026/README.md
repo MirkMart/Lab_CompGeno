@@ -1,4 +1,4 @@
-# Laboratorio di Genomica Compata (Comparative Genomics Laboratory) AA 2024-2025
+# Laboratorio di Genomica Compata (Comparative Genomics Laboratory) AA 2026-2027
 
 This repository collects all the information and material that we developed to teach and support the "Laboratorio di Genomica Comparata" course at the university of Bologna for the academic year 2024-2025. A brief excursus about what is present in this folder is:
 
