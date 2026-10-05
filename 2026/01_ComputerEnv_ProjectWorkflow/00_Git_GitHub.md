@@ -76,7 +76,7 @@ Once the bug is fixed, `git stash pop` is the command used to retrieve the stash
 
 ### Amend
 
-The command `git commit --amend` is a very useful resource when you need to update a precedent commit where something was missing. Commits should be specific, clear, and complete. It can happen that after an important change in your code that deserved a commit, you find that you forget a comma or a dot. In this case adding `--amend` to the standard `git commit`, after the obligatory `git add`, can **replace** the precedent commit with a new one slightly changed as intended. The further option `--no-edit` can be used to leave the commit messagge as the previous one. All this, will change the commit locally but not remetelly. When pushing this new commit is necessary the command `git push --force-with-lease` which forces to push without pulling first, officially rewriting the hisotry of the repository. 
+The command `git commit --amend` is a very useful resource when you need to update a precedent commit where something was missing. Commits should be specific, clear, and complete. It can happen that after an important change in your code that deserved a commit, you find that you forget a comma or a dot. In this case adding `--amend` to the standard `git commit`, after the obligatory `git add`, can **replace** the precedent commit with a new one slightly changed as intended. The further option `--no-edit` can be used to leave the commit messagge as the previous one. All this, will change the commit locally but not remetelly. When pushing this new commit is necessary the command `git push --force-with-lease` which forces to push without pulling first, officially rewriting the history of the repository.
 
 ## Collabororating on GitHub
 
