@@ -2,7 +2,7 @@
 
 ## Server didattica (login using Guacamole)
 
-[NoMachine](https://remotelab.unibo.it/)
+[Guacamole](https://rlab.unibo.it/)
 
 Login using your unibo email address and password. You can either choose to create a virtual desktop or connect directly to the shell. Both have their own advantages. The former allow you to enter input using an English US keyboard layout and is useful for copy and paste between desktops. Differently, the direct shell is easier to work with, less distractions, and it is possible to copy from the server but not to.
 
