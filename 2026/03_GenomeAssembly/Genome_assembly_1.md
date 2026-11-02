@@ -7,7 +7,7 @@
 [Ensembl definition](https://www.ensembl.org/info/genome/genebuild/assembly.html)
 >A genome assembly is a computational representation of a genome sequence. Because we cannot sequence the full length of a chromosome, each chromosome assembly is made up of short stretches of sequenced DNA pasted together.
 
-Basically, assemblers need to solve giant jigsaw puzzles with millions of pieces, some missing altogether and some containing errors. **They perform some of the most complex computations in all biology**
+Basically, assemblers need to solve giant jigsaw puzzles with millions of pieces, some missing altogether and some containing errors. **They perform some of the most complex computations in all biology**.
 
 -----
 
@@ -27,7 +27,7 @@ Basically, assemblers need to solve giant jigsaw puzzles with millions of pieces
 
 **Assembly**: “a set of chromosomes, unlocalized and unplaced (random) sequences and alternate loci used to represent an organism’s genome. Most current assemblies are a haploid representation of an organism’s genome, although some loci may be represented more than once (see Alternate locus, above). This representation may be obtained from a single individual (e.g. chimp or mouse) or multiple individuals (e.g. human reference assembly). Except in organisms bred to homozygosity, the haploid assembly typically represents a mixture of haplotypes rather than a single haplotype. As sequencing technology evolves, it is anticipated that diploid sequences representing an individual’s genome will become available.”
 
-**Diploid assembly**: “A genome assembly for which a Chromosome Assembly is available for both sets of an individual’s chromosomes, as defined by the NCBI Assembly model. A diploid genome assembly is expected to represent the genome of an individual. Therefore, it is not anticipated that alternate loci will be defined for this assembly, although it is possible that unlocalized or unplaced sequences could be part of the assembly.”
+**Diploid assembly**: “A genome assembly for which a Chromosome Assembly is available for both sets of an individual’s chromosomes, as defined by the NCBI Assembly model. A diploid genome assembly is expected to represent an individual's genome. Therefore, it is not anticipated that alternate loci will be defined for this assembly, although it is possible that unlocalized or unplaced sequences could be part of the assembly.”
 
 **Primary Assembly**: “Relevant for haploid assemblies only. The primary assembly represents the collection of assembled chromosomes, unlocalized and unplaced sequences that, when combined, should represent a non-redundant haploid genome. This excludes any of the alternate locus groups.”
 
@@ -69,7 +69,7 @@ Main assembly algorithms :
 
 ## What can influence our genome assembly?
 
-1. Nature and characteristic of the genome being sequenced (Ploidy, repetitive content, heterozigosity ecc…).
+1. Nature and characteristics of the genome being sequenced (Ploidy, repetitive content, heterozygosity, etc.).
 2. Quality of the extracted DNA.
 3. Type of sequencing technology.
 4. Read coverage.
@@ -87,9 +87,9 @@ Typically, the more money you have, the more high-quality data you get, and the 
 
 Some, but not all, metrics :
 
-1. **N50**: the length of the shortest contig for which longer and equal-length contigs cover at least 50 % of the assembly. It evaluates the **contiguity** of an assembly.
-2. **[BUSCO](https://busco.ezlab.org/):** a set of Benchmarked Universal Single-Copy Orthologs (BUSCO) that should be present at a certain taxonomic level. Busco genes are marked as C:complete \[D:duplicated\], F:fragmented, M:missing. This provides an evaluation of the completeness and redundancy of our assembly. Precomputed single-copy OG can be found [on the official release page](https://busco-data.ezlab.org/v5/data/lineages/)
-3. **spectra-cn ([KAT](https://kat.readthedocs.io/en/latest/walkthrough.html)):** The assembly spectra copy number plot checks assembly coherence against the content within reads that were used to produce the assembly. Basically we represent how many elements of each frequency on the read’s spectrum ended up not included in the assembly, included once, included twice etc.”
+1. **N50**: the length of the shortest contig for which longer and equal-length contigs cover at least 50 % of the assembly. It evaluates an assembly's **contiguity**.
+2. **[BUSCO](https://busco.ezlab.org/):** a set of Benchmarked Universal Single-Copy Orthologs (BUSCO) that should be present at a certain taxonomic level. Busco genes are marked as C: complete \[D: duplicated\], F: fragmented, M: missing. This evaluates the completeness and redundancy of our assembly. Precomputed single-copy OG can be found [on the official release page](https://busco-data.ezlab.org/v5/data/lineages/)
+3. **spectra-cn ([KAT](https://kat.readthedocs.io/en/latest/walkthrough.html)):** The assembly spectra copy number plot checks assembly coherence against the content within reads that were used to produce the assembly. Basically, we represent how many elements of each frequency on the read’s spectrum ended up not included in the assembly, included once, included twice, etc.”
 
 ![KAT](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/4_GenomeAssembly/Figures/KAT.png)
 
@@ -99,7 +99,7 @@ Some, but not all, metrics :
 
 ### Contig level assembly
 
-We will use **[Wtdbg2](https://github.com/ruanjue/wtdbg2)** a very fast assemblers that use long reads, but keep in mind that many others exist and each one of them could perform better with different kind of data(*e.g* [CANU](https://github.com/marbl/canu); [Falcon](https://github.com/falconry/falcon);[HiFiasm](https://github.com/chhylp123/hifiasm))
+We will use **[Wtdbg2](https://github.com/ruanjue/wtdbg2)**, a very fast assemblers that use long reads, but keep in mind that many others exist and each one of them could perform better with different kinds of data(*e.g* [CANU](https://github.com/marbl/canu); [Falcon](https://github.com/falconry/falcon);[HiFiasm](https://github.com/chhylp123/hifiasm))
 
 #### Assemble reads, construction of contig layout and edge sequences (14 mins - 30 threads, 20 mins with 20 threads)
 
@@ -115,7 +115,7 @@ wtdbg2 -x rs -g <EXPECTED_GENOMESIZE> -t <NUMBERS_OF_CORES> -i <FASTQ> -fo <OUT_
 
 #### Produce final consensus in FASTA format (~70 mins with 30 threads)
 
-wtpoa-cns is needed to polish or generate a consensus sequence from long-read data. It runs after the initial genome assembly to improve the accuracy of the assembled contigs.
+wtpoa-cns is needed to polish or generate a consensus sequence from long-read data. It runs after the initial genome assembly to improve contig accuracy.
 
 ```bash
 wtpoa-cns -t <NUMBER_OF_CORES> -i <LAYOUT_FILE-.ctg.lay.gz> -fo <OUT_PREFIX>
@@ -123,7 +123,7 @@ wtpoa-cns -t <NUMBER_OF_CORES> -i <LAYOUT_FILE-.ctg.lay.gz> -fo <OUT_PREFIX>
 
 See the GitHub page for useful tips (and check the “issue” page).
 
-Before proceeding, check the quality of our first assembly. In this case, we will use only BUSCO and check completeness against a known set of genes.
+Before proceeding, check the quality of our first assembly. In this case, we will use only BUSCO and check completeness against a known gene set.
 
 ```bash
 export NUMEXPR_MAX_THREADS=<CPU_number>
@@ -132,11 +132,11 @@ busco -m <MODE> -l <LINEAGE> -c <CPU_NUMBER> -o <OUTPUT_NAME> -i <INPUT>
 
 The first `export` sets `NUMEXPR_MAX_THREADS` to the number of cores we will use during the actual busco command. The options are:
 
-- '-m' #define if we are using genomes or proteomes
-- '-l' #redirect to the link of the library of reference
-- '-c' #the number of cores to parallelise the process
-- '-o' #name of the output **folder**
-- '-i' #the input. In our case, the raw assembly
+- '-m' # define whether we are using genomes or proteomes
+- '-l' # redirect to the link of the library of reference
+- '-c' # the number of cores to parallelise the process
+- '-o' # name of the output **folder**
+- '-i' # the input. In our case, the raw assembly
 
 The reference databases are:
 
