@@ -1,16 +1,16 @@
 # Genome assembly2
 
-## Contaminants detection
+## Contaminant detection
 
 to perform contaminats detection we will use [Blobtools](https://blobtools.readme.io/docs) (this the [original publication](https://f1000research.com/articles/6-1287)).
 
 ![Blobtools](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/5_GenomeAssembly2/Figures/Blobtools.png)
 
-Bloobtools is a bioinformatics tool designed to assess and analyse the quality and composition of genome assemblies.It allows for the visualization and classification of contigs based on taxonomic, GC content, and coverage information, making it easier to detect contaminants or misassembled sequences in a genome assembly.
+Blobtools is a bioinformatics tool that assesses and analyses the quality and composition of genome assemblies. It visualizes and classifies contigs based on taxonomic, GC content, and coverage information, making it easier to detect contaminants or misassembled sequences in a genome assembly.
 
 ### Preliminary steps
 
-1. Re - mapping short reads data to the assembly
+1. Re-mapping short-read data to the assembly
 
     ```bash
     minimap2 --secondary=no --MD -ax sr -t <NUMBER_CORE> <ASSEMBLY> <FASTQ_R1> <FASTQ_R2> | samtools view -Sb - > <OUT_BAMFILE>.bam
@@ -25,9 +25,9 @@ Bloobtools is a bioinformatics tool designed to assess and analyse the quality a
     blastn -query <ASSEMBLY> -db <PATH/TO/nt/> -outfmt '6 qseqid staxids bitscore std sscinames sskingdoms stitle' -max_target_seqs 25 -max_hsps 1 -num_threads 25 -evalue 1e-25 -out <OUTFILE>
     ```
 
-### Construction a BlobDB data structure and assembly visualitation (~6 minutes)
+### Construction a BlobDB data structure and assembly visualisation (~6 minutes)
 
-Installation perfomed following [GitHub instructions](https://github.com/DRL/blobtools). **REMEMBER** to create nodes.db. At the end, the folder was added to the `$PATH` to call the program from wherever. The output will be created appending `.blobDB.json`.
+Install it by following the [GitHub instructions](https://github.com/DRL/blobtools). **REMEMBER** to create nodes.db. At the end, add the folder to `$PATH` to run the program from anywhere. The output will be created by appending `.blobDB.json`.
 
 ```bash
 blobtools create -i <ASSEMBLY> -b <MAPPING_FILE> -t <BLASTN_FILE> -o <OUTPUT_PREFIX>
@@ -35,35 +35,35 @@ blobtools view -i <JSON_FILE> -o <OUTPUT_PREFIX>
 blobtools plot -i <JSON_FILE> -o <OUTPUT_PREFIX>
 ```
 
-File in `.png` format can be dowloaded and directly inspectionated. A common way to observe the table file, instead, is:
+You can download and inspect files in `.png` format directly. A common way to observe the table file, instead, is:
 
 ```bash
 grep -v '^##' Anoste_blobDB_table.txt | column -t -s $'\t' | less`
 ```
 
-Usefull script to remove a list of sequences (works also with multiline fasta):
+Useful script to remove a list of sequences (works also with multiline FASTA):
 
 ```bash
 awk '{ if ((NR>1)&&($0~/^>/)) { printf("\n%s", $0); } else if (NR==1) { printf("%s", $0); } else { printf("\t%s", $0); } }' in.fa | grep -w -v -Ff patterns.txt - | tr "\t" "\n" > out.fa
-#The first part ensures the FASTA is in oneline form and reformat the file obtaing ">header\tsequence". In this way it is easier to process the file with grep. Then filters out everything is contained inside the patterns file, outputting a fasta file oneline with only desired contigs.
+#The first part ensures the FASTA is in one-line form and reformats the file, obtaining">header\tsequence". This makes it easier to process the file with grep. Then it filters out everything in the patterns file, outputting a one-line FASTA file with only the desired contigs.
 ```
 
 With:
 
-- -w #ensures to mach the exact name
+- -w #ensures to match the exact name
 - -v #invert the recognised pattern
 - -Ff #compares directly to file
-- '-' #use as stdin the stdout of the precedent command
+- '-' #use stdin as input from the previous command
 
-To use it we have to create a file where we list all contaminated contigs. To do so, we have to decide based on which parameters we can filter our blobDB_table.
+To use it, we need to create a file listing all contaminated contigs. To do so, we have to decide which parameters we can use to filter our blobDB_table.
 
 -----
 
 ## Reference-based scaffolding
 
-For this purpose we will use [RagTag](https://github.com/malonge/RagTag). This is a collection of software tools for scaffolding and improving modern genome assemblies. Tasks include: Homology-based misassembly correction, Homology-based assembly scaffolding and patching, and Scaffold merging
+For this purpose, we will use [RagTag](https://github.com/malonge/RagTag). This collection of software tools scaffolds and improves modern genome assemblies. Tasks include: Homology-based misassembly correction, Homology-based assembly scaffolding and patching, and Scaffold merging
 
-1. Reference based error correction
+1. Reference-based error correction
 
     ```bash
     ragtag.py correct -t 20 <REFERENCE_GENOME> <DRAFT_GENOME>
