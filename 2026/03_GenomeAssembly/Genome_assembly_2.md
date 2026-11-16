@@ -6,7 +6,7 @@ to perform contaminats detection we will use [Blobtools](https://blobtools.readm
 
 ![Blobtools](https://raw.githubusercontent.com/jacopoM28/CompOmics_Tutorship/main/2023/5_GenomeAssembly2/Figures/Blobtools.png)
 
-Blobtools is a bioinformatics tool that assesses and analyses the quality and composition of genome assemblies. It visualizes and classifies contigs based on taxonomic, GC content, and coverage information, making it easier to detect contaminants or misassembled sequences in a genome assembly.
+Blobtools is a bioinformatics tool that assesses and analyses the quality and composition of genome assemblies. It visualises and classifies contigs based on taxonomic, GC content, and coverage information, making it easier to detect contaminants or misassembled sequences in a genome assembly.
 
 ### Preliminary steps
 
@@ -27,7 +27,7 @@ Blobtools is a bioinformatics tool that assesses and analyses the quality and co
 
 ### Construction a BlobDB data structure and assembly visualisation (~6 minutes)
 
-Install it by following the [GitHub instructions](https://github.com/DRL/blobtools). **REMEMBER** to create nodes.db. At the end, add the folder to `$PATH` to run the program from anywhere. The output will be created by appending `.blobDB.json`.
+Install it by following the [GitHub instructions](https://github.com/DRL/blobtools). **REMEMBER** to create nodes.db. At the end, add the folder to `$PATH` so you can run the program from anywhere. The output will be created with the `.blobDB.json` extension.
 
 ```bash
 blobtools create -i <ASSEMBLY> -b <MAPPING_FILE> -t <BLASTN_FILE> -o <OUTPUT_PREFIX>
@@ -35,7 +35,7 @@ blobtools view -i <JSON_FILE> -o <OUTPUT_PREFIX>
 blobtools plot -i <JSON_FILE> -o <OUTPUT_PREFIX>
 ```
 
-You can download and inspect files in `.png` format directly. A common way to observe the table file, instead, is:
+You can download and inspect `.png` files directly. A common way to observe the table file, instead, is:
 
 ```bash
 grep -v '^##' Anoste_blobDB_table.txt | column -t -s $'\t' | less`
@@ -50,18 +50,18 @@ awk '{ if ((NR>1)&&($0~/^>/)) { printf("\n%s", $0); } else if (NR==1) { printf("
 
 With:
 
-- -w #ensures to match the exact name
+- -w #ensures it matches the exact name
 - -v #invert the recognised pattern
 - -Ff #compares directly to file
 - '-' #use stdin as input from the previous command
 
-To use it, we need to create a file listing all contaminated contigs. To do so, we have to decide which parameters we can use to filter our blobDB_table.
+To use it, we need to create a file listing all contaminated contigs. To do so, we need to decide which parameters to use to filter our blobDB_table.
 
 -----
 
 ## Reference-based scaffolding
 
-For this purpose, we will use [RagTag](https://github.com/malonge/RagTag). This collection of software tools scaffolds and improves modern genome assemblies. Tasks include: Homology-based misassembly correction, Homology-based assembly scaffolding and patching, and Scaffold merging
+For this purpose, we will use [RagTag](https://github.com/malonge/RagTag). This collection of software tools scaffolds and improves modern genome assemblies. Tasks include: Homology-based misassembly correction, Homology-based assembly scaffolding and patching, and Scaffold merging.
 
 1. Reference-based error correction
 
@@ -77,4 +77,4 @@ For this purpose, we will use [RagTag](https://github.com/malonge/RagTag). This 
 
     Where : -C = concatenate unplaced contigs and make ‘chr0’
 
-reference genome: `/home/PERSONALE/mirko.martini3/2024/Data/Anopheles_reference/GCF_013141755.1_UCI_ANSTEP_V1.0_chromosomes.fasta`
+reference genome: `/home/PERSONALE/mirko.martini3/Lab_CompGeno/00_practice/00_data/01_Anoste_reference/GCF_013141755.1_UCI_ANSTEP_V1.0_genomic.fna`
