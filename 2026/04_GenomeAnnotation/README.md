@@ -8,7 +8,7 @@ Once you have a de novo assembled genome, you usually want to know what genomic 
 4. Annotation of tRNA, ncRNA, etc.
 5. UTR regions
 
-Eukaryotic genomes are very complex (the result of evolution by molecular tinkering), and gene structures can vary greatly between lineages and even between closely related species (exon length, intron length, gene length, splicing-site sequence patterns, etc.). In model species, highly curated models exist to describe each feature (in the form of HMM profiles). These models can be directly used for *ab initio* gene prediction. However, for non-model species, these patterns are often unknown. To partially address this issue, we can use **external evidence** to directly annotate some features on the genome (*evidence-based* gene prediction) and/or as a source for training *ab initio* gene predictors.
+Eukaryotic genomes are very complex (the result of evolution by molecular tinkering), and gene structures can vary greatly between lineages and even between closely related species (exon length, intron length, gene length, splicing-site sequence patterns, etc.). In model species, highly curated models exist to describe each feature (as HMM profiles). These models can be directly used for *ab initio* gene prediction. However, for non-model species, these patterns are often unknown. To partially address this issue, we can use **external evidence** to directly annotate some features on the genome (*evidence-based* gene prediction) and/or to train *ab initio* gene predictors.
 
 -----
 
@@ -22,7 +22,7 @@ Eukaryotic genomes are very complex (the result of evolution by molecular tinker
 6. Collection of all gene models and creation of a consensus set based on support given by external evidence (usually gene models low or not supported by external evidence are discarded).
 7. Evaluation of our final gene set.
 
-Luckily, multiple genome annotation pipelines exist to facilitate this process. One of the most used is **[MAKER](http://weatherby.genetics.utah.edu/MAKER/wiki/index.php/MAKER_Tutorial_for_WGS_Assembly_and_Annotation_Winter_School_2018)**. Another [great step-wise tutorial](./maker_pipeline.pdf) is loaded in this folder.
+Luckily, multiple genome annotation pipelines exist to facilitate this process. One of the most used is **[MAKER](http://weatherby.genetics.utah.edu/MAKER/wiki/index.php/MAKER_Tutorial_for_WGS_Assembly_and_Annotation_Winter_School_2018)**. A [great step-wise tutorial](./maker_pipeline.pdf) is loaded in this folder.
 
 ![MAKER](../99_Figures/MAKER_Apollo_view.jpeg)
 
@@ -30,7 +30,7 @@ Luckily, multiple genome annotation pipelines exist to facilitate this process. 
 
 ## 1\. Transposons annotation
 
-For a quick and dirty transposon annotation, we usually use **[RepeatModeler](https://www.repeatmasker.org/RepeatModeler/)** and **[RepeatMasker](http://www.repeatmasker.org/)**. Basically, RepeatModeler will collect a set of consensus sequences representative of the repeats present in our genome. This library can then be used to annotate the genome. However, keep in mind that this approach is usually only suitable for a raw transposon annotation and is not enough if the goal of our study is an in-depth analysis of TEs.
+For a quick and dirty transposon annotation, we usually use **[RepeatModeler](https://www.repeatmasker.org/RepeatModeler/)** and **[RepeatMasker](http://www.repeatmasker.org/)**. Basically, RepeatModeler will collect a set of consensus sequences representative of the repeats present in our genome. This library can then be used to annotate the genome. However, keep in mind that this approach is usually only suitable for a raw transposon annotation and is not enough if our goal is an in-depth analysis of TEs.
 
 Due to computational limits, I have already run RepeatModeler for you; the path to the consensus library is:
 
@@ -145,7 +145,7 @@ Changes to do:
 - split_hit empty
 
 External evidence (proteomes):
-`/home/PERSONALE/mirko.martini3/Lab_CompGeno/00_practice/00_data/02_Annotation`
+`/home/PERSONALE/mirko.martini3/Lab_CompGeno/00_practice/00_data/02_Annotation/`
 
 **To know**: AED measures annotation quality, indicating how well the predicted gene matches external evidence. It ranges from 0 (perfect match) to 1 (no match).
 
